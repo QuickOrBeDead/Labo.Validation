@@ -1,0 +1,13 @@
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Validation.Tests.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Validation.Tests.pdb
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Validation.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\NSubstitute.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\nunit.framework.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Common.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Validation.pdb
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\Labo.Validation.xml
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\NSubstitute.xml
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\bin\Release\nunit.framework.xml
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\obj\Release\Labo.Validation.Tests.csprojResolveAssemblyReference.cache
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\obj\Release\Labo.Validation.Tests.dll
+C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation.Tests\obj\Release\Labo.Validation.Tests.pdb

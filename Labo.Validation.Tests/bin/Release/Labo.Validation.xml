@@ -1,0 +1,1453 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Labo.Validation</name>
+    </assembly>
+    <members>
+        <member name="T:Labo.Validation.Attributes.BetweenValidationAttribute">
+            <summary>
+            The between validation attribute.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.Attributes.IValidationAttribute">
+            <summary>
+            The validation attribute interface.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.IValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="F:Labo.Validation.Attributes.BetweenValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.BetweenValidationAttribute.#ctor(System.IComparable,System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.BetweenValidationAttribute"/> class.
+            </summary>
+            <param name="from">From.</param>
+            <param name="to">The automatic.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.BetweenValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.CreditCardValidationAttribute">
+            <summary>
+            The credit card validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.CreditCardValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.CreditCardValidationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.CreditCardValidationAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.CreditCardValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.EmailValidationAttribute">
+            <summary>
+            The email validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.EmailValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.EmailValidationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.EmailValidationAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.EmailValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.EqualToValidationAttribute">
+            <summary>
+            The equal to validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.EqualToValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.EqualToValidationAttribute.#ctor(System.Object,System.Collections.IEqualityComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.EqualToValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.EqualToValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.GreaterThanOrEqualToValidationAttribute">
+            <summary>
+            The greater than or equal to validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.GreaterThanOrEqualToValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.GreaterThanOrEqualToValidationAttribute.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.GreaterThanOrEqualToValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.GreaterThanOrEqualToValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.GreaterThanValidationAttribute">
+            <summary>
+            The greater than validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.GreaterThanValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.GreaterThanValidationAttribute.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.GreaterThanValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.GreaterThanValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.LengthValidationAttribute">
+            <summary>
+            The length validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.LengthValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LengthValidationAttribute.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.LengthValidationAttribute"/> class.
+            </summary>
+            <param name="min">The minimum.</param>
+            <param name="max">The maximum.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LengthValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.LessThanOrEqualToValidationAttribute">
+            <summary>
+            The less than or equal to validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.LessThanOrEqualToValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LessThanOrEqualToValidationAttribute.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.LessThanOrEqualToValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LessThanOrEqualToValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.LessThanValidationAttribute">
+            <summary>
+            The less than validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.LessThanValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LessThanValidationAttribute.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.LessThanValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.LessThanValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.NotEmptyValidationAttribute">
+            <summary>
+            The not empty validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.NotEmptyValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotEmptyValidationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.NotEmptyValidationAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotEmptyValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.NotEqualToValidationAttribute">
+            <summary>
+            The not equal to validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.NotEqualToValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotEqualToValidationAttribute.#ctor(System.Object,System.Collections.IEqualityComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.NotEqualToValidationAttribute"/> class.
+            </summary>
+            <param name="valueToCompare">The value automatic compare.</param>
+            <param name="comparer">The comparer.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotEqualToValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.NotNullValidationAttribute">
+            <summary>
+            The not null validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.NotNullValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotNullValidationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.NotNullValidationAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.NotNullValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.PredicateValidationAttribute">
+            <summary>
+            The predicate validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.PredicateValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.PredicateValidationAttribute.#ctor(System.Predicate{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.PredicateValidationAttribute"/> class.
+            </summary>
+            <param name="predicate">The predicate.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.PredicateValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Attributes.RegexValidationAttribute">
+            <summary>
+            The regex validation attribute.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Attributes.RegexValidationAttribute.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Attributes.RegexValidationAttribute.#ctor(System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Attributes.RegexValidationAttribute"/> class.
+            </summary>
+            <param name="expression">The expression.</param>
+            <param name="regexOptions">The regex options.</param>
+        </member>
+        <member name="M:Labo.Validation.Attributes.RegexValidationAttribute.GetValidator">
+            <summary>
+            Gets the validator.
+            </summary>
+            <returns>The validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.Builder.EntityValidationRuleBuilder`2">
+            <summary>
+            The entity validation rule builder class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the entity property.</typeparam>
+        </member>
+        <member name="T:Labo.Validation.Builder.IEntityValidationRuleBuilder`2">
+            <summary>
+            The entity validation rule builder interface.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the entity property.</typeparam>
+        </member>
+        <member name="T:Labo.Validation.Builder.IEntityValidationRuleBuilderInitial`2">
+            <summary>
+            The entity validation rule builder initial interface.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the entity property.</typeparam>
+        </member>
+        <member name="M:Labo.Validation.Builder.IEntityValidationRuleBuilderInitial`2.AddValidator(Labo.Validation.IValidator)">
+            <summary>
+            Adds a validator to the builder.
+            </summary>
+            <param name="validator">The validator.</param>
+            <returns>The entity validation rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.Builder.IEntityValidationRuleBuilder`2.SetSpecification(Labo.Validation.ISpecification{`0})">
+            <summary>
+            Sets the specification.
+            </summary>
+            <param name="specification">The specification.</param>
+            <returns>The entity validation rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.Builder.IEntityValidationRuleBuilder`2.Build">
+            <summary>
+            Builds the entity validation rule.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Builder.EntityValidationRuleBuilder`2.m_EntityValidatorBase">
+            <summary>
+            The entity validator base
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Builder.EntityValidationRuleBuilder`2.m_PropertyExpression">
+            <summary>
+            The property expression
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Builder.EntityValidationRuleBuilder`2.m_Validators">
+            <summary>
+            The validators
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Builder.EntityValidationRuleBuilder`2.m_Specification">
+            <summary>
+            The specification
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Builder.EntityValidationRuleBuilder`2.#ctor(Labo.Validation.ValidatorBase{`0},System.Linq.Expressions.Expression{System.Func{`0,`1}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Builder.EntityValidationRuleBuilder`2"/> class.
+            </summary>
+            <param name="entityValidatorBase">The entity validator base.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <exception cref="T:System.ArgumentNullException">propertyExpression</exception>
+        </member>
+        <member name="M:Labo.Validation.Builder.EntityValidationRuleBuilder`2.AddValidator(Labo.Validation.IValidator)">
+            <summary>
+            Sets the validator.
+            </summary>
+            <param name="validator">The validator.</param>
+            <returns>The entity validation rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.Builder.EntityValidationRuleBuilder`2.SetSpecification(Labo.Validation.ISpecification{`0})">
+            <summary>
+            Sets the specification.
+            </summary>
+            <param name="specification">The specification.</param>
+            <returns>The entity validation rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.Builder.EntityValidationRuleBuilder`2.Build">
+            <summary>
+            Builds the entity validation rule.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.EntityPropertyValidationRule`2">
+            <summary>
+            The entity property validation rule class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the entity property.</typeparam>
+        </member>
+        <member name="T:Labo.Validation.IEntityValidationRule`1">
+            <summary>
+            The entity validation rule class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:Labo.Validation.IEntityValidationRule`1.Validate(`0)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="F:Labo.Validation.EntityPropertyValidationRule`2.m_Specification">
+            <summary>
+            The specification
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.EntityPropertyValidationRule`2.m_Validator">
+            <summary>
+            The validator
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.EntityPropertyValidationRule`2.m_PropertyFunc">
+            <summary>
+            The property function
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.EntityPropertyValidationRule`2.m_MemberInfo">
+            <summary>
+            The member information
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRule`2.#ctor(Labo.Validation.IValidator,System.Linq.Expressions.Expression{System.Func{`0,`1}},Labo.Validation.ISpecification{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.EntityPropertyValidationRule`2"/> class.
+            </summary>
+            <param name="validator">The validator.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <param name="specification">The specification.</param>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRule`2.Validate(`0)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="T:Labo.Validation.EntityPropertyValidationRuleExtensions">
+            <summary>
+            The entity property validation rule extension methods.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.NotNull``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1})">
+            <summary>
+            Adds a not null validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.NotEmpty``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1})">
+            <summary>
+            Adds a not empty validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Length``1(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.String},System.Int32,System.Int32)">
+            <summary>
+            Adds a length validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="min">The minimum.</param>
+            <param name="max">The maximum.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Length``1(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.String},System.Int32)">
+            <summary>
+            Adds a length validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="exactLength">Length of the exact.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Matches``1(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.String},System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Adds a regular expression validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="expression">The expression.</param>
+            <param name="regexOptions">The regex options.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.EmailAddress``1(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.String})">
+            <summary>
+            Adds an email address regular expression validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.NotEqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1,System.Collections.IEqualityComparer)">
+            <summary>
+            Adds a not equal to validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="toCompare">The value to compare.</param>
+            <param name="comparer">The comparer.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.EqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1,System.Collections.IEqualityComparer)">
+            <summary>
+            Adds an equal to validator to the rule builder. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="toCompare">The value to compare.</param>
+            <param name="comparer">The comparer.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Must``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},System.Func{``0,System.Boolean})">
+            <summary>
+            Adds a predicate validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="predicate">The predicate.</param>
+            <returns>Rule builder.</returns>
+            <exception cref="T:System.ArgumentNullException">predicate</exception>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.LessThan``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1)">
+            <summary>
+            Adds a less than validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.LessThan``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.Nullable{``1}},``1)">
+            <summary>
+            Adds a less than validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.LessThanOrEqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1)">
+            <summary>
+            Adds a less than or equal to validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.LessThanOrEqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.Nullable{``1}},``1)">
+            <summary>
+            Adds a less than or equal to validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.GreaterThan``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1)">
+            <summary>
+            Adds a greater than validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.GreaterThan``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.Nullable{``1}},``1)">
+            <summary>
+            Adds a greater than validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.GreaterThanOrEqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1)">
+            <summary>
+            Adds a greater than or equal to validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.GreaterThanOrEqualTo``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.Nullable{``1}},``1)">
+            <summary>
+            Adds a greater than or equal to validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="valueToCompare">The value to compare.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Between``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,``1},``1,``1)">
+            <summary>
+            Adds a between validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="from">The lowest value.</param>
+            <param name="to">The highest value.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Between``2(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.Nullable{``1}},``1,``1)">
+            <summary>
+            Adds a between validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="from">The lowest value.</param>
+            <param name="to">The highest value.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.CreditCard``1(Labo.Validation.Builder.IEntityValidationRuleBuilderInitial{``0,System.String})">
+            <summary>
+            Adds a credit card validator to the rule builder.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <returns>Rule builder.</returns>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.When``2(Labo.Validation.Builder.IEntityValidationRuleBuilder{``0,``1},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Sets a predicate to the rule builder that specifies when the validator should run. 
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="predicate">The predicate.</param>
+            <returns>Rule builder.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            ruleBuilder
+            or
+            predicate
+            </exception>
+        </member>
+        <member name="M:Labo.Validation.EntityPropertyValidationRuleExtensions.Unless``2(Labo.Validation.Builder.IEntityValidationRuleBuilder{``0,``1},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Sets a predicate to the rule builder that specifies when the validator should not run.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="predicate">The predicate.</param>
+            <returns>Rule builder.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            ruleBuilder
+            or
+            predicate
+            </exception>
+        </member>
+        <member name="T:Labo.Validation.Exceptions.CriticalValidationException">
+            <summary>
+            The critical validation exception class.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.Exceptions.ValidationException">
+            <summary>
+            The validation exception class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Exceptions.ValidationException.m_Errors">
+            <summary>
+            The errors
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.ValidationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.#ctor(System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.ValidationException"/> class.
+            </summary>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.ValidationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.ValidationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.ValidationException"/> class.
+            </summary>
+            <param name="serializationInfo">The serialization info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.ValidationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown. </param><param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination. </param><exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is a null reference (Nothing in Visual Basic). </exception><filterpriority>2</filterpriority><PermissionSet><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter"/></PermissionSet>
+        </member>
+        <member name="P:Labo.Validation.Exceptions.ValidationException.Errors">
+            <summary>
+            Gets or sets the errors.
+            </summary>
+            <value>
+            The errors.
+            </value>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.CriticalValidationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.CriticalValidationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.CriticalValidationException.#ctor(System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.CriticalValidationException"/> class.
+            </summary>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.CriticalValidationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.CriticalValidationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.CriticalValidationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.CriticalValidationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Labo.Validation.Exceptions.CriticalValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Exceptions.CriticalValidationException"/> class.
+            </summary>
+            <param name="serializationInfo">The serialization info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:Labo.Validation.IEntityValidatorFactory">
+            <summary>
+            The entity validator factory interface.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.IEntityValidatorFactory.GetValidator``1">
+            <summary>
+            Gets the entity validator for the specified entity type.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <returns>The entity validator.</returns>
+        </member>
+        <member name="M:Labo.Validation.IEntityValidatorFactory.GetValidator(System.Type)">
+            <summary>
+            Gets the validator for the specified entity type.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The entity validator.</returns>
+        </member>
+        <member name="T:Labo.Validation.IEntityValidator">
+            <summary>
+            The entity validator interface.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.IEntityValidator.Validate(System.Object)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="T:Labo.Validation.IEntityValidator`1">
+            <summary>
+            The entity validator interface.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:Labo.Validation.IEntityValidator`1.Validate(`0)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="T:Labo.Validation.ISpecification">
+            <summary>
+            The specification interface.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ISpecification.IsSatisfiedBy(System.Object)">
+            <summary>
+            Evaluates the specification against an entity.
+            </summary>
+            <param name="entity">The instance to evaluate the specification against.</param>
+            <returns><c>true</c> if the specification was satisfied by the entity, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Labo.Validation.ISpecification`1">
+            <summary>
+            The <see cref="T:Labo.Validation.ISpecification`1"/> interface defines a basic contract to express specifications declaratively.
+            </summary>
+            <typeparam name="TEntity">The type of entity</typeparam>
+        </member>
+        <member name="M:Labo.Validation.ISpecification`1.IsSatisfiedBy(`0)">
+            <summary>
+            Evaluates the specification against an entity of <typeparamref name="TEntity"/>.
+            </summary>
+            <param name="entity">The <typeparamref name="TEntity"/> instance to evaluate the specification against.</param>
+            <returns><c>true</c> if the specification was satisfied by the entity, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:Labo.Validation.ISpecification`1.Predicate">
+            <summary>
+            Gets the expression that encapsulates the criteria of the specification.
+            </summary>
+            <value>
+            The predicate expression.
+            </value>
+        </member>
+        <member name="T:Labo.Validation.IValidator">
+            <summary>
+            The validator interface.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.IValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Specification`1">
+            <summary>
+            The specification class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="F:Labo.Validation.Specification`1.m_Predicate">
+            <summary>
+            The predicate
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Specification`1.m_PredicateFunc">
+            <summary>
+            The predicate function
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Specification`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Specification`1"/> class.
+            </summary>
+            <param name="predicate">The predicate.</param>
+            <exception cref="T:System.ArgumentNullException">predicate</exception>
+        </member>
+        <member name="M:Labo.Validation.Specification`1.IsSatisfiedBy(`0)">
+            <summary>
+            Evaluates the specification against an entity of <typeparamref name="TEntity"/>.
+            </summary>
+            <param name="entity">The <typeparamref name="TEntity"/> instance to evaluate the specification against.</param>
+            <returns><c>true</c> if the specification was satisfied by the entity, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Labo.Validation.Specification`1.IsSatisfiedBy(System.Object)">
+            <summary>
+            Evaluates the specification against an entity.
+            </summary>
+            <param name="entity">The instance to evaluate the specification against.</param>
+            <returns><c>true</c> if the specification was satisfied by the entity, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:Labo.Validation.Specification`1.Predicate">
+            <summary>
+            Gets the expression that encapsulates the criteria of the specification.
+            </summary>
+            <value>
+            The predicate expression.
+            </value>
+        </member>
+        <member name="T:Labo.Validation.Utils.ComparableUtils">
+            <summary>
+            The comparable utils.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Utils.ComparableUtils.TryCompareTo(System.IComparable,System.IComparable,System.Int32@)">
+            <summary>
+            Compares the specified value with from value.
+            </summary>
+            <param name="sourceValue">The source value.</param>
+            <param name="targetValue">The target value.</param>
+            <param name="result">A value that indicates the relative order of the objects being compared.</param>
+            <returns><c>true</c> if two values could be compared, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Labo.Validation.ValidationError">
+            <summary>
+            The validation error class.
+            </summary>
+        </member>
+        <member name="P:Labo.Validation.ValidationError.Message">
+            <summary>
+            Gets or sets the message.
+            </summary>
+            <value>
+            The message.
+            </value>
+        </member>
+        <member name="P:Labo.Validation.ValidationError.TargetValue">
+            <summary>
+            Gets or sets the target value.
+            </summary>
+            <value>
+            The target value.
+            </value>
+        </member>
+        <member name="P:Labo.Validation.ValidationError.PropertyName">
+            <summary>
+            Gets or sets the name of the property.
+            </summary>
+            <value>
+            The name of the property.
+            </value>
+        </member>
+        <member name="T:Labo.Validation.ValidationErrorCollection">
+            <summary>
+            The validation error collection.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ValidationErrorCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.ValidationErrorCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ValidationErrorCollection.#ctor(System.Collections.Generic.IEnumerable{Labo.Validation.ValidationError})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.ValidationErrorCollection"/> class.
+            </summary>
+            <param name="collection">The collection.</param>
+        </member>
+        <member name="M:Labo.Validation.ValidationErrorCollection.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.ValidationErrorCollection"/> class.
+            </summary>
+            <param name="capacity">The number of elements that the new list can initially store.</param>
+        </member>
+        <member name="T:Labo.Validation.ValidationResult">
+            <summary>
+            The validation result class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.ValidationResult.m_Errors">
+            <summary>
+            The errors
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ValidationResult.Empty">
+            <summary>
+            Creates new empty validation result.
+            </summary>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="P:Labo.Validation.ValidationResult.Errors">
+            <summary>
+            Gets or sets the errors.
+            </summary>
+            <value>
+            The errors.
+            </value>
+        </member>
+        <member name="P:Labo.Validation.ValidationResult.IsValid">
+            <summary>
+            Gets a value indicating whether [is valid].
+            </summary>
+            <value>
+              <c>true</c> if [is valid]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Labo.Validation.ValidatorBase`1">
+            <summary>
+            The validator base class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="F:Labo.Validation.ValidatorBase`1.m_EntityValidationRules">
+            <summary>
+            The validators
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ValidatorBase`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.ValidatorBase`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.ValidatorBase`1.Validate(`0)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="M:Labo.Validation.ValidatorBase`1.Validate(System.Object)">
+            <summary>
+            Validates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="M:Labo.Validation.ValidatorBase`1.AddValidationRule(Labo.Validation.IEntityValidationRule{`0})">
+            <summary>
+            Adds the entity validation rule to the entity validator.
+            </summary>
+            <param name="entityValidationRule">The entity validation rule.</param>
+            <exception cref="T:System.ArgumentNullException">entityValidationRule</exception>
+        </member>
+        <member name="M:Labo.Validation.ValidatorBase`1.RuleFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Adds a validation rule for the specified property.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="expression">The expression.</param>
+            <returns>The entity validation rule builder.</returns>
+            <exception cref="T:System.ArgumentNullException">expression</exception>
+        </member>
+        <member name="T:Labo.Validation.Validators.BetweenValidator">
+            <summary>
+            The between validator class.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.Validators.IBetweenValidator">
+            <summary>
+            The between validator interface.
+            </summary>
+        </member>
+        <member name="P:Labo.Validation.Validators.IBetweenValidator.FromValue">
+            <summary>
+            Gets from value.
+            </summary>
+            <value>
+            The from value.
+            </value>
+        </member>
+        <member name="P:Labo.Validation.Validators.IBetweenValidator.ToValue">
+            <summary>
+            Gets the to value.
+            </summary>
+            <value>
+            The to value.
+            </value>
+        </member>
+        <member name="F:Labo.Validation.Validators.BetweenValidator.m_From">
+            <summary>
+            The from value.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.BetweenValidator.m_To">
+            <summary>
+            The to value.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.BetweenValidator.#ctor(System.IComparable,System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.BetweenValidator"/> class.
+            </summary>
+            <param name="from">From.</param>
+            <param name="to">The automatic.</param>
+        </member>
+        <member name="M:Labo.Validation.Validators.BetweenValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="P:Labo.Validation.Validators.BetweenValidator.FromValue">
+            <summary>
+            Gets from value.
+            </summary>
+            <value>
+            The from value.
+            </value>
+        </member>
+        <member name="P:Labo.Validation.Validators.BetweenValidator.ToValue">
+            <summary>
+            Gets the to value.
+            </summary>
+            <value>
+            The to value.
+            </value>
+        </member>
+        <member name="T:Labo.Validation.Validators.CreditCardValidator">
+            <summary>
+            The credit card validator class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.CreditCardValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.EmailValidator">
+            <summary>
+            The email validator class.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.Validators.RegexValidator">
+            <summary>
+            The regex validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.RegexValidator.m_Regex">
+            <summary>
+            The regex
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.RegexValidator.#ctor(System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.RegexValidator"/> class.
+            </summary>
+            <param name="expression">The expression.</param>
+            <param name="regexOptions">The regex options.</param>
+            <exception cref="T:System.ArgumentNullException">expression</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.RegexValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="F:Labo.Validation.Validators.EmailValidator.EXPRESSION">
+            <summary>
+            The email regex expression.
+            <![CDATA[ Regex from: http://hexillion.com/samples/#Regex ]]>
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.EmailValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.EmailValidator"/> class.
+            </summary>
+        </member>
+        <member name="T:Labo.Validation.Validators.EqualToValidator">
+            <summary>
+            The equal to validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.EqualToValidator.m_ValueToCompare">
+            <summary>
+            The value to compare
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.EqualToValidator.m_Comparer">
+            <summary>
+            The comparer
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.EqualToValidator.#ctor(System.Object,System.Collections.IEqualityComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.EqualToValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <param name="comparer">The comparer.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.EqualToValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Labo.Validation.Validators.EqualToValidator.AreEqual(System.Object,System.Object,System.Collections.IEqualityComparer)">
+            <summary>
+            Determines whether [are equal] [the specified values].
+            </summary>
+            <param name="sourceValue">The source value.</param>
+            <param name="destinationValue">The destination value.</param>
+            <param name="comparer">The comparer.</param>
+            <returns><c>true</c> if the specified values are equal otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.GreaterThanOrEqualToValidator">
+            <summary>
+            The greater than or equal to validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.GreaterThanOrEqualToValidator.m_ValueToCompare">
+            <summary>
+            The value to compare
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.GreaterThanOrEqualToValidator.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.GreaterThanOrEqualToValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.GreaterThanOrEqualToValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.GreaterThanValidator">
+            <summary>
+            The greater than validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.GreaterThanValidator.m_ValueToCompare">
+            <summary>
+            The value to compare
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.GreaterThanValidator.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.GreaterThanValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.GreaterThanValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.LengthValidator">
+            <summary>
+            The length validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.LengthValidator.m_Min">
+            <summary>
+            The minimum length.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.LengthValidator.m_Max">
+            <summary>
+            The maximum length.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.LengthValidator.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.LengthValidator"/> class.
+            </summary>
+            <param name="min">The minimum.</param>
+            <param name="max">The maximum.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            min;Min should be larger than -1.
+            or
+            max;Max should be larger than min.
+            </exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.LengthValidator.CreateMaxLengthValidator(System.Int32)">
+            <summary>
+            Creates the maximum length validator.
+            </summary>
+            <param name="max">The maximum length.</param>
+            <returns>A new maximum length validator.</returns>
+        </member>
+        <member name="M:Labo.Validation.Validators.LengthValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.LessThanOrEqualToValidator">
+            <summary>
+            The less than or equal to validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.LessThanOrEqualToValidator.m_ValueToCompare">
+            <summary>
+            The value to compare
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.LessThanOrEqualToValidator.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.LessThanOrEqualToValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.LessThanOrEqualToValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.LessThanValidator">
+            <summary>
+            The less than validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.LessThanValidator.m_ValueToCompare">
+            <summary>
+            The value to compare
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.LessThanValidator.#ctor(System.IComparable)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.LessThanValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.LessThanValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.NotEmptyValidator">
+            <summary>
+            The not empty validator class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotEmptyValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotEmptyValidator.IsEmptyCollection(System.Object)">
+            <summary>
+            Determines whether [is empty collection] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the value is an empty collection otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotEmptyValidator.IsEmptyString(System.Object)">
+            <summary>
+            Determines whether [is empty string] [the specified value].
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the value is an empty string otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.NotEqualToValidator">
+            <summary>
+            The not equal to validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.NotEqualToValidator.m_EqualToValidator">
+            <summary>
+            The equal to validator
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotEqualToValidator.#ctor(System.Object,System.Collections.IEqualityComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.NotEqualToValidator"/> class.
+            </summary>
+            <param name="valueToCompare">The value to compare.</param>
+            <param name="comparer">The comparer.</param>
+            <exception cref="T:System.ArgumentNullException">valueToCompare</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotEqualToValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.NotNullValidator">
+            <summary>
+            The not null validator class.
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.NotNullValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Labo.Validation.Validators.PredicateValidator">
+            <summary>
+            The predicate validator class.
+            </summary>
+        </member>
+        <member name="F:Labo.Validation.Validators.PredicateValidator.m_Predicate">
+            <summary>
+            The predicate
+            </summary>
+        </member>
+        <member name="M:Labo.Validation.Validators.PredicateValidator.#ctor(System.Predicate{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labo.Validation.Validators.PredicateValidator"/> class.
+            </summary>
+            <param name="predicate">The predicate.</param>
+            <exception cref="T:System.ArgumentNullException">predicate</exception>
+        </member>
+        <member name="M:Labo.Validation.Validators.PredicateValidator.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified value is valid.
+            </summary>
+            <param name="value">The value.</param>
+            <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        </member>
+    </members>
+</doc>
