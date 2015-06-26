@@ -1,9 +1,0 @@
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\obj\Release\Labo.Validation.csprojResolveAssemblyReference.cache
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\obj\Release\Labo.Validation.pdb
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Validation.XML
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Validation.dll
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Validation.pdb
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Validation.dll.CodeAnalysisLog.xml
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Validation.dll.lastcodeanalysissucceeded
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\bin\Release\Labo.Common.dll
-C:\Users\boraa\Documents\GitHub\Labo.Validation\Labo.Validation\obj\Release\Labo.Validation.dll
