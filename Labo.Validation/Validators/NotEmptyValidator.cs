@@ -14,22 +14,33 @@
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
         public bool IsValid(object value)
         {
-            return value != null && !IsEmptyString(value) && !IsEmptyCollection(value);
+            if (value == null)
+            {
+                return false;
+            }
+
+            string stringValue = value as string;
+            if (stringValue != null)
+            {
+                return !IsEmptyString(stringValue);
+            }
+
+            IEnumerable enumerable = value as IEnumerable;
+            if (enumerable != null)
+            {
+                return !IsEmptyCollection(enumerable);                
+            }
+         
+            return true;
         }
 
         /// <summary>
         /// Determines whether [is empty collection] [the specified value].
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="enumerable">The enumerable value.</param>
         /// <returns><c>true</c> if the value is an empty collection otherwise <c>false</c></returns>
-        private static bool IsEmptyCollection(object value)
+        private static bool IsEmptyCollection(IEnumerable enumerable)
         {
-            IEnumerable enumerable = value as IEnumerable;
-            if (enumerable == null)
-            {
-                return false;
-            }
-
             IEnumerator enumerator = enumerable.GetEnumerator();
             return !enumerator.MoveNext();
         }
@@ -37,12 +48,11 @@
         /// <summary>
         /// Determines whether [is empty string] [the specified value].
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="stringValue">The string value.</param>
         /// <returns><c>true</c> if the value is an empty string otherwise <c>false</c></returns>
-        private static bool IsEmptyString(object value)
+        private static bool IsEmptyString(string stringValue)
         {
-            string stringValue = value as string;
-            return stringValue == null || string.IsNullOrWhiteSpace(stringValue);
+            return string.IsNullOrWhiteSpace(stringValue);
         }
     }
 }

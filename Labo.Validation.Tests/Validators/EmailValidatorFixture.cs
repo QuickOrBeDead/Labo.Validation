@@ -11,7 +11,16 @@
     {
         [Test]
         public void AssertValidEmailAddresses(
-            [Values("test@gmail.com", "Test@gmail.com", "test+@gmail.com", "\"Abc\\@d\"@gmail.com", "$A12345@gmail.com", "ğüşıöçĞÜŞİÖÇ@gmail.com")]
+            [Values(
+                "test@gmail.com", 
+                "Test@gmail.com", 
+                "test+@gmail.com", 
+                "\"Abc\\@d\"@gmail.com", 
+                "$A12345@gmail.com", 
+                "ğüşıöçĞÜŞİÖÇ@gmail.com",
+                "a#bc@gmail.com",
+                "name.surname@ms1.gmail.com",
+                "name@ms1.gmail.com")]
             string email)
         {
             EmailValidator emailValidator = new EmailValidator();
@@ -20,7 +29,17 @@
 
         [Test]
         public void AssertInvalidEmailAddresses(
-            [Values("test@gmail", "@gmail.com", "@")]
+            [Values(
+                "test@gmail",
+                "@gmail.com", 
+                "@",
+                "a.@server1.gmail.com",
+                "a.@gmail.com",
+                "a..b@gmail.com",
+                "a@gmail.com1",
+                "a@.gmail.com",
+                "a@[127.0.0.1].com",
+                "ab@gmail..com")]
             string email)
         {
             EmailValidator emailValidator = new EmailValidator();

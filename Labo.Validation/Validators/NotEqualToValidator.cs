@@ -36,7 +36,7 @@
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
         public bool IsValid(object value)
         {
-            return m_EqualToValidator.IsValid(value);
+            return !m_EqualToValidator.IsValid(value);
         }
     }
 }
