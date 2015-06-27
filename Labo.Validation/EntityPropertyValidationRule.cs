@@ -62,6 +62,20 @@
         }
 
         /// <summary>
+        /// Gets the member information.
+        /// </summary>
+        /// <value>
+        /// The member information.
+        /// </value>
+        internal MemberInfo MemberInfo
+        {
+            get
+            {
+                return m_MemberInfo;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EntityPropertyValidationRule{TEntity, TProperty}"/> class.
         /// </summary>
         /// <param name="validator">The validator.</param>
