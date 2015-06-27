@@ -90,7 +90,7 @@
         /// <param name="expression">The expression.</param>
         /// <param name="regexOptions">The regex options.</param>
         /// <returns>Rule builder.</returns>
-        public static IEntityValidationRuleBuilder<TEntity, string> Matches<TEntity>(this IEntityValidationRuleBuilderInitial<TEntity, string> ruleBuilder, string expression, RegexOptions regexOptions)
+        public static IEntityValidationRuleBuilder<TEntity, string> Matches<TEntity>(this IEntityValidationRuleBuilderInitial<TEntity, string> ruleBuilder, string expression, RegexOptions regexOptions = RegexOptions.None)
         {
             if (ruleBuilder == null)
             {
@@ -163,7 +163,7 @@
         /// <param name="predicate">The predicate.</param>
         /// <returns>Rule builder.</returns>
         /// <exception cref="System.ArgumentNullException">predicate</exception>
-        public static IEntityValidationRuleBuilder<TEntity, TProperty> Must<TEntity, TProperty>(this IEntityValidationRuleBuilderInitial<TEntity, TProperty> ruleBuilder, Func<TEntity, bool> predicate)
+        public static IEntityValidationRuleBuilder<TEntity, TProperty> Must<TEntity, TProperty>(this IEntityValidationRuleBuilderInitial<TEntity, TProperty> ruleBuilder, Func<TProperty, bool> predicate)
         {
             if (ruleBuilder == null)
             {
@@ -175,7 +175,7 @@
                 throw new ArgumentNullException("predicate");
             }
 
-            return ruleBuilder.AddValidator(new PredicateValidator(instance => predicate((TEntity)instance)));
+            return ruleBuilder.AddValidator(new PredicateValidator(instance => predicate((TProperty)instance)));
         }
 
         /// <summary>
@@ -438,7 +438,8 @@
                 throw new ArgumentNullException("predicate");
             }
 
-            return ruleBuilder.When(Expression.Lambda<Func<TEntity, bool>>(Expression.Not(predicate)));
+            UnaryExpression newExpression = Expression.Not(Expression.Invoke(predicate, predicate.Parameters));
+            return ruleBuilder.When(Expression.Lambda<Func<TEntity, bool>>(newExpression, predicate.Parameters));
         }
     }
 }

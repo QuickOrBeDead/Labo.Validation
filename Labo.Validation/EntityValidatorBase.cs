@@ -85,13 +85,29 @@
         }
 
         /// <summary>
+        /// Adds the validation rule.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="entityValidationRuleBuilder">The entity validation rule builder.</param>
+        /// <exception cref="System.ArgumentNullException">entityValidationRuleBuilder</exception>
+        public void AddValidationRule<TProperty>(Func<ValidatorBase<TEntity>, IEntityValidationRuleBuilder<TEntity, TProperty>> entityValidationRuleBuilder)
+        {
+            if (entityValidationRuleBuilder == null)
+            {
+                throw new ArgumentNullException("entityValidationRuleBuilder");
+            }
+
+            entityValidationRuleBuilder(this).Build();
+        }
+
+        /// <summary>
         /// Adds a validation rule for the specified property.
         /// </summary>
         /// <typeparam name="TProperty">The type of the property.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The entity validation rule builder.</returns>
         /// <exception cref="System.ArgumentNullException">expression</exception>
-        protected IEntityValidationRuleBuilderInitial<TEntity, TProperty> RuleFor<TProperty>(Expression<Func<TEntity, TProperty>> expression)
+        public IEntityValidationRuleBuilderInitial<TEntity, TProperty> RuleFor<TProperty>(Expression<Func<TEntity, TProperty>> expression)
         {
             if (expression == null)
             {

@@ -60,6 +60,7 @@
     <Compile Include="Attributes\PredicateValidationAttributeFixture.cs" />
     <Compile Include="Attributes\RegexValidationAttributeFixture.cs" />
     <Compile Include="Builder\EntityValidationRuleBuilderFixture.cs" />
+    <Compile Include="EntityPropertyValidationRuleExtensionsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ComparableUtilsFixture.cs" />
     <Compile Include="Validators\BetweenValidatorFixture.cs" />
