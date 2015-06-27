@@ -69,6 +69,7 @@
     <Compile Include="EntityPropertyValidationRuleExtensionsFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecificationFixture.cs" />
     <Compile Include="Utils\ComparableUtilsFixture.cs" />
     <Compile Include="Validators\BetweenValidatorFixture.cs" />
     <Compile Include="Validators\CreditCardValidatorFixture.cs" />
