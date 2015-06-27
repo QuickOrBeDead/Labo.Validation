@@ -13,6 +13,20 @@
         private readonly Predicate<object> m_Predicate;
 
         /// <summary>
+        /// Gets the predicate.
+        /// </summary>
+        /// <value>
+        /// The predicate.
+        /// </value>
+        public Predicate<object> Predicate
+        {
+            get
+            {
+                return m_Predicate;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PredicateValidator"/> class.
         /// </summary>
         /// <param name="predicate">The predicate.</param>

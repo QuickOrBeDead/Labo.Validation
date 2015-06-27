@@ -15,6 +15,20 @@
         private readonly IComparable m_ValueToCompare;
 
         /// <summary>
+        /// Gets the value to compare.
+        /// </summary>
+        /// <value>
+        /// The value to compare.
+        /// </value>
+        public IComparable ValueToCompare
+        {
+            get
+            {
+                return m_ValueToCompare;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GreaterThanValidator"/> class.
         /// </summary>
         /// <param name="valueToCompare">The value to compare.</param>

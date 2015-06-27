@@ -18,6 +18,34 @@
         private readonly int m_Max;
 
         /// <summary>
+        /// Gets the minimum.
+        /// </summary>
+        /// <value>
+        /// The minimum.
+        /// </value>
+        public int Min
+        {
+            get
+            {
+                return m_Min;
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum.
+        /// </summary>
+        /// <value>
+        /// The maximum.
+        /// </value>
+        public int Max
+        {
+            get
+            {
+                return m_Max;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LengthValidator"/> class.
         /// </summary>
         /// <param name="min">The minimum.</param>

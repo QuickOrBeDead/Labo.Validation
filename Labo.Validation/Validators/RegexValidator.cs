@@ -14,6 +14,20 @@
         private readonly Regex m_Regex;
 
         /// <summary>
+        /// Gets the regex.
+        /// </summary>
+        /// <value>
+        /// The regex.
+        /// </value>
+        public Regex Regex
+        {
+            get
+            {
+                return m_Regex;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RegexValidator"/> class.
         /// </summary>
         /// <param name="expression">The expression.</param>

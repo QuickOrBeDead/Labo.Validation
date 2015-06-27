@@ -21,6 +21,34 @@
         private readonly IEqualityComparer m_Comparer;
 
         /// <summary>
+        /// Gets the value to compare.
+        /// </summary>
+        /// <value>
+        /// The value to compare.
+        /// </value>
+        public object ValueToCompare
+        {
+            get
+            {
+                return m_ValueToCompare;
+            }
+        }
+
+        /// <summary>
+        /// Gets the comparer.
+        /// </summary>
+        /// <value>
+        /// The comparer.
+        /// </value>
+        public IEqualityComparer Comparer
+        {
+            get
+            {
+                return m_Comparer;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EqualToValidator"/> class.
         /// </summary>
         /// <param name="valueToCompare">The value to compare.</param>

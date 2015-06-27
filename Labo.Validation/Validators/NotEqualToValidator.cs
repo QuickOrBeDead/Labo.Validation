@@ -11,7 +11,35 @@
         /// <summary>
         /// The equal to validator
         /// </summary>
-        private readonly IValidator m_EqualToValidator;
+        private readonly EqualToValidator m_EqualToValidator;
+
+        /// <summary>
+        /// Gets the value to compare.
+        /// </summary>
+        /// <value>
+        /// The value to compare.
+        /// </value>
+        public object ValueToCompare
+        {
+            get
+            {
+                return m_EqualToValidator.ValueToCompare;
+            }
+        }
+
+        /// <summary>
+        /// Gets the comparer.
+        /// </summary>
+        /// <value>
+        /// The comparer.
+        /// </value>
+        public IEqualityComparer Comparer
+        {
+            get
+            {
+                return m_EqualToValidator.Comparer;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotEqualToValidator"/> class.
