@@ -1,7 +1,5 @@
 ﻿namespace Labo.Validation.Tests.Validators
 {
-    using System;
-
     using Labo.Validation.Validators;
 
     using NUnit.Framework;
@@ -15,6 +13,17 @@
             CreditCardValidator creditCardValidator = new CreditCardValidator();
 
             Assert.IsTrue(creditCardValidator.IsValid(null));
+        }
+
+        [Test, Sequential]
+        public void IsValid(
+            [Values(null, "0000000000000000", "1234567890123452", "1234-5678-9012-3452", "0000000000000001")]
+            string value,
+            [Values(true, true, true, true, false)]
+            bool expectedResult)
+        {
+            CreditCardValidator creditCardValidator = new CreditCardValidator();
+            Assert.AreEqual(expectedResult, creditCardValidator.IsValid(value));
         }
     }
 }
