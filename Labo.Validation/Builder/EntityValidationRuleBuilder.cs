@@ -2,6 +2,7 @@ namespace Labo.Validation.Builder
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq.Expressions;
 
     /// <summary>
@@ -30,6 +31,34 @@ namespace Labo.Validation.Builder
         /// The specification
         /// </summary>
         private ISpecification<TEntity> m_Specification;
+
+        /// <summary>
+        /// Gets the validators.
+        /// </summary>
+        /// <value>
+        /// The validators.
+        /// </value>
+        internal IList<IValidator> Validators
+        {
+            get
+            {
+                return new ReadOnlyCollection<IValidator>(m_Validators);
+            }
+        }
+
+        /// <summary>
+        /// Gets the specification.
+        /// </summary>
+        /// <value>
+        /// The specification.
+        /// </value>
+        internal ISpecification<TEntity> Specification
+        {
+            get
+            {
+                return m_Specification;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityValidationRuleBuilder{TEntity, TProperty}"/> class.

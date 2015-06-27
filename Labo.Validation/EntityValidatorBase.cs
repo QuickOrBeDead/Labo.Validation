@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq.Expressions;
 
     using Labo.Validation.Builder;
@@ -16,6 +17,20 @@
         /// The validators
         /// </summary>
         private readonly IList<IEntityValidationRule<TEntity>> m_EntityValidationRules;
+
+        /// <summary>
+        /// Gets the entity validation rules.
+        /// </summary>
+        /// <value>
+        /// The entity validation rules.
+        /// </value>
+        internal IList<IEntityValidationRule<TEntity>> EntityValidationRules
+        {
+            get
+            {
+                return new ReadOnlyCollection<IEntityValidationRule<TEntity>>(m_EntityValidationRules);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidatorBase{TEntity}"/> class.

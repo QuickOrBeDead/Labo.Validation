@@ -34,6 +34,34 @@
         private readonly MemberInfo m_MemberInfo;
 
         /// <summary>
+        /// Gets the validator.
+        /// </summary>
+        /// <value>
+        /// The validator.
+        /// </value>
+        internal IValidator Validator
+        {
+            get
+            {
+                return m_Validator;
+            }
+        }
+
+        /// <summary>
+        /// Gets the specification.
+        /// </summary>
+        /// <value>
+        /// The specification.
+        /// </value>
+        internal ISpecification<TEntity> Specification
+        {
+            get
+            {
+                return m_Specification;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EntityPropertyValidationRule{TEntity, TProperty}"/> class.
         /// </summary>
         /// <param name="validator">The validator.</param>
