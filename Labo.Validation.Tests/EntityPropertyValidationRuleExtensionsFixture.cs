@@ -129,6 +129,18 @@
         }
 
         [Test]
+        public void Url()
+        {
+            AssertAddValidatorIsCalled<UrlValidator>(x => x.Url());
+        }
+
+        [Test]
+        public void PhoneNumber()
+        {
+            AssertAddValidatorIsCalled<PhoneNumberValidator>(x => x.PhoneNumber());
+        }
+
+        [Test]
         public void LessThanOrEqualToForNullableProperty()
         {
             AssertAddValidatorIsCalledForNullableProperty<LessThanOrEqualToValidator>(x => x.LessThanOrEqualTo(1));
@@ -309,6 +321,18 @@
         public void LessThanOrEqualToMustThrowArgumentNullExceptionWhenRuleBuilderIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => EntityPropertyValidationRuleExtensions.LessThanOrEqualTo((IEntityValidationRuleBuilderInitial<Customer, int>)null, 1));
+        }
+
+        [Test]
+        public void UrlMustThrowArgumentNullExceptionWhenRuleBuilderIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => EntityPropertyValidationRuleExtensions.Url((IEntityValidationRuleBuilderInitial<Customer, string>)null));
+        }
+
+        [Test]
+        public void PhoneNumberThrowArgumentNullExceptionWhenRuleBuilderIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => EntityPropertyValidationRuleExtensions.PhoneNumber((IEntityValidationRuleBuilderInitial<Customer, string>)null));
         }
 
         [Test]
