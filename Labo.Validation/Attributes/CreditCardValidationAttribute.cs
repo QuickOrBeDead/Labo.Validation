@@ -20,7 +20,7 @@
         /// </summary>
         public CreditCardValidationAttribute()
         {
-            m_Validator = new CreditCardValidator();
+            m_Validator = CreditCardValidator.Instance;
         }
 
         /// <summary>

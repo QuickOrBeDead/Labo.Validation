@@ -20,7 +20,7 @@
         /// </summary>
         public EmailValidationAttribute()
         {
-            m_Validator = new EmailValidator();
+            m_Validator = EmailValidator.Instance;
         }
 
         /// <summary>

@@ -63,8 +63,10 @@
     <Compile Include="Attributes\NotEmptyValidationAttributeFixture.cs" />
     <Compile Include="Attributes\NotEqualToValidationAttributeFixture.cs" />
     <Compile Include="Attributes\NotNullValidationAttributeFixture.cs" />
+    <Compile Include="Attributes\PhoneNumberValidationAttributeFixture.cs" />
     <Compile Include="Attributes\PredicateValidationAttributeFixture.cs" />
     <Compile Include="Attributes\RegexValidationAttributeFixture.cs" />
+    <Compile Include="Attributes\UrlValidationAttributeFixture.cs" />
     <Compile Include="Builder\EntityValidationRuleBuilderFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleExtensionsFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleFixture.cs" />
@@ -84,8 +86,10 @@
     <Compile Include="Validators\NotEmptyValidatorFixture.cs" />
     <Compile Include="Validators\NotEqualToValidatorFixture.cs" />
     <Compile Include="Validators\NotNullValidatorFixture.cs" />
+    <Compile Include="Validators\PhoneNumberValidatorFixture.cs" />
     <Compile Include="Validators\PredicateValidatorFixture.cs" />
     <Compile Include="Validators\RegexValidatorFixture.cs" />
+    <Compile Include="Validators\UrlValidatorFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Labo.Validation\Labo.Validation.csproj">

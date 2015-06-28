@@ -27,7 +27,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new NotNullValidator());
+            return ruleBuilder.AddValidator(NotNullValidator.Instance);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new NotEmptyValidator());
+            return ruleBuilder.AddValidator(NotEmptyValidator.Instance);
         }
 
         /// <summary>
@@ -113,7 +113,39 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new EmailValidator());
+            return ruleBuilder.AddValidator(EmailValidator.Instance);
+        }
+
+        /// <summary>
+        /// Adds a url regular expression validator to the rule builder. 
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="ruleBuilder">The rule builder.</param>
+        /// <returns>Rule builder.</returns>
+        public static IEntityValidationRuleBuilder<TEntity, string> Url<TEntity>(this IEntityValidationRuleBuilderInitial<TEntity, string> ruleBuilder)
+        {
+            if (ruleBuilder == null)
+            {
+                throw new ArgumentNullException("ruleBuilder");
+            }
+
+            return ruleBuilder.AddValidator(UrlValidator.Instance);
+        }
+
+        /// <summary>
+        /// Adds a phone number regular expression validator to the rule builder. 
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="ruleBuilder">The rule builder.</param>
+        /// <returns>Rule builder.</returns>
+        public static IEntityValidationRuleBuilder<TEntity, string> PhoneNumber<TEntity>(this IEntityValidationRuleBuilderInitial<TEntity, string> ruleBuilder)
+        {
+            if (ruleBuilder == null)
+            {
+                throw new ArgumentNullException("ruleBuilder");
+            }
+
+            return ruleBuilder.AddValidator(PhoneNumberValidator.Instance);
         }
 
         /// <summary>
@@ -382,7 +414,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new CreditCardValidator());
+            return ruleBuilder.AddValidator(CreditCardValidator.Instance);
         }
 
         /// <summary>

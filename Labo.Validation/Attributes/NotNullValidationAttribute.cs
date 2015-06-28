@@ -20,7 +20,7 @@
         /// </summary>
         public NotNullValidationAttribute()
         {
-            m_Validator = new NotNullValidator();
+            m_Validator = NotNullValidator.Instance;
         }
 
         /// <summary>

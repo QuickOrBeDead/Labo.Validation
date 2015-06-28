@@ -67,8 +67,14 @@
     <Compile Include="Attributes\NotEmptyValidationAttribute.cs" />
     <Compile Include="Attributes\NotEqualToValidationAttribute.cs" />
     <Compile Include="Attributes\NotNullValidationAttribute.cs" />
+    <Compile Include="Attributes\PhoneNumberValidationAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Attributes\PredicateValidationAttribute.cs" />
     <Compile Include="Attributes\RegexValidationAttribute.cs" />
+    <Compile Include="Attributes\UrlValidationAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Builder\EntityValidationRuleBuilder.cs" />
     <Compile Include="Builder\IEntityValidationRuleBuilderInitial.cs" />
     <Compile Include="EntityPropertyValidationRule.cs" />
@@ -102,8 +108,10 @@
     <Compile Include="Validators\NotEmptyValidator.cs" />
     <Compile Include="Validators\NotEqualToValidator.cs" />
     <Compile Include="Validators\NotNullValidator.cs" />
+    <Compile Include="Validators\PhoneNumberValidator.cs" />
     <Compile Include="Validators\PredicateValidator.cs" />
     <Compile Include="Validators\RegexValidator.cs" />
+    <Compile Include="Validators\UrlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

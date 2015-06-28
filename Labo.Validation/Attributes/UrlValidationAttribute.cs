@@ -5,10 +5,10 @@
     using Labo.Validation.Validators;
 
     /// <summary>
-    /// The not empty validation attribute.
+    /// The url validation attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
-    public sealed class NotEmptyValidationAttribute : Attribute, IValidationAttribute
+    public sealed class UrlValidationAttribute : Attribute, IValidationAttribute
     {
         /// <summary>
         /// The validator
@@ -16,11 +16,11 @@
         private readonly IValidator m_Validator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotEmptyValidationAttribute"/> class.
+        /// Initializes a new instance of the <see cref="UrlValidationAttribute"/> class.
         /// </summary>
-        public NotEmptyValidationAttribute()
+        public UrlValidationAttribute()
         {
-            m_Validator = NotEmptyValidator.Instance;
+            m_Validator = UrlValidator.Instance;
         }
 
         /// <summary>

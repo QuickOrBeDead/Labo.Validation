@@ -8,6 +8,25 @@
     public sealed class NotEmptyValidator : IValidator
     {
         /// <summary>
+        /// The static not empty validator instance.
+        /// </summary>
+        private static readonly NotEmptyValidator s_Instance = new NotEmptyValidator();
+
+        /// <summary>
+        /// Gets the static not empty validator instance.
+        /// </summary>
+        /// <value>
+        /// The static not empty validator instance.
+        /// </value>
+        public static NotEmptyValidator Instance
+        {
+            get
+            {
+                return s_Instance;
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified value is valid.
         /// </summary>
         /// <param name="value">The value.</param>

@@ -6,6 +6,25 @@
     public sealed class CreditCardValidator : IValidator
     {
         /// <summary>
+        /// The static credit card validator instance.
+        /// </summary>
+        private static readonly CreditCardValidator s_Instance = new CreditCardValidator();
+
+        /// <summary>
+        /// Gets the static credit card validator instance.
+        /// </summary>
+        /// <value>
+        /// The static credit card validator instance.
+        /// </value>
+        public static CreditCardValidator Instance
+        {
+            get
+            {
+                return s_Instance;
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified value is valid.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -18,7 +37,9 @@
             }
 
             // http://www.beachnet.com/~hstiles/cardtype.html
-            string cardNumber = value.ToString().Replace("-", string.Empty);
+            string cardNumber = value.ToString()
+                                     .Replace("-", string.Empty)
+                                     .Replace(" ", string.Empty);
 
             int checksum = 0;
             bool evenDigit = false;
