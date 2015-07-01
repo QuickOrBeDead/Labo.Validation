@@ -18,6 +18,11 @@ namespace Labo.Validation.Builder
         private readonly ValidatorBase<TEntity> m_EntityValidatorBase;
 
         /// <summary>
+        /// The property display name resolver
+        /// </summary>
+        private readonly IPropertyDisplayNameResolver m_PropertyDisplayNameResolver;
+
+        /// <summary>
         /// The property expression
         /// </summary>
         private readonly Expression<Func<TEntity, TProperty>> m_PropertyExpression;
@@ -31,6 +36,11 @@ namespace Labo.Validation.Builder
         /// The specification
         /// </summary>
         private ISpecification<TEntity> m_Specification;
+
+        /// <summary>
+        /// The message
+        /// </summary>
+        private string m_Message;
 
         /// <summary>
         /// Gets the validators.
@@ -61,12 +71,27 @@ namespace Labo.Validation.Builder
         }
 
         /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
+        internal string Message
+        {
+            get
+            {
+                return m_Message;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EntityValidationRuleBuilder{TEntity, TProperty}"/> class.
         /// </summary>
         /// <param name="entityValidatorBase">The entity validator base.</param>
+        /// <param name="propertyDisplayNameResolver">The property display name resolver.</param>
         /// <param name="propertyExpression">The property expression.</param>
         /// <exception cref="System.ArgumentNullException">propertyExpression</exception>
-        public EntityValidationRuleBuilder(ValidatorBase<TEntity> entityValidatorBase, Expression<Func<TEntity, TProperty>> propertyExpression)
+        public EntityValidationRuleBuilder(ValidatorBase<TEntity> entityValidatorBase, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression)
         {
             if (entityValidatorBase == null)
             {
@@ -78,7 +103,13 @@ namespace Labo.Validation.Builder
                 throw new ArgumentNullException("propertyExpression");
             }
 
+            if (propertyDisplayNameResolver == null)
+            {
+                throw new ArgumentNullException("propertyDisplayNameResolver");
+            }
+
             m_EntityValidatorBase = entityValidatorBase;
+            m_PropertyDisplayNameResolver = propertyDisplayNameResolver;
             m_PropertyExpression = propertyExpression;
             m_Validators = new List<IValidator>();
         }
@@ -113,6 +144,18 @@ namespace Labo.Validation.Builder
         }
 
         /// <summary>
+        /// Sets the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>The entity validation rule builder.</returns>
+        public IEntityValidationRuleBuilder<TEntity, TProperty> SetMessage(string message)
+        {
+            m_Message = message;
+
+            return this;
+        }
+
+        /// <summary>
         /// Builds the entity validation rule.
         /// </summary>
         public void Build()
@@ -121,7 +164,7 @@ namespace Labo.Validation.Builder
             {
                 IValidator validator = m_Validators[i];
 
-                m_EntityValidatorBase.AddValidationRule(new EntityPropertyValidationRule<TEntity, TProperty>(validator, m_PropertyExpression, m_Specification));
+                m_EntityValidatorBase.AddValidationRule(new EntityPropertyValidationRule<TEntity, TProperty>(validator, m_PropertyDisplayNameResolver, m_PropertyExpression, m_Specification, m_Message));
             }
         }
     }

@@ -19,6 +19,11 @@
         private readonly IList<IEntityValidationRule<TEntity>> m_EntityValidationRules;
 
         /// <summary>
+        /// The property display name resolver
+        /// </summary>
+        private readonly IPropertyDisplayNameResolver m_PropertyDisplayNameResolver;
+
+        /// <summary>
         /// Gets the entity validation rules.
         /// </summary>
         /// <value>
@@ -36,8 +41,18 @@
         /// Initializes a new instance of the <see cref="ValidatorBase{TEntity}"/> class.
         /// </summary>
         protected ValidatorBase()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidatorBase{TEntity}"/> class.
+        /// </summary>
+        /// <param name="propertyDisplayNameResolver">The property display name resolver.</param>
+        protected ValidatorBase(IPropertyDisplayNameResolver propertyDisplayNameResolver)
         {
             m_EntityValidationRules = new List<IEntityValidationRule<TEntity>>();
+            m_PropertyDisplayNameResolver = propertyDisplayNameResolver ?? ValidatorSettings.PropertyDisplayNameResolver;
         }
 
         /// <summary>
@@ -114,7 +129,7 @@
                 throw new ArgumentNullException("expression");
             }
 
-            return new EntityValidationRuleBuilder<TEntity, TProperty>(this, expression);
+            return new EntityValidationRuleBuilder<TEntity, TProperty>(this, m_PropertyDisplayNameResolver, expression);
         }
     }
 }

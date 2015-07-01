@@ -15,6 +15,13 @@
         IEntityValidationRuleBuilder<TEntity, TProperty> SetSpecification(ISpecification<TEntity> specification);
 
         /// <summary>
+        /// Sets the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>The entity validation rule builder.</returns>
+        IEntityValidationRuleBuilder<TEntity, TProperty> SetMessage(string message);
+
+        /// <summary>
         /// Builds the entity validation rule.
         /// </summary>
         void Build();

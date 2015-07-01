@@ -19,9 +19,19 @@
         private readonly ISpecification<TEntity> m_Specification;
 
         /// <summary>
+        /// The message
+        /// </summary>
+        private readonly string m_Message;
+
+        /// <summary>
         /// The validator
         /// </summary>
         private readonly IValidator m_Validator;
+
+        /// <summary>
+        /// The property display name resolver
+        /// </summary>
+        private readonly IPropertyDisplayNameResolver m_PropertyDisplayNameResolver;
 
         /// <summary>
         /// The property function
@@ -76,16 +86,37 @@
         }
 
         /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
+        internal string Message
+        {
+            get
+            {
+                return m_Message;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EntityPropertyValidationRule{TEntity, TProperty}"/> class.
         /// </summary>
         /// <param name="validator">The validator.</param>
+        /// <param name="propertyDisplayNameResolver">The property display name resolver.</param>
         /// <param name="propertyExpression">The property expression.</param>
         /// <param name="specification">The specification.</param>
-        public EntityPropertyValidationRule(IValidator validator, Expression<Func<TEntity, TProperty>> propertyExpression, ISpecification<TEntity> specification = null)
+        /// <param name="message">The message.</param>
+        public EntityPropertyValidationRule(IValidator validator, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression, ISpecification<TEntity> specification = null, string message = null)
         {
             if (validator == null)
             {
                 throw new ArgumentNullException("validator");
+            }
+
+            if (propertyDisplayNameResolver == null)
+            {
+                throw new ArgumentNullException("propertyDisplayNameResolver");
             }
 
             if (propertyExpression == null)
@@ -94,7 +125,9 @@
             }
 
             m_Validator = validator;
+            m_PropertyDisplayNameResolver = propertyDisplayNameResolver;
             m_Specification = specification;
+            m_Message = message;
 
             m_PropertyFunc = propertyExpression.Compile();
             m_MemberInfo = LinqUtils.GetMemberInfo(propertyExpression);
@@ -119,9 +152,11 @@
                 return validationResult;
             }
 
+            string propertyDisplayName = m_PropertyDisplayNameResolver.GetDisplayName(m_MemberInfo);
+
             validationResult.Errors.Add(new ValidationError
                                             {
-                                                Message = "xyz",
+                                                Message = m_Message,
                                                 PropertyName = m_MemberInfo.Name,
                                                 TargetValue = entity
                                             });

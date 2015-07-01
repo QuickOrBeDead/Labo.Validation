@@ -27,7 +27,7 @@
         [Test]
         public void AddValidator()
         {
-            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), x => x.Name);
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             entityValidationRuleBuilder.AddValidator(new NotNullValidator());
             entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
 
@@ -39,14 +39,14 @@
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void AddValidatorMustThrowArgumentNullExceptionWhenTheValidatorIsNull()
         {
-            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), x => x.Name);
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             entityValidationRuleBuilder.AddValidator(null);
         }
 
         [Test]
         public void SetSpecification()
         {
-            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), x => x.Name);
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             Expression<Func<Customer, bool>> expression = x => x.Name != null;
             entityValidationRuleBuilder.SetSpecification(new Specification<Customer>(expression));
 
@@ -57,7 +57,7 @@
         [Test]
         public void SetSpecificationMustNotThrowArgumentNullExceptionWhenTheSpecificationIsNull()
         {
-            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), x => x.Name);
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             Assert.DoesNotThrow(() => entityValidationRuleBuilder.SetSpecification(null));
         }
 
@@ -66,7 +66,7 @@
         {
             ValidatorBase<Customer> customerValidator = Substitute.For<ValidatorBase<Customer>>();
 
-            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, x => x.Name);
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             entityValidationRuleBuilder.AddValidator(new NotNullValidator());
             entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
 
@@ -92,13 +92,13 @@
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorMustThrowArgumentNullExceptionWhenTheValidatorIsNull()
         {
-            new EntityValidationRuleBuilder<Customer, string>(null, x => x.Name);
+            new EntityValidationRuleBuilder<Customer, string>(null, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
         }
 
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorMustThrowArgumentNullExceptionWhenTheExpressionIsNull()
         {
-            new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), null);
+            new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), null);
         }
     }
 }

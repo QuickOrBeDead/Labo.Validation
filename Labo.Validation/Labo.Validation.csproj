@@ -45,6 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -77,6 +78,7 @@
     </Compile>
     <Compile Include="Builder\EntityValidationRuleBuilder.cs" />
     <Compile Include="Builder\IEntityValidationRuleBuilderInitial.cs" />
+    <Compile Include="DefaultPropertyDisplayNameResolver.cs" />
     <Compile Include="EntityPropertyValidationRule.cs" />
     <Compile Include="EntityPropertyValidationRuleExtensions.cs" />
     <Compile Include="Exceptions\CriticalValidationException.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="IEntityValidationRule.cs" />
     <Compile Include="Builder\IEntityValidationRuleBuilder.cs" />
     <Compile Include="IEntityValidator.cs" />
+    <Compile Include="IPropertyDisplayNameResolver.cs" />
     <Compile Include="ISpecification.cs" />
     <Compile Include="IValidator.cs" />
     <Compile Include="IEntityValidatorFactory.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="ValidationResult.cs" />
     <Compile Include="EntityValidatorBase.cs" />
+    <Compile Include="ValidatorSettings.cs" />
     <Compile Include="Validators\BetweenValidator.cs" />
     <Compile Include="Validators\CreditCardValidator.cs" />
     <Compile Include="Validators\EmailValidator.cs" />
