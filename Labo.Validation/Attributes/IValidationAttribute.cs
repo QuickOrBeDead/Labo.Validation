@@ -3,6 +3,7 @@
     /// <summary>
     /// The validation attribute interface.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     public interface IValidationAttribute
     {
         /// <summary>
