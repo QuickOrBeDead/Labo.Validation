@@ -8,10 +8,10 @@
     using Labo.Validation.Builder;
 
     /// <summary>
-    /// The validator base class.
+    /// The entity validator base class.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public abstract class ValidatorBase<TEntity> : IEntityValidator<TEntity>
+    public abstract class EntityValidatorBase<TEntity> : IEntityValidator<TEntity>
     {
         /// <summary>
         /// The validators
@@ -38,18 +38,18 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidatorBase{TEntity}"/> class.
+        /// Initializes a new instance of the <see cref="EntityValidatorBase{TEntity}"/> class.
         /// </summary>
-        protected ValidatorBase()
+        protected EntityValidatorBase()
             : this(null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidatorBase{TEntity}"/> class.
+        /// Initializes a new instance of the <see cref="EntityValidatorBase{TEntity}"/> class.
         /// </summary>
         /// <param name="propertyDisplayNameResolver">The property display name resolver.</param>
-        protected ValidatorBase(IPropertyDisplayNameResolver propertyDisplayNameResolver)
+        protected EntityValidatorBase(IPropertyDisplayNameResolver propertyDisplayNameResolver)
         {
             m_EntityValidationRules = new List<IEntityValidationRule<TEntity>>();
             m_PropertyDisplayNameResolver = propertyDisplayNameResolver ?? ValidatorSettings.PropertyDisplayNameResolver;
@@ -105,7 +105,7 @@
         /// <typeparam name="TProperty">The type of the property.</typeparam>
         /// <param name="entityValidationRuleBuilder">The entity validation rule builder.</param>
         /// <exception cref="System.ArgumentNullException">entityValidationRuleBuilder</exception>
-        public void AddValidationRule<TProperty>(Func<ValidatorBase<TEntity>, IEntityValidationRuleBuilder<TEntity, TProperty>> entityValidationRuleBuilder)
+        public void AddValidationRule<TProperty>(Func<EntityValidatorBase<TEntity>, IEntityValidationRuleBuilder<TEntity, TProperty>> entityValidationRuleBuilder)
         {
             if (entityValidationRuleBuilder == null)
             {
