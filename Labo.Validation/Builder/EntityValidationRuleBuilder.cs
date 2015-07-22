@@ -15,7 +15,7 @@ namespace Labo.Validation.Builder
         /// <summary>
         /// The entity validator base
         /// </summary>
-        private readonly ValidatorBase<TEntity> m_EntityValidatorBase;
+        private readonly EntityValidatorBase<TEntity> m_EntityValidatorBase;
 
         /// <summary>
         /// The property display name resolver
@@ -91,7 +91,7 @@ namespace Labo.Validation.Builder
         /// <param name="propertyDisplayNameResolver">The property display name resolver.</param>
         /// <param name="propertyExpression">The property expression.</param>
         /// <exception cref="System.ArgumentNullException">propertyExpression</exception>
-        public EntityValidationRuleBuilder(ValidatorBase<TEntity> entityValidatorBase, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression)
+        public EntityValidationRuleBuilder(EntityValidatorBase<TEntity> entityValidatorBase, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression)
         {
             if (entityValidatorBase == null)
             {
