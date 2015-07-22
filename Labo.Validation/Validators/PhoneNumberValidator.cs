@@ -35,7 +35,7 @@
         /// Initializes a new instance of the <see cref="PhoneNumberValidator"/> class.
         /// </summary>
         public PhoneNumberValidator()
-            : base(EXPRESSION, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)
+            : base(Constants.ValidationMessageResourceNames.PHONE_NUMBER_VALIDATION_MESSAGE, EXPRESSION, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)
         {
         }
     }

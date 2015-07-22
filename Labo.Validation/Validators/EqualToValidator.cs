@@ -3,12 +3,13 @@
     using System;
     using System.Collections;
 
+    using Labo.Validation.Message;
     using Labo.Validation.Utils;
 
     /// <summary>
     /// The equal to validator class.
     /// </summary>
-    public sealed class EqualToValidator : IValidator
+    public sealed class EqualToValidator : ValidatorBase
     {
         /// <summary>
         /// The value to compare
@@ -55,6 +56,7 @@
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public EqualToValidator(object valueToCompare, IEqualityComparer comparer = null)
+            : base(Constants.ValidationMessageResourceNames.EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -70,9 +72,23 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             return AreEqual(value, m_ValueToCompare, m_Comparer);
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
+            if (validationMessageBuilderParameterSetter == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
+            }
+
+            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare.ToString());
         }
 
         /// <summary>

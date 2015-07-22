@@ -2,12 +2,13 @@
 {
     using System;
 
+    using Labo.Validation.Message;
     using Labo.Validation.Utils;
 
     /// <summary>
     /// The greater than or equal to validator class.
     /// </summary>
-    public sealed class GreaterThanOrEqualToValidator : IValidator
+    public sealed class GreaterThanOrEqualToValidator : ValidatorBase
     {
         /// <summary>
         /// The value to compare
@@ -27,13 +28,14 @@
                 return m_ValueToCompare;
             }
         }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="GreaterThanOrEqualToValidator"/> class.
         /// </summary>
         /// <param name="valueToCompare">The value to compare.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public GreaterThanOrEqualToValidator(IComparable valueToCompare)
+            : base(Constants.ValidationMessageResourceNames.GREATER_THAN_OR_EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -48,7 +50,7 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             if (value == null)
             {
@@ -68,6 +70,20 @@
             }
             
             return false;
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
+            if (validationMessageBuilderParameterSetter == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
+            }
+
+            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare.ToString());
         }
     }
 }

@@ -2,10 +2,12 @@
 {
     using System;
 
+    using Labo.Validation.Message;
+
     /// <summary>
     /// The length validator class.
     /// </summary>
-    public sealed class LengthValidator : IValidator
+    public sealed class LengthValidator : ValidatorBase
     {
         /// <summary>
         /// The minimum length.
@@ -56,6 +58,7 @@
         /// max;Max should be larger than min.
         /// </exception>
         public LengthValidator(int min, int max = -1)
+            : base(Constants.ValidationMessageResourceNames.LENGTH_VALIDATION_MESSAGE)
         {
             if (min < 0)
             {
@@ -86,7 +89,7 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             if (value == null)
             {
@@ -96,6 +99,21 @@
             int length = value.ToString().Length;
 
             return length >= m_Min && (length <= m_Max || m_Max == -1);
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
+            if (validationMessageBuilderParameterSetter == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
+            }
+
+            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.MIN, Min.ToStringInvariant())
+                                                   .SetParameter(Constants.ValidationMessageParameterNames.MAX, Max.ToStringInvariant());
         }
     }
 }

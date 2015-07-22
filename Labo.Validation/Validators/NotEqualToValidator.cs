@@ -6,7 +6,7 @@
     /// <summary>
     /// The not equal to validator class.
     /// </summary>
-    public sealed class NotEqualToValidator : IValidator
+    public sealed class NotEqualToValidator : ValidatorBase
     {
         /// <summary>
         /// The equal to validator
@@ -48,6 +48,7 @@
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public NotEqualToValidator(object valueToCompare, IEqualityComparer comparer = null)
+            : base(Constants.ValidationMessageResourceNames.NOT_EMPTY_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -62,9 +63,17 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             return !m_EqualToValidator.IsValid(value);
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(Message.IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
         }
     }
 }

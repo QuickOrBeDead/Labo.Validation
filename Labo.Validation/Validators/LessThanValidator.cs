@@ -2,12 +2,13 @@
 {
     using System;
 
+    using Labo.Validation.Message;
     using Labo.Validation.Utils;
 
     /// <summary>
     /// The less than validator class.
     /// </summary>
-    public sealed class LessThanValidator : IValidator
+    public sealed class LessThanValidator : ValidatorBase
     {
         /// <summary>
         /// The value to compare
@@ -34,6 +35,7 @@
         /// <param name="valueToCompare">The value to compare.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public LessThanValidator(IComparable valueToCompare)
+            : base(Constants.ValidationMessageResourceNames.LESS_THAN_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -48,7 +50,7 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             if (value == null)
             {
@@ -68,6 +70,20 @@
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
+            if (validationMessageBuilderParameterSetter == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
+            }
+
+            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare.ToString());
         }
     }
 }

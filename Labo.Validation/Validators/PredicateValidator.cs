@@ -5,7 +5,7 @@
     /// <summary>
     /// The predicate validator class.
     /// </summary>
-    public sealed class PredicateValidator : IValidator
+    public sealed class PredicateValidator : ValidatorBase
     {
         /// <summary>
         /// The predicate
@@ -32,6 +32,7 @@
         /// <param name="predicate">The predicate.</param>
         /// <exception cref="System.ArgumentNullException">predicate</exception>
         public PredicateValidator(Predicate<object> predicate)
+            : base(Constants.ValidationMessageResourceNames.PREDICATE_VALIDATION_MESSAGE)
         {
             if (predicate == null)
             {
@@ -46,9 +47,17 @@
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
-        public bool IsValid(object value)
+        public override bool IsValid(object value)
         {
             return m_Predicate(value);
+        }
+
+        /// <summary>
+        /// Sets the validation message parameters.
+        /// </summary>
+        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
+        protected override void SetValidationMessageParameters(Message.IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        {
         }
     }
 }

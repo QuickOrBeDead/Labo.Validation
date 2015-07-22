@@ -35,7 +35,7 @@
         /// Initializes a new instance of the <see cref="UrlValidator"/> class.
         /// </summary>
         public UrlValidator()
-            : base(EXPRESSION, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)
+            : base(Constants.ValidationMessageResourceNames.URL_VALIDATION_MESSAGE, EXPRESSION, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)
         {
         }
     }

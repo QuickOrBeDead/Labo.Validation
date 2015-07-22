@@ -36,7 +36,7 @@
         /// Initializes a new instance of the <see cref="EmailValidator"/> class.
         /// </summary>
         public EmailValidator()
-            : base(EXPRESSION, RegexOptions.IgnoreCase)
+            : base(Constants.ValidationMessageResourceNames.EMAIL_VALIDATION_MESSAGE, EXPRESSION, RegexOptions.IgnoreCase)
         {
         }
     }
