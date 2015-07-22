@@ -20,7 +20,7 @@
             public string Surname { get; set; }
         }
 
-        public sealed class CustomerValidator : ValidatorBase<Customer>
+        public sealed class CustomerValidator : EntityValidatorBase<Customer>
         {
         }
 
@@ -64,7 +64,7 @@
         [Test]
         public void Build()
         {
-            ValidatorBase<Customer> customerValidator = Substitute.For<ValidatorBase<Customer>>();
+            EntityValidatorBase<Customer> customerValidator = Substitute.For<EntityValidatorBase<Customer>>();
 
             EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
             entityValidationRuleBuilder.AddValidator(new NotNullValidator());

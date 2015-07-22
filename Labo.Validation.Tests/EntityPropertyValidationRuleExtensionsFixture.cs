@@ -23,7 +23,7 @@
             public int? Age { get; set; }
         }
 
-        public sealed class CustomerValidator : ValidatorBase<Customer>
+        public sealed class CustomerValidator : EntityValidatorBase<Customer>
         {
         }
 
