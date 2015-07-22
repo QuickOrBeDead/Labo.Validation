@@ -156,7 +156,7 @@
 
             validationResult.Errors.Add(new ValidationError
                                             {
-                                                Message = m_Message,
+                                                Message = m_Message ?? m_Validator.GetValidationMessage(propertyDisplayName),
                                                 PropertyName = m_MemberInfo.Name,
                                                 TargetValue = entity
                                             });
