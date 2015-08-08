@@ -49,7 +49,7 @@
         /// <value>
         /// The validator.
         /// </value>
-        internal IValidator Validator
+        public IValidator Validator
         {
             get
             {
@@ -77,12 +77,23 @@
         /// <value>
         /// The member information.
         /// </value>
-        internal MemberInfo MemberInfo
+        public MemberInfo MemberInfo
         {
             get
             {
                 return m_MemberInfo;
             }
+        }
+
+        /// <summary>
+        /// Gets the name of the member.
+        /// </summary>
+        /// <value>
+        /// The name of the member.
+        /// </value>
+        public string MemberName
+        {
+            get { return MemberInfo.Name; }
         }
 
         /// <summary>
@@ -152,15 +163,34 @@
                 return validationResult;
             }
 
-            string propertyDisplayName = m_PropertyDisplayNameResolver.GetDisplayName(m_MemberInfo);
+            string propertyDisplayName = GetDisplayName();
 
             validationResult.Errors.Add(new ValidationError
                                             {
                                                 Message = m_Message ?? m_Validator.GetValidationMessage(propertyDisplayName),
-                                                PropertyName = m_MemberInfo.Name,
+                                                PropertyName = MemberInfo.Name,
                                                 TargetValue = entity
                                             });
             return validationResult;
+        }
+
+        /// <summary>
+        /// Validates the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The validation result.</returns>
+        public ValidationResult Validate(object entity)
+        {
+            return Validate((TEntity)entity);
+        }
+
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        /// <returns>The display name.</returns>
+        public string GetDisplayName()
+        {
+            return m_PropertyDisplayNameResolver.GetDisplayName(MemberInfo);
         }
     }
 }
