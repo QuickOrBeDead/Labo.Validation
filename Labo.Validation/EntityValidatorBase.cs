@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using Labo.Validation.Builder;
@@ -29,12 +30,23 @@
         /// <value>
         /// The entity validation rules.
         /// </value>
-        internal IList<IEntityValidationRule<TEntity>> EntityValidationRules
+        public IList<IEntityValidationRule<TEntity>> EntityValidationRules
         {
             get
             {
                 return new ReadOnlyCollection<IEntityValidationRule<TEntity>>(m_EntityValidationRules);
             }
+        }
+
+        /// <summary>
+        /// Gets the entity validation rules.
+        /// </summary>
+        /// <value>
+        /// The entity validation rules.
+        /// </value>
+        public IList<IEntityValidationRule> ValidationRules
+        {
+            get { return new ReadOnlyCollection<IEntityValidationRule>(EntityValidationRules.Cast<IEntityValidationRule>().ToList()); }
         }
 
         /// <summary>
