@@ -66,6 +66,23 @@
         }
 
         /// <summary>
+        /// Adds a max length validator to the rule builder. 
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="ruleBuilder">The rule builder.</param>
+        /// <param name="max">The maximum.</param>
+        /// <returns>Rule builder.</returns>
+        public static IEntityValidationRuleBuilder<TEntity, string> MaxLength<TEntity>(this IEntityValidationRuleBuilderInitial<TEntity, string> ruleBuilder, int max)
+        {
+            if (ruleBuilder == null)
+            {
+                throw new ArgumentNullException("ruleBuilder");
+            }
+
+            return ruleBuilder.AddValidator(LengthValidator.CreateMaxLengthValidator(max));
+        }
+
+        /// <summary>
         /// Adds a length validator to the rule builder. 
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
