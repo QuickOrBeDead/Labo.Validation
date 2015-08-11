@@ -90,6 +90,16 @@
             /// The length validation message
             /// </summary>
             public const string LENGTH_VALIDATION_MESSAGE = "LenghtValidationMessage";
+
+            /// <summary>
+            /// The bigger than length validation message
+            /// </summary>
+            public const string BIGGER_THAN_LENGTH_VALIDATION_MESSAGE = "BiggerThanLenghtValidationMessage";
+
+            /// <summary>
+            /// The smaller than length validation message
+            /// </summary>
+            public const string SMALLER_THAN_LENGTH_VALIDATION_MESSAGE = "SmallerThanLenghtValidationMessage";
         }
 
         /// <summary>
