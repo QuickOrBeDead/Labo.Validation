@@ -104,6 +104,7 @@
     <Compile Include="Builder\IEntityValidationRuleBuilderInitial.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DefaultPropertyDisplayNameResolver.cs" />
+    <Compile Include="IValidatorFactory.cs" />
     <Compile Include="Message\DefaultValidationMessageBuilder.cs" />
     <Compile Include="Message\EmbeddedResourceValidationMessageResourceManager.cs" />
     <Compile Include="EntityPropertyValidationRule.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="IPropertyDisplayNameResolver.cs" />
     <Compile Include="ISpecification.cs" />
     <Compile Include="IValidator.cs" />
-    <Compile Include="IEntityValidatorFactory.cs" />
     <Compile Include="Message\IValidationMessageBuilder.cs" />
     <Compile Include="Message\IValidationMessageBuilderParameterSetter.cs" />
     <Compile Include="Message\IValidationMessageFormatter.cs" />
