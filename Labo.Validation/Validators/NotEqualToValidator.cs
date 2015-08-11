@@ -48,7 +48,7 @@
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public NotEqualToValidator(object valueToCompare, IEqualityComparer comparer = null)
-            : base(Constants.ValidationMessageResourceNames.NOT_EMPTY_VALIDATION_MESSAGE)
+            : base(Constants.ValidationMessageResourceNames.NOT_EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
