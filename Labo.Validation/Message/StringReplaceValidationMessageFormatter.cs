@@ -34,7 +34,7 @@ namespace Labo.Validation.Message
                 KeyValuePair<string, string> pair = parametersEnumerator.Current;
                 if (pair.Value != null)
                 {
-                    messageFormat = messageFormat.Replace("{" + pair.Value + "}", pair.Value);
+                    messageFormat = messageFormat.Replace("{" + pair.Key + "}", pair.Value);
                 }
             }
 
