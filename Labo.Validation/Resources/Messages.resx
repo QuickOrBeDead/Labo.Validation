@@ -117,13 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BetweenValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be between {FromValue} and {ToValue}.</value>
+  </data>
+  <data name="BiggerThanLenghtValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be bigger than {Min} length.</value>
+  </data>
+  <data name="CreditCardValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' is not a valid credit card number.</value>
+  </data>
+  <data name="EMailValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' is not a valid email address.</value>
+  </data>
+  <data name="EqualToValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be equal to '{ValueToCompare}'.</value>
+  </data>
+  <data name="GreaterThanOrEqualToValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be greater than or equal to '{ValueToCompare}'.</value>
+  </data>
   <data name="GreaterThanValidationMessage" xml:space="preserve">
     <value>'{ValueName}' must be greater than '{ValueToCompare}'.</value>
   </data>
+  <data name="LenghtValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be between {Min} and {Max} length.</value>
+  </data>
+  <data name="LessThanOrEqualToValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be less than or equal to '{ValueToCompare}'.</value>
+  </data>
+  <data name="LessThanValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be less than '{ValueToCompare}'.</value>
+  </data>
+  <data name="NotEmptyValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must not be empty.</value>
+  </data>
+  <data name="NotEqualToValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must not be equal to '{ValueToCompare}'.</value>
+  </data>
   <data name="NotNullValidationMessage" xml:space="preserve">
-    <value>'{PropertyName}' must not be empty.</value>
+    <value>'{ValueName}' must not be empty.</value>
+  </data>
+  <data name="PhoneNumberValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' is not a valid phone number.</value>
   </data>
   <data name="PredicateValidationMessage" xml:space="preserve">
-    <value>The specified condition was not met for '{PropertyName}'.</value>
+    <value>The specified condition was not met for '{ValueName}'.</value>
+  </data>
+  <data name="RegexValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' is not in the correct format.</value>
+  </data>
+  <data name="SmallerThanLenghtValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' must be smaller than {Max} length.</value>
+  </data>
+  <data name="UrlValidationMessage" xml:space="preserve">
+    <value>'{ValueName}' is not a valid url.</value>
   </data>
 </root>

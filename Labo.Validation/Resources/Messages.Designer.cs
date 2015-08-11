@@ -61,6 +61,60 @@ namespace Labo.Validation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be between {FromValue} and {ToValue}..
+        /// </summary>
+        internal static string BetweenValidationMessage {
+            get {
+                return ResourceManager.GetString("BetweenValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be bigger than {Min} length..
+        /// </summary>
+        internal static string BiggerThanLenghtValidationMessage {
+            get {
+                return ResourceManager.GetString("BiggerThanLenghtValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; is not a valid credit card number..
+        /// </summary>
+        internal static string CreditCardValidationMessage {
+            get {
+                return ResourceManager.GetString("CreditCardValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; is not a valid email address..
+        /// </summary>
+        internal static string EMailValidationMessage {
+            get {
+                return ResourceManager.GetString("EMailValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be equal to &apos;{ValueToCompare}&apos;..
+        /// </summary>
+        internal static string EqualToValidationMessage {
+            get {
+                return ResourceManager.GetString("EqualToValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be greater than or equal to &apos;{ValueToCompare}&apos;..
+        /// </summary>
+        internal static string GreaterThanOrEqualToValidationMessage {
+            get {
+                return ResourceManager.GetString("GreaterThanOrEqualToValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be greater than &apos;{ValueToCompare}&apos;..
         /// </summary>
         internal static string GreaterThanValidationMessage {
@@ -70,7 +124,52 @@ namespace Labo.Validation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{PropertyName}&apos; must not be empty..
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be between {Min} and {Max} length..
+        /// </summary>
+        internal static string LenghtValidationMessage {
+            get {
+                return ResourceManager.GetString("LenghtValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be less than or equal to &apos;{ValueToCompare}&apos;..
+        /// </summary>
+        internal static string LessThanOrEqualToValidationMessage {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualToValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be less than &apos;{ValueToCompare}&apos;..
+        /// </summary>
+        internal static string LessThanValidationMessage {
+            get {
+                return ResourceManager.GetString("LessThanValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must not be empty..
+        /// </summary>
+        internal static string NotEmptyValidationMessage {
+            get {
+                return ResourceManager.GetString("NotEmptyValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must not be equal to &apos;{ValueToCompare}&apos;..
+        /// </summary>
+        internal static string NotEqualToValidationMessage {
+            get {
+                return ResourceManager.GetString("NotEqualToValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must not be empty..
         /// </summary>
         internal static string NotNullValidationMessage {
             get {
@@ -79,11 +178,47 @@ namespace Labo.Validation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified condition was not met for &apos;{PropertyName}&apos;..
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; is not a valid phone number..
+        /// </summary>
+        internal static string PhoneNumberValidationMessage {
+            get {
+                return ResourceManager.GetString("PhoneNumberValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified condition was not met for &apos;{ValueName}&apos;..
         /// </summary>
         internal static string PredicateValidationMessage {
             get {
                 return ResourceManager.GetString("PredicateValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; is not in the correct format..
+        /// </summary>
+        internal static string RegexValidationMessage {
+            get {
+                return ResourceManager.GetString("RegexValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; must be smaller than {Max} length..
+        /// </summary>
+        internal static string SmallerThanLenghtValidationMessage {
+            get {
+                return ResourceManager.GetString("SmallerThanLenghtValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{ValueName}&apos; is not a valid url..
+        /// </summary>
+        internal static string UrlValidationMessage {
+            get {
+                return ResourceManager.GetString("UrlValidationMessage", resourceCulture);
             }
         }
     }
