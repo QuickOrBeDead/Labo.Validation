@@ -115,5 +115,30 @@
             validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.MIN, Min.ToStringInvariant())
                                                    .SetParameter(Constants.ValidationMessageParameterNames.MAX, Max.ToStringInvariant());
         }
+
+        /// <summary>
+        /// Gets the validation message builder parameter setter.
+        /// </summary>
+        /// <param name="validationMessageBuilder">The validation message builder.</param>
+        /// <returns>The validation message</returns>
+        protected override IValidationMessageBuilderParameterSetter GetValidationMessageBuilderParameterSetter(IValidationMessageBuilder validationMessageBuilder)
+        {
+            if (validationMessageBuilder == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilder");
+            }
+
+            if (Max == -1)
+            {
+                return validationMessageBuilder.SetMessageFormat(GetValidationMessageFormat(Constants.ValidationMessageResourceNames.BIGGER_THAN_LENGTH_VALIDATION_MESSAGE));
+            }
+
+            if (Min == 0)
+            {
+                return validationMessageBuilder.SetMessageFormat(GetValidationMessageFormat(Constants.ValidationMessageResourceNames.SMALLER_THAN_LENGTH_VALIDATION_MESSAGE));
+            }
+
+            return base.GetValidationMessageBuilderParameterSetter(validationMessageBuilder);
+        }
     }
 }
