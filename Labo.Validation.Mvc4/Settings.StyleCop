@@ -1,0 +1,9 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>labo</Value>
+      <Value>mvc</Value>
+      <Value>nullable</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>
