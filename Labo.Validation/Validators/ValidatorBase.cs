@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Labo.Validation.Validators
+﻿namespace Labo.Validation.Validators
 {
+    using System;
+    using System.Globalization;
+
     using Labo.Validation.Message;
 
     /// <summary>
@@ -93,11 +94,9 @@ namespace Labo.Validation.Validators
                 throw new ArgumentNullException("arguments");
             }
 
-            string validationMessageFormat = m_ValidationMessageResourceManager.GetValidationMessageFormat(m_ValidationMessageResourceName);
             DefaultValidationMessageBuilder validationMessageBuilder = new DefaultValidationMessageBuilder(m_ValidationMessageFormatter);
 
-            IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter = validationMessageBuilder.SetMessageFormat(validationMessageFormat)
-                                                                                                                       .SetParameter(Constants.ValidationMessageParameterNames.VALUE_NAME, valueName);
+            IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter = GetValidationMessageBuilderParameterSetter(validationMessageBuilder).SetParameter(Constants.ValidationMessageParameterNames.VALUE_NAME, valueName);
 
             for (int i = 0; i < arguments.Length; i++)
             {
@@ -109,6 +108,33 @@ namespace Labo.Validation.Validators
             SetValidationMessageParameters(validationMessageBuilderParameterSetter);
 
             return validationMessageBuilderParameterSetter.Build();
+        }
+
+        /// <summary>
+        /// Gets the validation message builder parameter setter.
+        /// </summary>
+        /// <param name="validationMessageBuilder">The validation message builder.</param>
+        /// <returns>The validation message builder parameter setter.</returns>
+        protected virtual IValidationMessageBuilderParameterSetter GetValidationMessageBuilderParameterSetter(IValidationMessageBuilder validationMessageBuilder)
+        {
+            if (validationMessageBuilder == null)
+            {
+                throw new ArgumentNullException("validationMessageBuilder");
+            }
+
+            string validationMessageFormat = GetValidationMessageFormat(m_ValidationMessageResourceName);
+
+            return validationMessageBuilder.SetMessageFormat(validationMessageFormat);
+        }
+
+        /// <summary>
+        /// Gets the validation message format.
+        /// </summary>
+        /// <param name="validationMessageResourceName">Name of the validation message resource.</param>
+        /// <returns>The validation message format.</returns>
+        protected string GetValidationMessageFormat(string validationMessageResourceName)
+        {
+            return m_ValidationMessageResourceManager.GetValidationMessageFormat(validationMessageResourceName) ?? string.Format(CultureInfo.CurrentCulture, "[NotFound:{0}]", validationMessageResourceName);
         }
 
         /// <summary>
