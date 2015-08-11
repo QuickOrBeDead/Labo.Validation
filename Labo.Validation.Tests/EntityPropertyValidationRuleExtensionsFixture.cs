@@ -46,6 +46,12 @@
         }
 
         [Test]
+        public void MaxLength()
+        {
+            AssertAddValidatorIsCalled<LengthValidator>(x => x.MaxLength(10));
+        }
+
+        [Test]
         public void ExactLength()
         {
             AssertAddValidatorIsCalled<LengthValidator>(x => x.Length(10));
@@ -219,6 +225,12 @@
         public void LengthMustThrowArgumentNullExceptionWhenRuleBuilderIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => EntityPropertyValidationRuleExtensions.Length<Customer>(null, 10, 20));
+        }
+
+        [Test]
+        public void MaxLengthMustThrowArgumentNullExceptionWhenRuleBuilderIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => EntityPropertyValidationRuleExtensions.MaxLength<Customer>(null, 10));
         }
 
         [Test]

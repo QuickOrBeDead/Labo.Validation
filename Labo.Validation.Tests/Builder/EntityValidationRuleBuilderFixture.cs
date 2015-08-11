@@ -89,6 +89,18 @@
             Assert.AreSame(validationRule0.Specification, validationRule1.Specification);
         }
 
+        [Test]
+        public void SetMessage()
+        {
+            EntityValidatorBase<Customer> customerValidator = Substitute.For<EntityValidatorBase<Customer>>();
+
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
+            const string message = "Costumer name cannot be empty.";
+            entityValidationRuleBuilder.SetMessage(message);
+
+            Assert.AreEqual(message, entityValidationRuleBuilder.Message);
+        }
+
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorMustThrowArgumentNullExceptionWhenTheValidatorIsNull()
         {

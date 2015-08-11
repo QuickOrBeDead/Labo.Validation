@@ -26,6 +26,15 @@
         }
 
         [Test]
+        public void MemberName()
+        {
+            IValidator validator = Substitute.For<IValidator>();
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+
+            Assert.AreEqual(LinqUtils.GetMemberName<Customer, string>(x => x.FirstName), entityPropertyValidationRule.MemberName);
+        }
+
+        [Test]
         public void Validator()
         {
             IValidator validator = Substitute.For<IValidator>();
@@ -42,6 +51,15 @@
             EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
 
             Assert.AreSame(specification, entityPropertyValidationRule.Specification);
+        }
+
+        [Test]
+        public void Message()
+        {
+            IValidator validator = Substitute.For<IValidator>();
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, null, "Test Message");
+
+            Assert.AreEqual("Test Message", entityPropertyValidationRule.Message);
         }
 
         [Test]
@@ -168,6 +186,25 @@
 
             Assert.AreEqual(1, validationResult.Errors.Count);
             Assert.AreEqual(LinqUtils.GetMemberName<Customer, string>(x => x.FirstName), validationResult.Errors[0].PropertyName);
+            Assert.IsFalse(validationResult.IsValid);
+        }
+
+        [Test]
+        public void ValidateByObject()
+        {
+            const string firstName = "Foo";
+
+            IValidator validator = Substitute.For<IValidator>();
+            validator.IsValid(null).ReturnsForAnyArgs(false);
+
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            ValidationResult validationResult = ((IEntityValidationRule)entityPropertyValidationRule).Validate(new Customer
+            {
+                FirstName = firstName
+            });
+
+            validator.Received(1).IsValid(firstName);
+
             Assert.IsFalse(validationResult.IsValid);
         }
 

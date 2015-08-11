@@ -61,6 +61,7 @@
       <HintPath>..\sharedlibs\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,13 +87,35 @@
     <Compile Include="Attributes\RegexValidationAttributeFixture.cs" />
     <Compile Include="Attributes\UrlValidationAttributeFixture.cs" />
     <Compile Include="Builder\EntityValidationRuleBuilderFixture.cs" />
+    <Compile Include="DefaultPropertyDisplayNameResolverFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleExtensionsFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleFixture.cs" />
+    <Compile Include="EntityValidatorBaseFixture.cs" />
+    <Compile Include="Message\DefaultValidationMessageBuilderFixture.cs" />
     <Compile Include="Message\StringReplaceValidationMessageFormatterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificationFixture.cs" />
     <Compile Include="Utils\ComparableUtilsFixture.cs" />
     <Compile Include="ValidationResultFixture.cs" />
+    <Compile Include="ValidatorMessages\BetweenValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\BiggerThanLengthValidatorValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\CreditCardValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\EmailValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\EqualToValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\GreaterThanOrEqualToValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\GreaterThanValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\LengthValidatorValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\LessThanOrEqualToValidatorValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\LessThanValidatorValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\NotEmptyValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\NotNullValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\PhoneNumberValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\PredicateValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\RegexValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\SmallerThanLengthValidatorValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\UrlValidatorFixture.cs" />
+    <Compile Include="ValidatorMessages\ValidationMessageFixtureBase.cs" />
+    <Compile Include="ValidatorSettingsFixture.cs" />
     <Compile Include="Validators\BetweenValidatorFixture.cs" />
     <Compile Include="Validators\CreditCardValidatorFixture.cs" />
     <Compile Include="Validators\EmailValidatorFixture.cs" />
