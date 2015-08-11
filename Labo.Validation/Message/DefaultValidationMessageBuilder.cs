@@ -24,6 +24,22 @@
         private string m_ValidationMessageFormat;
 
         /// <summary>
+        /// The validation message format
+        /// </summary>
+        internal string ValidationMessageFormat
+        {
+            get { return m_ValidationMessageFormat; }
+        }
+
+        /// <summary>
+        /// The parameters
+        /// </summary>
+        internal IDictionary<string, string> Parameters
+        {
+            get { return m_Parameters; }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DefaultValidationMessageBuilder"/> class.
         /// </summary>
         /// <param name="validationMessageFormatter">The validation message formatter.</param>
@@ -85,6 +101,11 @@
         /// <returns>The validation message.</returns>
         public string Build()
         {
+            if (m_ValidationMessageFormat == null)
+            {
+                throw new InvalidOperationException("The validation message format cannot be null.");
+            }
+
             return m_ValidationMessageFormatter.FormatMessage(m_ValidationMessageFormat, m_Parameters);
         }
     }
