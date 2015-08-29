@@ -127,7 +127,7 @@
         public void MustMustValidateEntity()
         {
             CustomerValidator customerValidator = new CustomerValidator();
-            customerValidator.AddValidationRule(x => x.RuleFor(y => y.Age).Must(y => y.HasValue && y > 35));
+            customerValidator.AddRule(x => x.RuleFor(y => y.Age).Must(y => y.HasValue && y > 35));
 
             Assert.IsFalse(customerValidator.Validate(new Customer()).IsValid);
             Assert.IsFalse(customerValidator.Validate(new Customer { Age = 35 }).IsValid);

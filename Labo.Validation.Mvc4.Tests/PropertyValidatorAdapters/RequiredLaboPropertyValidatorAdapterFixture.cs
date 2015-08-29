@@ -19,7 +19,7 @@
         {
             public TestModelValidator()
             {
-                AddValidationRule(x => x.RuleFor(y => y.Name).NotNull());
+                AddRule(x => x.RuleFor(y => y.Name).NotNull());
             }
         }
 

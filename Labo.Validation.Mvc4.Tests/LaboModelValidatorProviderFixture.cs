@@ -94,15 +94,15 @@
         {
             public TestModelValidator()
             {
-                AddValidationRule(x => x.RuleFor(y => y.Name).NotNull());
-                AddValidationRule(x => x.RuleFor(y => y.Name).NotEmpty());
-                AddValidationRule(x => x.RuleFor(y => y.Name).MaxLength(10));
+                AddRule(x => x.RuleFor(y => y.Name).NotNull());
+                AddRule(x => x.RuleFor(y => y.Name).NotEmpty());
+                AddRule(x => x.RuleFor(y => y.Name).MaxLength(10));
 
-                AddValidationRule(x => x.RuleFor(y => y.Type).Must(y => !string.IsNullOrWhiteSpace(y)));
+                AddRule(x => x.RuleFor(y => y.Type).Must(y => !string.IsNullOrWhiteSpace(y)));
                 
-                AddValidationRule(x => x.RuleFor(y => y.Email).EmailAddress());
+                AddRule(x => x.RuleFor(y => y.Email).EmailAddress());
 
-                AddValidationRule(x => x.RuleFor(y => y.Url).Url());
+                AddRule(x => x.RuleFor(y => y.Url).Url());
             } 
         }
 
