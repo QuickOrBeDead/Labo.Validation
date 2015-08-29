@@ -11,8 +11,16 @@
         /// Validates the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
+        /// <param name="ruleSetName">The rule set name.</param>
         /// <returns>The validation result.</returns>
-        ValidationResult Validate(object entity);
+        ValidationResult Validate(object entity, string ruleSetName = "");
+
+        /// <summary>
+        /// Validates and throws exception when invalid.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ruleSetName">The rule set name.</param>
+        void ValidateAndThrowException(object entity, string ruleSetName = "");
 
         /// <summary>
         /// Gets the entity validation rules.
@@ -33,8 +41,16 @@
         /// Validates the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
+        /// <param name="ruleSetName">The rule set name.</param>
         /// <returns>The validation result.</returns>
-        ValidationResult Validate(TEntity entity);
+        ValidationResult Validate(TEntity entity, string ruleSetName = "");
+
+        /// <summary>
+        /// Validates and throws exception when invalid.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ruleSetName">The rule set name.</param>
+        void ValidateAndThrowException(TEntity entity, string ruleSetName = "");
 
         /// <summary>
         /// Gets the entity validation rules.

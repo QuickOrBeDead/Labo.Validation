@@ -1,6 +1,7 @@
 ﻿namespace Labo.Validation.Tests.Builder
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
 
     using Labo.Validation.Builder;
@@ -87,6 +88,30 @@
             Assert.AreEqual(expression, validationRule1.Specification.Predicate);
 
             Assert.AreSame(validationRule0.Specification, validationRule1.Specification);
+        }
+
+        [Test]
+        public void BuildShouldAddValidatorsToTheRuleSetWhenRuleSetIsGiven()
+        {
+            EntityValidatorBase<Customer> customerValidator = Substitute.For<EntityValidatorBase<Customer>>();
+
+            const string ruleSetName = "TestRuleSet";
+            EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name, ruleSetName);
+            entityValidationRuleBuilder.AddValidator(new NotNullValidator());
+            entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
+
+            Assert.AreEqual(ruleSetName, entityValidationRuleBuilder.RuleSetName);
+
+            entityValidationRuleBuilder.Build();
+
+            Assert.AreEqual(1, customerValidator.AllEntityValidationRules.Count);
+
+            IList<IEntityValidationRule<Customer>> entityValidationRules = customerValidator.AllEntityValidationRules[ruleSetName];
+            EntityPropertyValidationRule<Customer, string> validationRule0 = (EntityPropertyValidationRule<Customer, string>)entityValidationRules[0];
+            EntityPropertyValidationRule<Customer, string> validationRule1 = (EntityPropertyValidationRule<Customer, string>)entityValidationRules[1];
+
+            Assert.IsInstanceOf<NotNullValidator>(validationRule0.Validator);
+            Assert.IsInstanceOf<NotEmptyValidator>(validationRule1.Validator);
         }
 
         [Test]

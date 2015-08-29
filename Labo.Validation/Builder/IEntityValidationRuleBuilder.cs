@@ -25,5 +25,11 @@
         /// Builds the entity validation rule.
         /// </summary>
         void Build();
+
+        /// <summary>
+        /// Builds the entity validation rule.
+        /// </summary>
+        /// <param name="ruleSetName">Name of the rule set.</param>
+        void Build(string ruleSetName);
     }
 }
