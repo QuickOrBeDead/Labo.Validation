@@ -1,64 +1,79 @@
 ﻿namespace Labo.Validation.Ioc
 {
     using System;
-    using System.Globalization;
 
-    ///// <summary>
-    ///// The ioc container valitation factory class.
-    ///// </summary>
-    //public sealed class IocContainerValidatorFactory : IValidatorFactory
-    //{
-    //    /// <summary>
-    //    /// The ioc container resolver
-    //    /// </summary>
-    //    private readonly IIocContainerResolver m_IocContainerResolver;
+    using Labo.Common.Ioc;
 
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="IocContainerValidatorFactory"/> class.
-    //    /// </summary>
-    //    /// <param name="iocContainerResolver">The ioc container resolver.</param>
-    //    public IocContainerValidatorFactory(IIocContainerResolver iocContainerResolver) 
-    //    {
-    //        if (iocContainerResolver == null)
-    //        {
-    //            throw new ArgumentNullException("iocContainerResolver");
-    //        }
+    /// <summary>
+    /// The ioc container valitation factory class.
+    /// </summary>
+    public sealed class IocContainerValidatorFactory : EntityValidatorFactoryBase
+    {
+        /// <summary>
+        /// The ioc container resolver
+        /// </summary>
+        private readonly IIocContainer m_IocContainer;
 
-    //        m_IocContainerResolver = iocContainerResolver;
-    //    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IocContainerValidatorFactory"/> class.
+        /// </summary>
+        /// <param name="iocContainer">The ioc container.</param>
+        public IocContainerValidatorFactory(IIocContainer iocContainer) 
+        {
+            if (iocContainer == null)
+            {
+                throw new ArgumentNullException("iocContainer");
+            }
 
-    //    /// <summary>
-    //    /// Gets the validator for the specified entity type.
-    //    /// </summary>
-    //    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    //    /// <returns>The entity validator.</returns>
-    //    public IEntityValidator<TEntity> GetValidatorFor<TEntity>()
-    //    {
-    //        return (IEntityValidator<TEntity>)GetValidatorFor(typeof(TEntity));
-    //    }
+            m_IocContainer = iocContainer;
+        }
 
-    //    /// <summary>
-    //    /// Gets the validator for the specified type.
-    //    /// </summary>
-    //    /// <param name="type">The type.</param>
-    //    /// <returns>The entity validator.</returns>
-    //    public IEntityValidator GetValidatorFor(Type type)
-    //    {
-    //        if (type == null)
-    //        {
-    //            throw new ArgumentNullException("type");
-    //        }
+        /// <summary>
+        /// Gets the validator for optional.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The entity validator.</returns>
+        public override IEntityValidator GetValidatorForOptional(Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
 
-    //        Type genericType = typeof(IEntityValidator<>).MakeGenericType(type);
-    //        IEntityValidator entityValidator = m_IocContainerResolver.GetInstanceOptionalByName(genericType, type.FullName) as IEntityValidator;
+            Type genericType = typeof(IEntityValidator<>).MakeGenericType(type);
+            IEntityValidator entityValidator = m_IocContainer.GetInstanceOptionalByName(genericType, type.FullName) as IEntityValidator;
+            
+            return entityValidator;
+        }
 
-    //        if (entityValidator == null)
-    //        {
-    //            IocContainerValidatorFactoryException iocContainerValidatorFactoryException = new IocContainerValidatorFactoryException(string.Format(CultureInfo.CurrentCulture, "Entity validator for type: '{0}'.", type.FullName));
-    //            throw iocContainerValidatorFactoryException;
-    //        }
+        /// <summary>
+        /// Registers the validator.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="validator">The validator.</param>
+        public void RegisterValidator<TEntity>(IEntityValidator<TEntity> validator)
+        {
+            if (validator == null)
+            {
+                throw new ArgumentNullException("validator");
+            }
 
-    //        return entityValidator;
-    //    }
-    //}
+            m_IocContainer.RegisterSingleInstanceNamed(x => validator, typeof(TEntity).FullName);
+        }
+
+        /// <summary>
+        /// Registers the validator.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="validatorFunc">The validator function.</param>
+        public void RegisterValidator<TEntity>(Func<IIocContainerResolver, IEntityValidator<TEntity>> validatorFunc)
+        {
+            if (validatorFunc == null)
+            {
+                throw new ArgumentNullException("validatorFunc");
+            }
+
+            m_IocContainer.RegisterSingleInstanceNamed(validatorFunc, typeof(TEntity).FullName);
+        }
+    }
 }

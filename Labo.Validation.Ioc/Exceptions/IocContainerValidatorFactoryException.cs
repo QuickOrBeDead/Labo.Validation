@@ -3,13 +3,13 @@
     using System;
     using System.Runtime.Serialization;
 
-    using Labo.Common.Exceptions;
+    using Labo.Validation.Exceptions;
 
     /// <summary>
-    /// The ioc container validation exception class.
+    /// The ioc validator factory exception class.
     /// </summary>
     [Serializable]
-    public class IocContainerValidatorFactoryException : CoreLevelException
+    public class IocContainerValidatorFactoryException : ValidatorFactoryException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IocContainerValidatorFactoryException"/> class.

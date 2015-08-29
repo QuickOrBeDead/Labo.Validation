@@ -101,16 +101,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Builder\EntityValidationRuleBuilder.cs" />
+    <Compile Include="Builder\EntityValidationRuleSetBuilder.cs" />
     <Compile Include="Builder\IEntityValidationRuleBuilderInitial.cs" />
+    <Compile Include="Builder\IEntityValidationRuleSetBuilder.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DefaultEntityValidatorFactory.cs" />
     <Compile Include="DefaultPropertyDisplayNameResolver.cs" />
+    <Compile Include="EntityValidatorFactoryBase.cs" />
+    <Compile Include="Exceptions\ValidatorFactoryException.cs" />
     <Compile Include="IValidatorFactory.cs" />
     <Compile Include="Message\DefaultValidationMessageBuilder.cs" />
     <Compile Include="Message\EmbeddedResourceValidationMessageResourceManager.cs" />
     <Compile Include="EntityPropertyValidationRule.cs" />
     <Compile Include="EntityPropertyValidationRuleExtensions.cs" />
     <Compile Include="Exceptions\CriticalValidationException.cs" />
-    <Compile Include="DefaultEntityValidatorFactory.cs" />
     <Compile Include="IEntityValidationRule.cs" />
     <Compile Include="Builder\IEntityValidationRuleBuilder.cs" />
     <Compile Include="IEntityValidator.cs" />

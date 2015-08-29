@@ -20,5 +20,12 @@
         /// <param name="type">The type.</param>
         /// <returns>The entity validator.</returns>
         IEntityValidator GetValidatorFor(Type type);
+
+        /// <summary>
+        /// Gets the validator for optional.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The entity validator.</returns>
+        IEntityValidator GetValidatorForOptional(Type type);
     }
 }
