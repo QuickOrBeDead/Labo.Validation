@@ -110,6 +110,7 @@
     <Compile Include="EntityValidatorFactoryBase.cs" />
     <Compile Include="Exceptions\ValidatorFactoryException.cs" />
     <Compile Include="IValidatorFactory.cs" />
+    <Compile Include="IValidatorRegistrar.cs" />
     <Compile Include="Message\DefaultValidationMessageBuilder.cs" />
     <Compile Include="Message\EmbeddedResourceValidationMessageResourceManager.cs" />
     <Compile Include="EntityPropertyValidationRule.cs" />

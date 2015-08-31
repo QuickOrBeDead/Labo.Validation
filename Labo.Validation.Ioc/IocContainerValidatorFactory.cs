@@ -5,9 +5,9 @@
     using Labo.Common.Ioc;
 
     /// <summary>
-    /// The ioc container valitation factory class.
+    /// The ioc container validation factory class.
     /// </summary>
-    public sealed class IocContainerValidatorFactory : EntityValidatorFactoryBase
+    public sealed class IocContainerValidatorFactory : EntityValidatorFactoryBase, IValidatorRegistrar
     {
         /// <summary>
         /// The ioc container resolver

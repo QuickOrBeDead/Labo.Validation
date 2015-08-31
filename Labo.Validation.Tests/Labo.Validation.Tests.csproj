@@ -94,6 +94,7 @@
     <Compile Include="EntityPropertyValidationRuleExtensionsFixture.cs" />
     <Compile Include="EntityPropertyValidationRuleFixture.cs" />
     <Compile Include="EntityValidatorBaseFixture.cs" />
+    <Compile Include="DefaultEntityValidatorFactoryFixture.cs" />
     <Compile Include="Message\DefaultValidationMessageBuilderFixture.cs" />
     <Compile Include="Message\StringReplaceValidationMessageFormatterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@
     /// <summary>
     /// The default entity validator factory class.
     /// </summary>
-    public sealed class DefaultEntityValidatorFactory : EntityValidatorFactoryBase
+    public sealed class DefaultEntityValidatorFactory : EntityValidatorFactoryBase, IValidatorRegistrar
     {
         /// <summary>
         /// The m_ validators
