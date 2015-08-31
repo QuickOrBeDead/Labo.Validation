@@ -107,7 +107,7 @@
         }
 
         [Test]
-        public void GetValidators_ValidatorFactoryGetValidatorForShouldBeCalled()
+        public void GetValidators_ValidatorFactoryGetValidatorForOptionalShouldBeCalled()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
@@ -117,11 +117,11 @@
 
             Assert.IsTrue(modelValidators.First() is LaboModelValidator);
 
-            validatorFactory.Received(1).GetValidatorFor(modelMetaData.ModelType);
+            validatorFactory.Received(1).GetValidatorForOptional(modelMetaData.ModelType);
         }
 
         [Test]
-        public void GetValidators_ValidatorFactoryGetValidatorForContainerTypeShouldBeCalled()
+        public void GetValidators_ValidatorFactoryGetValidatorForOptionalContainerTypeShouldBeCalled()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
@@ -129,14 +129,14 @@
             ModelMetadata modelMetaData = GetModelMetaDataForProperty(typeof(TestModel), LinqUtils.GetMemberName<TestModel, string>(x => x.Name));
             provider.GetValidators(modelMetaData, controllerContext);
 
-            validatorFactory.Received(1).GetValidatorFor(modelMetaData.ContainerType);
+            validatorFactory.Received(1).GetValidatorForOptional(modelMetaData.ContainerType);
         }
 
         [Test]
         public void GetValidators_ShouldReturnValidatorsWithTheSamePropertiesAsTheSpecifiedProperty()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory);
@@ -149,7 +149,7 @@
         public void GetValidators_ShouldReturnTheRightValidators()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory);
@@ -169,7 +169,7 @@
         public void GetValidators_ShouldReturnNotNullValidatorWhenModelMetadataIsRequiredAndAddImplicitRequiredAttributeForValueTypesIsTrue()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory)
@@ -190,7 +190,7 @@
         public void GetValidators_ShouldNotReturnNotNullValidatorWhenModelMetadataIsRequiredAndAddImplicitRequiredAttributeForValueTypesIsFalse()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory)
@@ -209,7 +209,7 @@
         public void GetValidators_ShouldReturnRegisteredLaboPropertyValidatorWhenTheSpecifiedValidatorTypeImplementsOneOfTheTypesInThePropertyValidatorFactories()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory)
@@ -228,7 +228,7 @@
         public void GetValidators_ShouldReturnLaboPropertyValidatorWhenTheSpecifiedValidatorTypeIsNotInThePropertyValidatorFactories()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             LaboModelValidatorProvider provider = new LaboModelValidatorProvider(validatorFactory)
@@ -248,7 +248,7 @@
         {
             ControllerContext controllerContext = new ControllerContext { HttpContext = Substitute.For<HttpContextBase>() };
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            validatorFactory.GetValidatorFor(typeof(TestModel)).Returns(x => new TestModelValidator());
+            validatorFactory.GetValidatorForOptional(typeof(TestModel)).Returns(x => new TestModelValidator());
 
             LaboModelValidatorProvider.Configure(validatorFactory);
 

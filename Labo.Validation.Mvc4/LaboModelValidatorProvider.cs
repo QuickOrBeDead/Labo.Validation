@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Labo.Validation.Mvc4.PropertyValidatorAdapters;
+    using Labo.Validation.Mvc4.Transform;
     using Labo.Validation.Validators;
 
     /// <summary>
@@ -14,6 +15,30 @@
     /// </summary>
     public sealed class LaboModelValidatorProvider : ModelValidatorProvider
     {
+        /// <summary>
+        /// Gets or sets the validation transformer manager.
+        /// </summary>
+        /// <value>
+        /// The validation transformer manager.
+        /// </value>
+        public IValidationTransformerManager ValidationTransformerManager
+        {
+            get
+            {
+                return m_ValidationTransformerManager;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("value");
+                }
+
+                m_ValidationTransformerManager = value;
+            }
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether [add implicit required attribute for value types].
         /// </summary>
@@ -28,7 +53,23 @@
         /// <value>
         /// The validator factory.
         /// </value>
-        public IValidatorFactory ValidatorFactory { get; set; }
+        public IValidatorFactory ValidatorFactory
+        {
+            get
+            {
+                return m_ValidatorFactory;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("value");
+                }
+
+                m_ValidatorFactory = value;
+            }
+        }
 
         /// <summary>
         /// Gets the property validator factories.
@@ -61,13 +102,25 @@
         };
 
         /// <summary>
+        /// The validation transformer manager
+        /// </summary>
+        private IValidationTransformerManager m_ValidationTransformerManager;
+
+        /// <summary>
+        /// The validator factory
+        /// </summary>
+        private IValidatorFactory m_ValidatorFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LaboModelValidatorProvider"/> class.
         /// </summary>
         /// <param name="validatorFactory">The validator factory.</param>
-        public LaboModelValidatorProvider(IValidatorFactory validatorFactory = null)
+        /// <param name="validationTransformerManager">The validation transformer manager.</param>
+        public LaboModelValidatorProvider(IValidatorFactory validatorFactory = null, IValidationTransformerManager validationTransformerManager = null)
         {
             AddImplicitRequiredAttributeForValueTypes = true;
             ValidatorFactory = validatorFactory ?? new DefaultEntityValidatorFactory();
+            ValidationTransformerManager = validationTransformerManager ?? new DefaultValidationTransformerManager();
         }
 
         /// <summary>
@@ -120,14 +173,111 @@
         /// <param name="metadata">The metadata.</param><param name="context">The context.</param>
         public override IEnumerable<ModelValidator> GetValidators(ModelMetadata metadata, ControllerContext context)
         {
-            IEntityValidator validator = CreateValidator(metadata);
-
-            if (IsModelProperty(metadata))
+            if (metadata == null)
             {
-                return GetValidatorsForProperty(metadata, context, validator);
+                throw new ArgumentNullException("metadata");
             }
 
-            return GetValidatorsForModel(metadata, context, validator);
+            bool isModelProperty = IsModelProperty(metadata);
+
+            Type modelType = isModelProperty ? metadata.ContainerType : metadata.ModelType;
+            IValidationTransformer validationTransformer = GetValidationTransformer(modelType);
+            IEntityValidator validator = ValidatorFactory.GetValidatorForOptional(validationTransformer == null ? modelType : validationTransformer.ValidationModelType);
+
+            if (isModelProperty)
+            {
+                return GetValidatorsForProperty(metadata, context, validator, validationTransformer);
+            }
+
+            return GetValidatorsForModel(metadata, context, validator, validationTransformer);
+        }
+
+        /// <summary>
+        /// Gets the validation transformer.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns>The validation transformer.</returns>
+        private IValidationTransformer GetValidationTransformer(Type modelType)
+        {
+            return ValidationTransformerManager.GetValidationTransformerForModel(modelType);
+        }
+
+        /// <summary>
+        /// Gets the model property validator.
+        /// </summary>
+        /// <param name="meta">The meta.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="validationRule">The validation rule.</param>
+        /// <returns>The model validator.</returns>
+        private ModelValidator GetModelPropertyValidator(ModelMetadata meta, ControllerContext context, IEntityValidationRule validationRule)
+        {
+            Type type = validationRule.Validator.GetType();
+
+            Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator> factory = null;
+            Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>>.Enumerator enumerator = m_PropertyValidatorFactories.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                KeyValuePair<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> keyValuePair = enumerator.Current;
+                if (keyValuePair.Key.IsAssignableFrom(type))
+                {
+                    factory = keyValuePair.Value;
+                    break;
+                }
+            }
+
+            if (factory == null)
+            {
+                factory = (metadata, controllerContext, validator) => new LaboPropertyValidator(metadata, controllerContext, validator);
+            }
+
+            return factory(meta, context, validationRule);
+        }
+
+        /// <summary>
+        /// Gets the validators for property.
+        /// </summary>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="validator">The validator.</param>
+        /// <param name="validationTransformer">The validation transformer.</param>
+        /// <returns>The validators.</returns>
+        private IEnumerable<ModelValidator> GetValidatorsForProperty(ModelMetadata metadata, ControllerContext context, IEntityValidator validator, IValidationTransformer validationTransformer)
+        {
+            List<ModelValidator> modelValidators = new List<ModelValidator>();
+
+            if (validator != null)
+            {
+                IList<IEntityValidationRule> validationRules = validator.ValidationRules;
+
+                for (int i = 0; i < validationRules.Count; i++)
+                {
+                    IEntityValidationRule entityValidationRule = validationRules[i];
+
+                    string propertyName = validationTransformer == null
+                        ? metadata.PropertyName
+                        : validationTransformer.TransformPropertyNameFromUIModel(metadata.PropertyName);
+                    if (entityValidationRule.MemberInfo.Name == propertyName)
+                    {
+                        ModelValidator modelValidator = GetModelPropertyValidator(metadata, context, entityValidationRule);
+                        if (modelValidator != null)
+                        {
+                            modelValidators.Add(modelValidator);
+                        }
+                    }
+                }
+
+                if (metadata.IsRequired && AddImplicitRequiredAttributeForValueTypes)
+                {
+                    bool hasRequiredValidators = modelValidators.Any(x => x.IsRequired);
+
+                    if (!hasRequiredValidators)
+                    {
+                        modelValidators.Add(CreateNotNullValidatorForProperty(metadata, context));
+                    }
+                }
+            }
+
+            return modelValidators;
         }
 
         /// <summary>
@@ -163,12 +313,13 @@
         /// <param name="metadata">The metadata.</param>
         /// <param name="context">The context.</param>
         /// <param name="validator">The validator.</param>
+        /// <param name="validationTransformer">The validation transformer.</param>
         /// <returns>The model validators.</returns>
-        private static IEnumerable<ModelValidator> GetValidatorsForModel(ModelMetadata metadata, ControllerContext context, IEntityValidator validator)
+        private static IEnumerable<ModelValidator> GetValidatorsForModel(ModelMetadata metadata, ControllerContext context, IEntityValidator validator, IValidationTransformer validationTransformer)
         {
             if (validator != null)
             {
-                yield return new LaboModelValidator(metadata, context, validator);
+                yield return new LaboModelValidator(metadata, context, validator, validationTransformer);
             }
         }
 
@@ -180,94 +331,6 @@
         private static bool IsModelProperty(ModelMetadata metadata)
         {
             return metadata.ContainerType != null && !string.IsNullOrEmpty(metadata.PropertyName);
-        }
-
-        /// <summary>
-        /// Gets the model property validator.
-        /// </summary>
-        /// <param name="meta">The meta.</param>
-        /// <param name="context">The context.</param>
-        /// <param name="validationRule">The validation rule.</param>
-        /// <returns>The model validator.</returns>
-        private ModelValidator GetModelPropertyValidator(ModelMetadata meta, ControllerContext context, IEntityValidationRule validationRule)
-        {
-            Type type = validationRule.Validator.GetType();
-
-            Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator> factory = null;
-            Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>>.Enumerator enumerator = m_PropertyValidatorFactories.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                KeyValuePair<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> keyValuePair = enumerator.Current;
-                if (keyValuePair.Key.IsAssignableFrom(type))
-                {
-                    factory = keyValuePair.Value;
-                    break;
-                }
-            }
-
-            if (factory == null)
-            {
-                factory = (metadata, controllerContext, validator) => new LaboPropertyValidator(metadata, controllerContext, validator);
-            }
-
-            return factory(meta, context, validationRule);
-        }
-
-        /// <summary>
-        /// Creates the validator.
-        /// </summary>
-        /// <param name="metadata">The metadata.</param>
-        /// <returns>The entity validator.</returns>
-        private IEntityValidator CreateValidator(ModelMetadata metadata)
-        {
-            if (IsModelProperty(metadata))
-            {
-                return ValidatorFactory.GetValidatorFor(metadata.ContainerType);
-            }
-
-            return ValidatorFactory.GetValidatorFor(metadata.ModelType);
-        }
-
-        /// <summary>
-        /// Gets the validators for property.
-        /// </summary>
-        /// <param name="metadata">The metadata.</param>
-        /// <param name="context">The context.</param>
-        /// <param name="validator">The validator.</param>
-        /// <returns>The validators.</returns>
-        private IEnumerable<ModelValidator> GetValidatorsForProperty(ModelMetadata metadata, ControllerContext context, IEntityValidator validator)
-        {
-            List<ModelValidator> modelValidators = new List<ModelValidator>();
-
-            if (validator != null)
-            {
-                IList<IEntityValidationRule> validationRules = validator.ValidationRules;
-
-                for (int i = 0; i < validationRules.Count; i++)
-                {
-                    IEntityValidationRule entityValidationRule = validationRules[i];
-                    if (entityValidationRule.MemberInfo.Name == metadata.PropertyName)
-                    {
-                        ModelValidator modelValidator = GetModelPropertyValidator(metadata, context, entityValidationRule);
-                        if (modelValidator != null)
-                        {
-                            modelValidators.Add(modelValidator);
-                        }
-                    }
-                }
-
-                if (metadata.IsRequired && AddImplicitRequiredAttributeForValueTypes)
-                {
-                    bool hasRequiredValidators = modelValidators.Any(x => x.IsRequired);
-
-                    if (!hasRequiredValidators)
-                    {
-                        modelValidators.Add(CreateNotNullValidatorForProperty(metadata, context));
-                    }
-                }
-            }
-
-            return modelValidators;
         }
     }
 }

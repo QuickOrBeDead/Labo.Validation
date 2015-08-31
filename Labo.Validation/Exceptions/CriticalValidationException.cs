@@ -3,11 +3,13 @@ namespace Labo.Validation.Exceptions
     using System;
     using System.Runtime.Serialization;
 
+    using Labo.Common.Exceptions;
+
     /// <summary>
     /// The critical validation exception class.
     /// </summary>
     [Serializable]
-    public class CriticalValidationException : ValidationException
+    public class CriticalValidationException : ValidationException, ICoreLevelException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalValidationException"/> class.

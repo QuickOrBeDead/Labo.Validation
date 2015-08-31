@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using Labo.Validation.Mvc4.Transform;
+
     /// <summary>
     /// The model validator class.
     /// </summary>
@@ -16,13 +18,19 @@
         private readonly IEntityValidator m_Validator;
 
         /// <summary>
+        /// The validation transformer
+        /// </summary>
+        private readonly IValidationTransformer m_ValidationTransformer;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LaboModelValidator"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
         /// <param name="controllerContext">The controller context.</param>
         /// <param name="validator">The validator.</param>
+        /// <param name="validationTransformer">The validation transformer.</param>
         /// <exception cref="System.ArgumentNullException">validator</exception>
-        public LaboModelValidator(ModelMetadata metadata, ControllerContext controllerContext, IEntityValidator validator)
+        public LaboModelValidator(ModelMetadata metadata, ControllerContext controllerContext, IEntityValidator validator, IValidationTransformer validationTransformer = null)
             : base(metadata, controllerContext)
         {
             if (validator == null)
@@ -31,6 +39,7 @@
             }
 
             m_Validator = validator;
+            m_ValidationTransformer = validationTransformer;
         }
 
         /// <summary>
@@ -45,7 +54,8 @@
             object model = Metadata.Model;
             if (model != null)
             {
-                ValidationResult result = m_Validator.Validate(model);
+                object modelToValidate = m_ValidationTransformer == null ? model : m_ValidationTransformer.MapToValidationModel(model);
+                ValidationResult result = m_Validator.Validate(modelToValidate);
 
                 if (!result.IsValid)
                 {
@@ -80,16 +90,21 @@
         /// </summary>
         /// <param name="result">The result.</param>
         /// <returns>The model validation results.</returns>
-        private static IEnumerable<ModelValidationResult> GetModelValidationResults(ValidationResult result)
+        private IEnumerable<ModelValidationResult> GetModelValidationResults(ValidationResult result)
         {
             ValidationErrorCollection errors = result.Errors;
             ModelValidationResult[] modelValidationResults = new ModelValidationResult[errors.Count];
             for (int i = 0; i < errors.Count; i++)
             {
                 ValidationError validationError = errors[i];
+                
+                string memberName = m_ValidationTransformer == null
+                    ? validationError.PropertyName
+                    : m_ValidationTransformer.TransformPropertyNameFromValidationModel(validationError.PropertyName);
+
                 modelValidationResults[i] = new ModelValidationResult
                                                 {
-                                                    MemberName = validationError.PropertyName,
+                                                    MemberName = memberName,
                                                     Message = validationError.Message
                                                 };
             }
