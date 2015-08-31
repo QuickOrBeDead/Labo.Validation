@@ -27,6 +27,11 @@
         /// <returns>The entity validator.</returns>
         public IEntityValidator GetValidatorFor(Type type)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
             IEntityValidator entityValidator = GetValidatorForOptional(type);
 
             if (entityValidator == null)

@@ -32,7 +32,7 @@
             {
                 if (value == null)
                 {
-                    throw new ArgumentException("value");
+                    throw new ArgumentNullException("value");
                 }
 
                 m_ValidationTransformerManager = value;
@@ -64,7 +64,7 @@
             {
                 if (value == null)
                 {
-                    throw new ArgumentException("value");
+                    throw new ArgumentNullException("value");
                 }
 
                 m_ValidatorFactory = value;
@@ -116,6 +116,7 @@
         /// </summary>
         /// <param name="validatorFactory">The validator factory.</param>
         /// <param name="validationTransformerManager">The validation transformer manager.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public LaboModelValidatorProvider(IValidatorFactory validatorFactory = null, IValidationTransformerManager validationTransformerManager = null)
         {
             AddImplicitRequiredAttributeForValueTypes = true;

@@ -11,6 +11,7 @@
         /// Gets the display name.
         /// </summary>
         /// <returns>The display name.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         string GetDisplayName();
 
         /// <summary>
