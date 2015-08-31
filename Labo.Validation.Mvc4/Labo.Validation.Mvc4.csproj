@@ -40,6 +40,10 @@
     <CodeAnalysisRuleSet>..\CodeAnalysisRules\Common.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Labo.Common, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Labo.Commons.1.0.1\lib\net45\Labo.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -92,6 +96,10 @@
     <Compile Include="PropertyValidatorAdapters\RequiredLaboPropertyValidatorAdapter.cs" />
     <Compile Include="PropertyValidatorAdapters\StringLengthLaboValidationPropertyValidatorAdapter.cs" />
     <Compile Include="StubEntityValidationRule.cs" />
+    <Compile Include="Transform\DefaultValidationTransformerManager.cs" />
+    <Compile Include="Transform\IValidationTransformer.cs" />
+    <Compile Include="Transform\IValidationTransformerManager.cs" />
+    <Compile Include="Transform\ValidationTransformerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Labo.Validation\Labo.Validation.csproj">
