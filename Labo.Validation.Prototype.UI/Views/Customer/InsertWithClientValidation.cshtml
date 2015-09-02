@@ -1,0 +1,18 @@
+﻿@model Labo.Validation.Prototype.UI.Models.CustomerInsertViewModel
+
+@{
+    ViewBag.Title = "Customer Insert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer Insert</h2>
+
+@using (Html.BeginForm("InsertWithClientValidation", "Customer"))
+{
+    Html.EnableClientValidation(true);
+    
+    @Html.EditorForModel()
+
+    <br/>
+    <input type="submit" value="Save"/>
+}
