@@ -134,6 +134,11 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Specification.cs" />
+    <Compile Include="Transform\DefaultValidationTransformerManager.cs" />
+    <Compile Include="Transform\IValidationTransformer.cs" />
+    <Compile Include="Transform\IValidationTransformerManager.cs" />
+    <Compile Include="Transform\MappingMemberInfo.cs" />
+    <Compile Include="Transform\ValidationTransformerBase.cs" />
     <Compile Include="Utils\ComparableUtils.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="ValidationErrorCollection.cs" />

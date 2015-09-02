@@ -1,8 +1,9 @@
-namespace Labo.Validation.Mvc4.Transform
+namespace Labo.Validation.Transform
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Reflection;
 
     using Labo.Common.Utils;
 
@@ -16,12 +17,12 @@ namespace Labo.Validation.Mvc4.Transform
         /// <summary>
         /// The property mappings from UI model to validation model
         /// </summary>
-        private readonly IDictionary<string, string> m_PropertyMappingsFromUIModelToValidationModel;
+        private readonly IDictionary<string, MappingMemberInfo> m_PropertyMappingsFromUIModelToValidationModel;
 
         /// <summary>
         /// The property mappings from validation model to UI model
         /// </summary>
-        private readonly IDictionary<string, string> m_PropertyMappingsFromValidationModelToUIModel;
+        private readonly IDictionary<string, MappingMemberInfo> m_PropertyMappingsFromValidationModelToUIModel;
 
         /// <summary>
         /// Gets the type of the UI model.
@@ -50,8 +51,8 @@ namespace Labo.Validation.Mvc4.Transform
         /// </summary>
         protected ValidationTransformerBase()
         {
-            m_PropertyMappingsFromUIModelToValidationModel = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            m_PropertyMappingsFromValidationModelToUIModel = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            m_PropertyMappingsFromUIModelToValidationModel = new SortedDictionary<string, MappingMemberInfo>(StringComparer.OrdinalIgnoreCase);
+            m_PropertyMappingsFromValidationModelToUIModel = new SortedDictionary<string, MappingMemberInfo>(StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -71,11 +72,14 @@ namespace Labo.Validation.Mvc4.Transform
                 throw new ArgumentNullException("validationModelPropertyExpression");
             }
 
-            string uiModelPropertyName = LinqUtils.GetMemberName(uiModelPropertyExpression);
-            string validationModelPropertyName = LinqUtils.GetMemberName(validationModelPropertyExpression);
+            MemberInfo uiModelPropertyInfo = LinqUtils.GetMemberInfo(uiModelPropertyExpression);
+            MemberInfo validationModelPropertyInfo = LinqUtils.GetMemberInfo(validationModelPropertyExpression);
+
+            string uiModelPropertyName = uiModelPropertyInfo.Name;
+            string validationModelPropertyName = validationModelPropertyInfo.Name;
            
-            m_PropertyMappingsFromUIModelToValidationModel.Add(uiModelPropertyName, validationModelPropertyName);
-            m_PropertyMappingsFromValidationModelToUIModel.Add(validationModelPropertyName, uiModelPropertyName);
+            m_PropertyMappingsFromUIModelToValidationModel.Add(uiModelPropertyName, new MappingMemberInfo(validationModelPropertyName, validationModelPropertyInfo));
+            m_PropertyMappingsFromValidationModelToUIModel.Add(validationModelPropertyName, new MappingMemberInfo(uiModelPropertyName, uiModelPropertyInfo));
         }
 
         /// <summary>
@@ -83,20 +87,20 @@ namespace Labo.Validation.Mvc4.Transform
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>The transformed property name.</returns>
-        public string TransformPropertyNameFromUIModel(string propertyName)
+        public MappingMemberInfo TransformPropertyNameFromUIModel(string propertyName)
         {
             if (propertyName == null)
             {
                 throw new ArgumentNullException("propertyName");
             }
 
-            string result;
+            MappingMemberInfo result;
             if (m_PropertyMappingsFromUIModelToValidationModel.TryGetValue(propertyName, out result))
             {
                 return result;
             }
 
-            return propertyName;
+            return null;
         }
 
         /// <summary>
@@ -104,20 +108,20 @@ namespace Labo.Validation.Mvc4.Transform
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>The property name.</returns>
-        public string TransformPropertyNameFromValidationModel(string propertyName)
+        public MappingMemberInfo TransformPropertyNameFromValidationModel(string propertyName)
         {
             if (propertyName == null)
             {
                 throw new ArgumentNullException("propertyName");
             }
 
-            string result;
+            MappingMemberInfo result;
             if (m_PropertyMappingsFromValidationModelToUIModel.TryGetValue(propertyName, out result))
             {
                 return result;
             }
 
-            return propertyName;
+            return null;
         }
 
         /// <summary>
@@ -131,7 +135,7 @@ namespace Labo.Validation.Mvc4.Transform
         }
 
         /// <summary>
-        /// Maps ui model to validation models.
+        /// Maps ui model to validation model.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>The validation model.</returns>

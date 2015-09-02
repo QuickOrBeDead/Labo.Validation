@@ -96,10 +96,7 @@
     <Compile Include="PropertyValidatorAdapters\RequiredLaboPropertyValidatorAdapter.cs" />
     <Compile Include="PropertyValidatorAdapters\StringLengthLaboValidationPropertyValidatorAdapter.cs" />
     <Compile Include="StubEntityValidationRule.cs" />
-    <Compile Include="Transform\DefaultValidationTransformerManager.cs" />
-    <Compile Include="Transform\IValidationTransformer.cs" />
-    <Compile Include="Transform\IValidationTransformerManager.cs" />
-    <Compile Include="Transform\ValidationTransformerBase.cs" />
+    <Compile Include="ValidationTransformerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Labo.Validation\Labo.Validation.csproj">

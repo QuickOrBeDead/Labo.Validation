@@ -5,6 +5,7 @@
     using System.Reflection;
 
     using Labo.Common.Utils;
+    using Labo.Validation.Transform;
 
     /// <summary>
     /// The entity property validation rule class.
@@ -163,12 +164,13 @@
                 return validationResult;
             }
 
-            string propertyDisplayName = GetDisplayName();
+            MemberInfo memberInfo = GetMemberInfo();
+            string propertyDisplayName = GetDisplayName(memberInfo);
 
             validationResult.Errors.Add(new ValidationError
                                             {
                                                 Message = m_Message ?? m_Validator.GetValidationMessage(propertyDisplayName),
-                                                PropertyName = MemberInfo.Name,
+                                                PropertyName = memberInfo.Name,
                                                 TargetValue = entity
                                             });
             return validationResult;
@@ -190,7 +192,42 @@
         /// <returns>The display name.</returns>
         public string GetDisplayName()
         {
-            return m_PropertyDisplayNameResolver.GetDisplayName(MemberInfo);
+            MemberInfo memberInfo = GetMemberInfo();
+
+            return GetDisplayName(memberInfo);
+        }
+
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>The display name.</returns>
+        private string GetDisplayName(MemberInfo memberInfo)
+        {
+            return m_PropertyDisplayNameResolver.GetDisplayName(memberInfo);
+        }
+
+        /// <summary>
+        /// Gets the member information.
+        /// </summary>
+        /// <returns>The member info.</returns>
+        private MemberInfo GetMemberInfo()
+        {
+            IValidationTransformerManager validationTransformerManager = ValidatorSettings.ValidationTransformerManager;
+            IValidationTransformer validationTransformer =
+                validationTransformerManager.GetValidationTransformerForValidationModel(typeof(TEntity));
+            MemberInfo memberInfo;
+
+            if (validationTransformer == null)
+            {
+                memberInfo = MemberInfo;
+            }
+            else
+            {
+                MappingMemberInfo mappingMemberInfo = validationTransformer.TransformPropertyNameFromValidationModel(MemberName);
+                memberInfo = mappingMemberInfo == null ? MemberInfo : mappingMemberInfo.MemberInfo;
+            }
+            return memberInfo;
         }
     }
 }

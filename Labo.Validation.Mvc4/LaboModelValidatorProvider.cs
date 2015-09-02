@@ -7,7 +7,7 @@
     using System.Web.Mvc;
 
     using Labo.Validation.Mvc4.PropertyValidatorAdapters;
-    using Labo.Validation.Mvc4.Transform;
+    using Labo.Validation.Transform;
     using Labo.Validation.Validators;
 
     /// <summary>
@@ -15,30 +15,6 @@
     /// </summary>
     public sealed class LaboModelValidatorProvider : ModelValidatorProvider
     {
-        /// <summary>
-        /// Gets or sets the validation transformer manager.
-        /// </summary>
-        /// <value>
-        /// The validation transformer manager.
-        /// </value>
-        public IValidationTransformerManager ValidationTransformerManager
-        {
-            get
-            {
-                return m_ValidationTransformerManager;
-            }
-
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                m_ValidationTransformerManager = value;
-            }
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether [add implicit required attribute for value types].
         /// </summary>
@@ -102,26 +78,25 @@
         };
 
         /// <summary>
-        /// The validation transformer manager
-        /// </summary>
-        private IValidationTransformerManager m_ValidationTransformerManager;
-
-        /// <summary>
         /// The validator factory
         /// </summary>
         private IValidatorFactory m_ValidatorFactory;
 
         /// <summary>
+        /// The validation transformer manager
+        /// </summary>
+        private readonly IValidationTransformerManager m_ValidationTransformerManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LaboModelValidatorProvider"/> class.
         /// </summary>
         /// <param name="validatorFactory">The validator factory.</param>
-        /// <param name="validationTransformerManager">The validation transformer manager.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
-        public LaboModelValidatorProvider(IValidatorFactory validatorFactory = null, IValidationTransformerManager validationTransformerManager = null)
+        public LaboModelValidatorProvider(IValidatorFactory validatorFactory = null)
         {
             AddImplicitRequiredAttributeForValueTypes = true;
             ValidatorFactory = validatorFactory ?? new DefaultEntityValidatorFactory();
-            ValidationTransformerManager = validationTransformerManager ?? new DefaultValidationTransformerManager();
+            m_ValidationTransformerManager = ValidatorSettings.ValidationTransformerManager;
         }
 
         /// <summary>
@@ -200,7 +175,7 @@
         /// <returns>The validation transformer.</returns>
         private IValidationTransformer GetValidationTransformer(Type modelType)
         {
-            return ValidationTransformerManager.GetValidationTransformerForModel(modelType);
+            return m_ValidationTransformerManager.GetValidationTransformerForUIModel(modelType);
         }
 
         /// <summary>
@@ -250,19 +225,31 @@
             {
                 IList<IEntityValidationRule> validationRules = validator.ValidationRules;
 
+                HashSet<string> requiredPropertyValidators = new HashSet<string>(StringComparer.OrdinalIgnoreCase); 
+
                 for (int i = 0; i < validationRules.Count; i++)
                 {
                     IEntityValidationRule entityValidationRule = validationRules[i];
 
-                    string propertyName = validationTransformer == null
-                        ? metadata.PropertyName
-                        : validationTransformer.TransformPropertyNameFromUIModel(metadata.PropertyName);
+                    string propertyName = ValidationTransformerHelper.GetPropertyName(metadata, validationTransformer);
                     if (entityValidationRule.MemberInfo.Name == propertyName)
                     {
                         ModelValidator modelValidator = GetModelPropertyValidator(metadata, context, entityValidationRule);
                         if (modelValidator != null)
                         {
-                            modelValidators.Add(modelValidator);
+                            if (modelValidator.IsRequired)
+                            {
+                                // There can be one required validator per property
+                                if (!requiredPropertyValidators.Contains(propertyName))
+                                {
+                                    requiredPropertyValidators.Add(propertyName);
+                                    modelValidators.Add(modelValidator); 
+                                }
+                            }
+                            else
+                            {
+                                modelValidators.Add(modelValidator);                                
+                            }
                         }
                     }
                 }

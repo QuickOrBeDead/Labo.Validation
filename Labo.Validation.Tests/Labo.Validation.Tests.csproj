@@ -99,6 +99,8 @@
     <Compile Include="Message\StringReplaceValidationMessageFormatterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificationFixture.cs" />
+    <Compile Include="Transform\DefaultValidationTransformerManagerFixture.cs" />
+    <Compile Include="Transform\ValidationTransformerBaseFixture.cs" />
     <Compile Include="Utils\ComparableUtilsFixture.cs" />
     <Compile Include="ValidationResultFixture.cs" />
     <Compile Include="ValidatorMessages\BetweenValidatorFixture.cs" />

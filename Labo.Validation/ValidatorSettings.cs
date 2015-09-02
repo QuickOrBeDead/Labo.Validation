@@ -4,6 +4,7 @@
 
     using Labo.Validation.Message;
     using Labo.Validation.Resources;
+    using Labo.Validation.Transform;
 
     /// <summary>
     /// The validator settings class.
@@ -24,6 +25,11 @@
         /// The validation message formatter
         /// </summary>
         private static IValidationMessageFormatter s_ValidationMessageFormatter = new StringReplaceValidationMessageFormatter();
+        
+        /// <summary>
+        /// The validation transformer manager
+        /// </summary>
+        private static IValidationTransformerManager s_ValidationTransformerManager = new DefaultValidationTransformerManager();
 
         /// <summary>
         /// Gets or sets the property display name resolver.
@@ -96,6 +102,30 @@
                 }
 
                 s_ValidationMessageFormatter = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the validation transformer manager.
+        /// </summary>
+        /// <value>
+        /// The validation transformer manager.
+        /// </value>
+        public static IValidationTransformerManager ValidationTransformerManager
+        {
+            get
+            {
+                return s_ValidationTransformerManager;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+
+                s_ValidationTransformerManager = value;
             }
         }
     }

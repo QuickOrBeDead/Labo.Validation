@@ -122,7 +122,7 @@ namespace Labo.Validation.Builder
                 throw new ArgumentNullException("propertyDisplayNameResolver");
             }
 
- 	        if (ruleSetName == null)
+            if (ruleSetName == null)
             {
                 throw new ArgumentNullException("ruleSetName");
             }

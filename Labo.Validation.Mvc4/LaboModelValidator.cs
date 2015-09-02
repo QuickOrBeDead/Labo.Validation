@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Web.Mvc;
 
-    using Labo.Validation.Mvc4.Transform;
+    using Labo.Validation.Transform;
 
     /// <summary>
     /// The model validator class.
@@ -90,21 +90,17 @@
         /// </summary>
         /// <param name="result">The result.</param>
         /// <returns>The model validation results.</returns>
-        private IEnumerable<ModelValidationResult> GetModelValidationResults(ValidationResult result)
+        private static IEnumerable<ModelValidationResult> GetModelValidationResults(ValidationResult result)
         {
             ValidationErrorCollection errors = result.Errors;
             ModelValidationResult[] modelValidationResults = new ModelValidationResult[errors.Count];
             for (int i = 0; i < errors.Count; i++)
             {
                 ValidationError validationError = errors[i];
-                
-                string memberName = m_ValidationTransformer == null
-                    ? validationError.PropertyName
-                    : m_ValidationTransformer.TransformPropertyNameFromValidationModel(validationError.PropertyName);
 
                 modelValidationResults[i] = new ModelValidationResult
                                                 {
-                                                    MemberName = memberName,
+                                                    MemberName = validationError.PropertyName,
                                                     Message = validationError.Message
                                                 };
             }

@@ -1,4 +1,4 @@
-﻿namespace Labo.Validation.Mvc4.Transform
+﻿namespace Labo.Validation.Transform
 {
     using System;
 
@@ -28,14 +28,14 @@
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>The property name.</returns>
-        string TransformPropertyNameFromUIModel(string propertyName);
+        MappingMemberInfo TransformPropertyNameFromUIModel(string propertyName);
 
         /// <summary>
         /// Transforms the property name from validation model.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>The property name.</returns>
-        string TransformPropertyNameFromValidationModel(string propertyName);
+        MappingMemberInfo TransformPropertyNameFromValidationModel(string propertyName);
 
         /// <summary>
         /// Maps the model to validation model.
