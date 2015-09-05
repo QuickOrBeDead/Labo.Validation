@@ -16,6 +16,11 @@
         private readonly IComparable m_ValueToCompare;
 
         /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
+
+        /// <summary>
         /// Gets the value to compare.
         /// </summary>
         /// <value>
@@ -35,7 +40,6 @@
         /// <param name="valueToCompare">The value to compare.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public LessThanOrEqualToValidator(IComparable valueToCompare)
-            : base(Constants.ValidationMessageResourceNames.LESS_THAN_OR_EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -43,6 +47,7 @@
             }
 
             m_ValueToCompare = valueToCompare;
+            m_ValidatorProperties = new ValidatorProperties { { Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare } };
         }
 
         /// <summary>
@@ -73,17 +78,30 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
-            if (validationMessageBuilderParameterSetter == null)
-            {
-                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
-            }
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.LESS_THAN_OR_EQUAL_TO_VALIDATION_MESSAGE)
+                                                     .SetValidatorProperties(m_ValidatorProperties)
+                                                     .Build(valueName, arguments);
 
-            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare.ToString());
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>The validator properties.</returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }

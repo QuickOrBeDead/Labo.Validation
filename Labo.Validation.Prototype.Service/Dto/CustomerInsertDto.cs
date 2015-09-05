@@ -8,6 +8,10 @@
 
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
+        public string ConfirmEmail { get; set; }
+
         public DateTime? BirthDate { get; set; }
     }
 }

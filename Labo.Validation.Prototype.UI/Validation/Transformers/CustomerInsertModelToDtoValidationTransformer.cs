@@ -13,6 +13,8 @@
         {
             AddPropertyMapping(x => x.Name, x => x.FirstName);
             AddPropertyMapping(x => x.Surname, x => x.LastName);
+            AddPropertyMapping(x => x.EmailAddress, x => x.Email);
+            AddPropertyMapping(x => x.ConfirmEmailAddress, x => x.ConfirmEmail);
         }
 
         /// <summary>
@@ -22,7 +24,7 @@
         /// <returns>The validation model.</returns>
         protected override CustomerInsertDto MapTo(CustomerInsertViewModel model)
         {
-            return new CustomerInsertDto { FirstName = model.Name, LastName = model.Surname };
+            return new CustomerInsertDto { FirstName = model.Name, LastName = model.Surname, Email = model.EmailAddress, ConfirmEmail = model.ConfirmEmailAddress };
         }
     }
 }
