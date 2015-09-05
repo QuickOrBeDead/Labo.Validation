@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Labo.Validation.Message;
+
     /// <summary>
     /// The predicate validator class.
     /// </summary>
@@ -11,6 +13,11 @@
         /// The predicate
         /// </summary>
         private readonly Predicate<object> m_Predicate;
+
+        /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
 
         /// <summary>
         /// Gets the predicate.
@@ -32,7 +39,6 @@
         /// <param name="predicate">The predicate.</param>
         /// <exception cref="System.ArgumentNullException">predicate</exception>
         public PredicateValidator(Predicate<object> predicate)
-            : base(Constants.ValidationMessageResourceNames.PREDICATE_VALIDATION_MESSAGE)
         {
             if (predicate == null)
             {
@@ -40,6 +46,7 @@
             }
 
             m_Predicate = predicate;
+            m_ValidatorProperties = new ValidatorProperties();
         }
 
         /// <summary>
@@ -53,11 +60,31 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(Message.IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.PREDICATE_VALIDATION_MESSAGE)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>
+        /// The validator properties.
+        /// </returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }

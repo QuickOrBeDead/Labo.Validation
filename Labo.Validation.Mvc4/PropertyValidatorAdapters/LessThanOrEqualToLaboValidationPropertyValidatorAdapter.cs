@@ -11,17 +11,6 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
     internal sealed class LessThanOrEqualToLaboValidationPropertyValidatorAdapter : LaboPropertyValidator
     {
         /// <summary>
-        /// Gets the less than original equal to validator.
-        /// </summary>
-        /// <value>
-        /// The less than original equal to validator.
-        /// </value>
-        private LessThanOrEqualToValidator LessThanOrEqualToValidator
-        {
-            get { return (LessThanOrEqualToValidator)ValidationRule.Validator; }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="LessThanOrEqualToLaboValidationPropertyValidatorAdapter"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
@@ -38,10 +27,12 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// <returns>
         /// The metadata for client validation.
         /// </returns>
-        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules() 
+        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.Validator.GetValidationMessage(ValidationRule.GetDisplayName());
-            yield return new ModelClientValidationRangeRule(message, null, LessThanOrEqualToValidator.ValueToCompare);
+            ValidatorProperties validatorProperties = ValidationRule.Validator.GetValidatorProperties();
+            string message = ValidationRule.GetValidationMessage(Metadata.Model);
+
+            yield return new ModelClientValidationRangeRule(message, null, validatorProperties.GetPropertyValue(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE));
         }
     }
 }

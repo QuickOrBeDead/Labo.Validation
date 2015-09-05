@@ -11,17 +11,6 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
     internal sealed class BetweenLaboValidationPropertyValidatorAdapter : LaboPropertyValidator
     {
         /// <summary>
-        /// Gets the between validator.
-        /// </summary>
-        /// <value>
-        /// The between validator.
-        /// </value>
-        private BetweenValidator BetweenValidator
-        {
-            get { return (BetweenValidator)ValidationRule.Validator; }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BetweenLaboValidationPropertyValidatorAdapter"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
@@ -41,9 +30,15 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// </returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.Validator.GetValidationMessage(ValidationRule.GetDisplayName());
+            IEntityValidationRule entityValidationRule = ValidationRule;
+            string message = entityValidationRule.GetValidationMessage(Metadata.Model);
+            ValidatorProperties validatorProperties = entityValidationRule.Validator.GetValidatorProperties();
 
-            yield return new ModelClientValidationRangeRule(message, BetweenValidator.FromValue, BetweenValidator.ToValue);
+            yield return
+                new ModelClientValidationRangeRule(
+                    message,
+                    validatorProperties.GetPropertyValue(Constants.ValidationMessageParameterNames.FROM_VALUE),
+                    validatorProperties.GetPropertyValue(Constants.ValidationMessageParameterNames.TO_VALUE));
         }
     }
 }

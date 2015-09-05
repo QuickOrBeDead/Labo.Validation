@@ -11,9 +11,19 @@
     public class RegexValidator : ValidatorBase
     {
         /// <summary>
+        /// The validation message resource name
+        /// </summary>
+        private readonly string m_ValidationMessageResourceName;
+
+        /// <summary>
         /// The regex
         /// </summary>
         private readonly Regex m_Regex;
+
+        /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
 
         /// <summary>
         /// Gets the regex.
@@ -48,14 +58,20 @@
         /// <param name="regexOptions">The regex options.</param>
         /// <exception cref="System.ArgumentNullException">expression</exception>
         public RegexValidator(string validationMessageResourceName, string expression, RegexOptions regexOptions = RegexOptions.None)
-            : base(validationMessageResourceName)
         {
+            if (validationMessageResourceName == null)
+            {
+                throw new ArgumentNullException("validationMessageResourceName");
+            }
+
             if (expression == null)
             {
                 throw new ArgumentNullException("expression");
             }
 
             m_Regex = new Regex(expression, RegexOptions.Compiled | regexOptions);
+            m_ValidationMessageResourceName = validationMessageResourceName;
+            m_ValidatorProperties = new ValidatorProperties();
         }
 
         /// <summary>
@@ -74,11 +90,29 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(m_ValidationMessageResourceName)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>The validator properties.</returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }

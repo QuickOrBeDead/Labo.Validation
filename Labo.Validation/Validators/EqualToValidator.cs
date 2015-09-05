@@ -22,6 +22,11 @@
         private readonly IEqualityComparer m_Comparer;
 
         /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
+
+        /// <summary>
         /// Gets the value to compare.
         /// </summary>
         /// <value>
@@ -50,13 +55,20 @@
         }
 
         /// <summary>
+        /// Gets the type of the owner.
+        /// </summary>
+        /// <value>
+        /// The type of the owner.
+        /// </value>
+        public Type OwnerType { get; internal set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EqualToValidator"/> class.
         /// </summary>
         /// <param name="valueToCompare">The value to compare.</param>
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public EqualToValidator(object valueToCompare, IEqualityComparer comparer = null)
-            : base(Constants.ValidationMessageResourceNames.EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -65,6 +77,7 @@
 
             m_ValueToCompare = valueToCompare;
             m_Comparer = comparer;
+            m_ValidatorProperties = new ValidatorProperties { { Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, m_ValueToCompare } };
         }
 
         /// <summary>
@@ -74,21 +87,39 @@
         /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
         public override bool IsValid(object value)
         {
-            return AreEqual(value, m_ValueToCompare, m_Comparer);
+            object valueToCompare = m_ValueToCompare;
+            IEqualityComparer equalityComparer = m_Comparer;
+            return IsValid(value, valueToCompare, equalityComparer);
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Determines whether the specified value is valid.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="value">The value.</param>
+        /// <param name="valueToCompare">The value automatic compare.</param>
+        /// <param name="equalityComparer">The equality comparer.</param>
+        /// <returns><c>true</c> if the specified value is valid otherwise <c>false</c></returns>
+        internal static bool IsValid(object value, object valueToCompare, IEqualityComparer equalityComparer)
         {
-            if (validationMessageBuilderParameterSetter == null)
-            {
-                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
-            }
+            return AreEqual(value, valueToCompare, equalityComparer);
+        }
 
-            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare.ToString());
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
+        {
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.EQUAL_TO_VALIDATION_MESSAGE)
+                                                     .SetValidatorProperties(m_ValidatorProperties)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
         }
 
         /// <summary>
@@ -120,6 +151,15 @@
             }
 
             return sourceValue == destinationValue;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>The validator properties.</returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }

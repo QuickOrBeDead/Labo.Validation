@@ -2,6 +2,8 @@
 {
     using System.Collections;
 
+    using Labo.Validation.Message;
+
     /// <summary>
     /// The not empty validator class.
     /// </summary>
@@ -27,11 +29,16 @@
         }
 
         /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NotEmptyValidator"/> class.
         /// </summary>
         public NotEmptyValidator()
-            : base(Constants.ValidationMessageResourceNames.NOT_EMPTY_VALIDATION_MESSAGE)
         {
+            m_ValidatorProperties = new ValidatorProperties();
         }
 
         /// <summary>
@@ -62,11 +69,31 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(Message.IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.NOT_EMPTY_VALIDATION_MESSAGE)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>
+        /// The validator properties.
+        /// </returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
 
         /// <summary>

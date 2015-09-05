@@ -3,6 +3,8 @@
     using System;
     using System.Collections;
 
+    using Labo.Validation.Message;
+
     /// <summary>
     /// The not equal to validator class.
     /// </summary>
@@ -12,6 +14,11 @@
         /// The equal to validator
         /// </summary>
         private readonly EqualToValidator m_EqualToValidator;
+
+        /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
 
         /// <summary>
         /// Gets the value to compare.
@@ -48,7 +55,6 @@
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="System.ArgumentNullException">valueToCompare</exception>
         public NotEqualToValidator(object valueToCompare, IEqualityComparer comparer = null)
-            : base(Constants.ValidationMessageResourceNames.NOT_EQUAL_TO_VALIDATION_MESSAGE)
         {
             if (valueToCompare == null)
             {
@@ -56,6 +62,7 @@
             }
 
             m_EqualToValidator = new EqualToValidator(valueToCompare, comparer);
+            m_ValidatorProperties = new ValidatorProperties { { Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE, ValueToCompare } };
         }
 
         /// <summary>
@@ -69,11 +76,32 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(Message.IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.NOT_EQUAL_TO_VALIDATION_MESSAGE)
+                                                     .SetValidatorProperties(m_ValidatorProperties)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>
+        /// The validator properties.
+        /// </returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }

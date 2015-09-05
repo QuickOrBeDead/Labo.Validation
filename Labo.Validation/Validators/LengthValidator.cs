@@ -20,6 +20,11 @@
         private readonly int m_Max;
 
         /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
+
+        /// <summary>
         /// Gets the minimum.
         /// </summary>
         /// <value>
@@ -58,7 +63,6 @@
         /// max;Max should be larger than min.
         /// </exception>
         public LengthValidator(int min, int max = -1)
-            : base(Constants.ValidationMessageResourceNames.LENGTH_VALIDATION_MESSAGE)
         {
             if (min < 0)
             {
@@ -72,6 +76,12 @@
 
             m_Min = min;
             m_Max = max;
+
+            m_ValidatorProperties = new ValidatorProperties
+                                        {
+                                            { Constants.ValidationMessageParameterNames.MIN, Min },
+                                            { Constants.ValidationMessageParameterNames.MAX, Max }
+                                        };
         }
 
         /// <summary>
@@ -102,43 +112,44 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
-            if (validationMessageBuilderParameterSetter == null)
+            string validationMessageResourceName;
+            if (Max == -1)
             {
-                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
+                validationMessageResourceName = Constants.ValidationMessageResourceNames.BIGGER_THAN_LENGTH_VALIDATION_MESSAGE;
+            }
+            else if (Min == 0)
+            {
+                validationMessageResourceName = Constants.ValidationMessageResourceNames.SMALLER_THAN_LENGTH_VALIDATION_MESSAGE;
+            }
+            else
+            {
+                validationMessageResourceName = Constants.ValidationMessageResourceNames.LENGTH_VALIDATION_MESSAGE;
             }
 
-            validationMessageBuilderParameterSetter.SetParameter(Constants.ValidationMessageParameterNames.MIN, Min.ToStringInvariant())
-                                                   .SetParameter(Constants.ValidationMessageParameterNames.MAX, Max.ToStringInvariant());
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(validationMessageResourceName)
+                                                     .SetValidatorProperties(m_ValidatorProperties)
+                                                     .Build(valueName, arguments);
+
+            return validationMessage;
         }
 
         /// <summary>
-        /// Gets the validation message builder parameter setter.
+        /// Gets the validator properties.
         /// </summary>
-        /// <param name="validationMessageBuilder">The validation message builder.</param>
-        /// <returns>The validation message</returns>
-        protected override IValidationMessageBuilderParameterSetter GetValidationMessageBuilderParameterSetter(IValidationMessageBuilder validationMessageBuilder)
+        /// <returns>The validator properties.</returns>
+        public override ValidatorProperties GetValidatorProperties()
         {
-            if (validationMessageBuilder == null)
-            {
-                throw new ArgumentNullException("validationMessageBuilder");
-            }
-
-            if (Max == -1)
-            {
-                return validationMessageBuilder.SetMessageFormat(GetValidationMessageFormat(Constants.ValidationMessageResourceNames.BIGGER_THAN_LENGTH_VALIDATION_MESSAGE));
-            }
-
-            if (Min == 0)
-            {
-                return validationMessageBuilder.SetMessageFormat(GetValidationMessageFormat(Constants.ValidationMessageResourceNames.SMALLER_THAN_LENGTH_VALIDATION_MESSAGE));
-            }
-
-            return base.GetValidationMessageBuilderParameterSetter(validationMessageBuilder);
+            return m_ValidatorProperties;
         }
     }
 }

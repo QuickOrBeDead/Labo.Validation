@@ -11,17 +11,6 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
     internal sealed class GreaterThanOrEqualToLaboValidationPropertyValidatorAdapter : LaboPropertyValidator
     {
         /// <summary>
-        /// Gets the greater than original equal to validator.
-        /// </summary>
-        /// <value>
-        /// The greater than original equal to validator.
-        /// </value>
-        private GreaterThanOrEqualToValidator GreaterThanOrEqualToValidator
-        {
-            get { return (GreaterThanOrEqualToValidator)ValidationRule.Validator; }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="GreaterThanOrEqualToLaboValidationPropertyValidatorAdapter"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
@@ -40,8 +29,10 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// </returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.Validator.GetValidationMessage(ValidationRule.GetDisplayName());
-            yield return new ModelClientValidationRangeRule(message, GreaterThanOrEqualToValidator.ValueToCompare, null);
+            ValidatorProperties validatorProperties = ValidationRule.Validator.GetValidatorProperties();
+            string message = ValidationRule.GetValidationMessage(Metadata.Model);
+
+            yield return new ModelClientValidationRangeRule(message, validatorProperties.GetPropertyValue(Constants.ValidationMessageParameterNames.VALUE_TO_COMPARE), null);
         }
     }
 }

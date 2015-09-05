@@ -28,7 +28,7 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// </returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.Validator.GetValidationMessage(ValidationRule.GetDisplayName());
+            string message = ValidationRule.GetValidationMessage(Metadata.Model);
 
             yield return new ModelClientValidationRule
             {

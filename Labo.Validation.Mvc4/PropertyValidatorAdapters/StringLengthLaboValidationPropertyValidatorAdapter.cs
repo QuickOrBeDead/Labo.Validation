@@ -11,17 +11,6 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
     internal sealed class StringLengthLaboValidationPropertyValidatorAdapter : LaboPropertyValidator
     {
         /// <summary>
-        /// Gets the length validator.
-        /// </summary>
-        /// <value>
-        /// The length validator.
-        /// </value>
-        private LengthValidator LengthValidator
-        {
-            get { return (LengthValidator)ValidationRule.Validator; }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="StringLengthLaboValidationPropertyValidatorAdapter"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
@@ -41,9 +30,15 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// </returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.Validator.GetValidationMessage(ValidationRule.GetDisplayName());
+            IEntityValidationRule entityValidationRule = ValidationRule;
+            string message = entityValidationRule.GetValidationMessage(Metadata.Model);
+            ValidatorProperties validatorProperties = entityValidationRule.Validator.GetValidatorProperties();
 
-            yield return new ModelClientValidationStringLengthRule(message, LengthValidator.Min, LengthValidator.Max);
+            yield return
+                new ModelClientValidationStringLengthRule(
+                    message,
+                    validatorProperties.GetPropertyValue<int>(Constants.ValidationMessageParameterNames.MIN),
+                    validatorProperties.GetPropertyValue<int>(Constants.ValidationMessageParameterNames.MAX));
         }
     }
 }

@@ -22,6 +22,11 @@
         private readonly IComparable m_To;
 
         /// <summary>
+        /// The validator properties
+        /// </summary>
+        private readonly ValidatorProperties m_ValidatorProperties;
+
+        /// <summary>
         /// Gets from value.
         /// </summary>
         /// <value>
@@ -55,7 +60,6 @@
         /// <param name="from">From.</param>
         /// <param name="to">The automatic.</param>
         public BetweenValidator(IComparable @from, IComparable to)
-            : base(Constants.ValidationMessageResourceNames.BETWEEN_VALIDATION_MESSAGE)
         {
             if (@from == null)
             {
@@ -79,6 +83,12 @@
 
             m_From = @from;
             m_To = to;
+
+            m_ValidatorProperties = new ValidatorProperties
+                                        {
+                                            { Constants.ValidationMessageParameterNames.FROM_VALUE, FromValue },
+                                            { Constants.ValidationMessageParameterNames.TO_VALUE, ToValue }
+                                        };
         }
 
         /// <summary>
@@ -110,19 +120,30 @@
         }
 
         /// <summary>
-        /// Sets the validation message parameters.
+        /// Gets the validation message.
         /// </summary>
-        /// <param name="validationMessageBuilderParameterSetter">The validation message builder parameter setter.</param>
-        protected override void SetValidationMessageParameters(IValidationMessageBuilderParameterSetter validationMessageBuilderParameterSetter)
+        /// <param name="valueName">Name of the value.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public override string GetValidationMessage(string valueName, params string[] arguments)
         {
-            if (validationMessageBuilderParameterSetter == null)
-            {
-                throw new ArgumentNullException("validationMessageBuilderParameterSetter");
-            }
+            IValidationMessageBuilder messageBuilder = GetValidationMessageBuilder();
+            string validationMessage = messageBuilder.SetMessageResourceName(Constants.ValidationMessageResourceNames.BETWEEN_VALIDATION_MESSAGE)
+                                                     .SetValidatorProperties(m_ValidatorProperties)
+                                                     .Build(valueName, arguments);
 
-            validationMessageBuilderParameterSetter
-                .SetParameter(Constants.ValidationMessageParameterNames.FROM_VALUE, FromValue.ToString())
-                .SetParameter(Constants.ValidationMessageParameterNames.TO_VALUE, ToValue.ToString());
+            return validationMessage;
+        }
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>The validator properties.</returns>
+        public override ValidatorProperties GetValidatorProperties()
+        {
+            return m_ValidatorProperties;
         }
     }
 }
