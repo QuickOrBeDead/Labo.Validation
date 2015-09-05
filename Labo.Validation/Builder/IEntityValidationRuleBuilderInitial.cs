@@ -1,5 +1,7 @@
 namespace Labo.Validation.Builder
 {
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The entity validation rule builder initial interface.
     /// </summary>
@@ -12,6 +14,6 @@ namespace Labo.Validation.Builder
         /// </summary>
         /// <param name="validator">The validator.</param>
         /// <returns>The entity validation rule builder.</returns>
-        IEntityValidationRuleBuilder<TEntity, TProperty> AddValidator(IValidator validator);
+        IEntityValidationRuleBuilder<TEntity, TProperty> AddValidator(IEntityPropertyValidator validator);
     }
 }

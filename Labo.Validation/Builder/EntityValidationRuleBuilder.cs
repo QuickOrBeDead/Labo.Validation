@@ -5,12 +5,15 @@ namespace Labo.Validation.Builder
     using System.Collections.ObjectModel;
     using System.Linq.Expressions;
 
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The entity validation rule builder class.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TProperty">The type of the entity property.</typeparam>
     public sealed class EntityValidationRuleBuilder<TEntity, TProperty> : IEntityValidationRuleBuilder<TEntity, TProperty>
+        where TEntity : class
     {
         /// <summary>
         /// The entity validator base
@@ -35,7 +38,7 @@ namespace Labo.Validation.Builder
         /// <summary>
         /// The validators
         /// </summary>
-        private readonly IList<IValidator> m_Validators;
+        private readonly IList<IEntityPropertyValidator> m_Validators;
 
         /// <summary>
         /// The specification
@@ -53,11 +56,11 @@ namespace Labo.Validation.Builder
         /// <value>
         /// The validators.
         /// </value>
-        internal IList<IValidator> Validators
+        internal IList<IEntityPropertyValidator> Validators
         {
             get
             {
-                return new ReadOnlyCollection<IValidator>(m_Validators);
+                return new ReadOnlyCollection<IEntityPropertyValidator>(m_Validators);
             }
         }
 
@@ -131,7 +134,7 @@ namespace Labo.Validation.Builder
             m_PropertyDisplayNameResolver = propertyDisplayNameResolver;
             m_PropertyExpression = propertyExpression;
             m_RuleSetName = ruleSetName;
-            m_Validators = new List<IValidator>();
+            m_Validators = new List<IEntityPropertyValidator>();
         }
 
         /// <summary>
@@ -139,7 +142,7 @@ namespace Labo.Validation.Builder
         /// </summary>
         /// <param name="validator">The validator.</param>
         /// <returns>The entity validation rule builder.</returns>
-        public IEntityValidationRuleBuilder<TEntity, TProperty> AddValidator(IValidator validator)
+        public IEntityValidationRuleBuilder<TEntity, TProperty> AddValidator(IEntityPropertyValidator validator)
         {
             if (validator == null)
             {
@@ -206,7 +209,7 @@ namespace Labo.Validation.Builder
 
             for (int i = 0; i < m_Validators.Count; i++)
             {
-                IValidator validator = m_Validators[i];
+                IEntityPropertyValidator validator = m_Validators[i];
 
                 m_EntityValidatorBase.AddRule(ruleSetName, new EntityPropertyValidationRule<TEntity, TProperty>(validator, m_PropertyDisplayNameResolver, m_PropertyExpression, m_Specification, m_Message));
             }

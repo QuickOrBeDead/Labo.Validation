@@ -10,6 +10,7 @@
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IEntityValidationRuleSetBuilder<TEntity>
+        where TEntity : class
     {
         /// <summary>
         /// Adds the entity validation rule to the entity validator.

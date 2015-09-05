@@ -10,6 +10,7 @@ namespace Labo.Validation.Builder
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public sealed class EntityValidationRuleSetBuilder<TEntity> : IEntityValidationRuleSetBuilder<TEntity>
+        where TEntity : class
     {
         /// <summary>
         /// The entity validator
