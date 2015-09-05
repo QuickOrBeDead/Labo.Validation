@@ -53,7 +53,7 @@
         /// <value>
         /// The property validator factories.
         /// </value>
-        internal Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> PropertyValidatorFactories
+        internal Dictionary<string, Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator>> PropertyValidatorFactories
         {
             get { return m_PropertyValidatorFactories; }
         }
@@ -61,20 +61,21 @@
         /// <summary>
         /// The property validator factories
         /// </summary>
-        private readonly Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> m_PropertyValidatorFactories = new Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> 
+        private readonly Dictionary<string, Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator>> m_PropertyValidatorFactories = new Dictionary<string, Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator>>(StringComparer.OrdinalIgnoreCase)
         {
-            { typeof(NotNullValidator), (metadata, context, validator) => new RequiredLaboPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(NotEmptyValidator), (metadata, context, validator) => new RequiredLaboPropertyValidatorAdapter(metadata, context, validator) },
-                                                                                                                                                                            
+            { "NotNullValidator", (metadata, context, validator, validationTransformerManager) => new RequiredLaboPropertyValidatorAdapter(metadata, context, validator) },
+            { "NotEmptyValidator", (metadata, context, validator, validationTransformerManager) => new RequiredLaboPropertyValidatorAdapter(metadata, context, validator) },
+                                                                                                                                                                
             // email must come before regex.
-            { typeof(EmailValidator), (metadata, context, validator) => new EmailLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(RegexValidator), (metadata, context, validator) => new RegexLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(LengthValidator), (metadata, context, validator) => new StringLengthLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(GreaterThanOrEqualToValidator), (metadata, context, validator) => new GreaterThanOrEqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(LessThanOrEqualToValidator), (metadata, context, validator) => new LessThanOrEqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(BetweenValidator), (metadata, context, validator) => new BetweenLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(EqualToValidator), (metadata, context, validator) => new EqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
-            { typeof(CreditCardValidator), (metadata, context, validator) => new CreditCardLaboValidationPropertyValidatorAdapter(metadata, context, validator) }
+            { "EmailValidator", (metadata, context, validator, validationTransformerManager) => new EmailLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "RegexValidator", (metadata, context, validator, validationTransformerManager) => new RegexLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "LengthValidator", (metadata, context, validator, validationTransformerManager) => new StringLengthLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "GreaterThanOrEqualToValidator", (metadata, context, validator, validationTransformerManager) => new GreaterThanOrEqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "LessThanOrEqualToValidator", (metadata, context, validator, validationTransformerManager) => new LessThanOrEqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "BetweenValidator", (metadata, context, validator, validationTransformerManager) => new BetweenLaboValidationPropertyValidatorAdapter(metadata, context, validator) },
+            { "EqualToValidator", (metadata, context, validator, validationTransformerManager) => new EqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator, validationTransformerManager) },
+            { "EqualToEntityPropertyValidator", (metadata, context, validator, validationTransformerManager) => new EqualToLaboValidationPropertyValidatorAdapter(metadata, context, validator, validationTransformerManager) },            
+            { "CreditCardValidator", (metadata, context, validator, validationTransformerManager) => new CreditCardLaboValidationPropertyValidatorAdapter(metadata, context, validator) }
         };
 
         /// <summary>
@@ -125,7 +126,7 @@
         /// or
         /// factory
         /// </exception>
-        public void RegisterValidatorFactory(Type validatorType, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator> factory)
+        public void RegisterValidatorFactory(string validatorType, Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator> factory)
         {
             if (validatorType == null)
             {
@@ -154,7 +155,7 @@
                 throw new ArgumentNullException("metadata");
             }
 
-            bool isModelProperty = IsModelProperty(metadata);
+            bool isModelProperty = ModelMetadataHelper.IsModelProperty(metadata);
 
             Type modelType = isModelProperty ? metadata.ContainerType : metadata.ModelType;
             IValidationTransformer validationTransformer = GetValidationTransformer(modelType);
@@ -187,26 +188,16 @@
         /// <returns>The model validator.</returns>
         private ModelValidator GetModelPropertyValidator(ModelMetadata meta, ControllerContext context, IEntityValidationRule validationRule)
         {
-            Type type = validationRule.Validator.GetType();
+            string type = validationRule.Validator.GetValidatorTypeName();
 
-            Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator> factory = null;
-            Dictionary<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>>.Enumerator enumerator = m_PropertyValidatorFactories.GetEnumerator();
-            while (enumerator.MoveNext())
+            Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator> factory;
+
+            if (!m_PropertyValidatorFactories.TryGetValue(type, out factory))
             {
-                KeyValuePair<Type, Func<ModelMetadata, ControllerContext, IEntityValidationRule, ModelValidator>> keyValuePair = enumerator.Current;
-                if (keyValuePair.Key.IsAssignableFrom(type))
-                {
-                    factory = keyValuePair.Value;
-                    break;
-                }
+                factory = (metadata, controllerContext, validator, validatorTransFormerManager) => new LaboPropertyValidator(metadata, controllerContext, validator);
             }
 
-            if (factory == null)
-            {
-                factory = (metadata, controllerContext, validator) => new LaboPropertyValidator(metadata, controllerContext, validator);
-            }
-
-            return factory(meta, context, validationRule);
+            return factory(meta, context, validationRule, m_ValidationTransformerManager);
         }
 
         /// <summary>
@@ -280,7 +271,7 @@
                 metadata, 
                 context, 
                 new StubEntityValidationRule(
-                    new NotNullValidator(),
+                    new EntityPropertyValidator(new NotNullValidator()),
                     x =>
                     {
                         if (x == null)
@@ -309,16 +300,6 @@
             {
                 yield return new LaboModelValidator(metadata, context, validator, validationTransformer);
             }
-        }
-
-        /// <summary>
-        /// Determines whether [is model property] [the specified metadata].
-        /// </summary>
-        /// <param name="metadata">The metadata.</param>
-        /// <returns><c>true</c> if the [the specified metadata] [is model property], otherwise <c>false</c>.</returns>
-        private static bool IsModelProperty(ModelMetadata metadata)
-        {
-            return metadata.ContainerType != null && !string.IsNullOrEmpty(metadata.PropertyName);
         }
     }
 }

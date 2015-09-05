@@ -85,6 +85,7 @@
     <Compile Include="LaboModelValidator.cs" />
     <Compile Include="LaboModelValidatorProvider.cs" />
     <Compile Include="LaboPropertyValidator.cs" />
+    <Compile Include="ModelMetadataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyValidatorAdapters\BetweenLaboValidationPropertyValidatorAdapter.cs" />
     <Compile Include="PropertyValidatorAdapters\CreditCardLaboValidationPropertyValidatorAdapter.cs" />

@@ -8,9 +8,9 @@
     [TestFixture]
     public class CreditCardLaboValidationPropertyValidatorAdapterFixture : LaboPropertyValidatorAdapterFixtureBase
     {
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new CreditCardValidator();
+            return new EntityPropertyValidator(new CreditCardValidator());
         }
 
         public override LaboPropertyValidator CreateLaboPropertyValidator(System.Web.Mvc.ModelMetadata propertyMetaData, System.Web.Mvc.ControllerContext controllerContext, IEntityValidationRule entityValidationRule)

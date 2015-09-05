@@ -6,6 +6,7 @@
 
     using Labo.Common.Utils;
     using Labo.Validation.Transform;
+    using Labo.Validation.Validators;
 
     /// <summary>
     /// The entity property validation rule class.
@@ -13,6 +14,7 @@
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TProperty">The type of the entity property.</typeparam>
     public sealed class EntityPropertyValidationRule<TEntity, TProperty> : IEntityValidationRule<TEntity>
+        where TEntity : class
     {
         /// <summary>
         /// The specification
@@ -27,7 +29,7 @@
         /// <summary>
         /// The validator
         /// </summary>
-        private readonly IValidator m_Validator;
+        private readonly IEntityPropertyValidator m_Validator;
 
         /// <summary>
         /// The property display name resolver
@@ -50,7 +52,7 @@
         /// <value>
         /// The validator.
         /// </value>
-        public IValidator Validator
+        public IEntityPropertyValidator Validator
         {
             get
             {
@@ -119,7 +121,7 @@
         /// <param name="propertyExpression">The property expression.</param>
         /// <param name="specification">The specification.</param>
         /// <param name="message">The message.</param>
-        public EntityPropertyValidationRule(IValidator validator, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression, ISpecification<TEntity> specification = null, string message = null)
+        public EntityPropertyValidationRule(IEntityPropertyValidator validator, IPropertyDisplayNameResolver propertyDisplayNameResolver, Expression<Func<TEntity, TProperty>> propertyExpression, ISpecification<TEntity> specification = null, string message = null)
         {
             if (validator == null)
             {
@@ -159,21 +161,43 @@
             }
 
             object propertyValue = m_PropertyFunc(entity);
-            if (m_Validator.IsValid(propertyValue))
+            if (m_Validator.IsValid(entity, propertyValue))
             {
                 return validationResult;
             }
 
             MemberInfo memberInfo = GetMemberInfo();
-            string propertyDisplayName = GetDisplayName(memberInfo);
+            string message = GetValidationMessage(entity, memberInfo);
 
             validationResult.Errors.Add(new ValidationError
                                             {
-                                                Message = m_Message ?? m_Validator.GetValidationMessage(propertyDisplayName),
+                                                Message = message,
                                                 PropertyName = memberInfo.Name,
                                                 TargetValue = entity
                                             });
             return validationResult;
+        }
+
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The validation message</returns>
+        public string GetValidationMessage(object entity)
+        {
+            TEntity value = entity as TEntity;
+            return GetValidationMessage(value);
+        }
+
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The validation message</returns>
+        public string GetValidationMessage(TEntity entity)
+        {
+            MemberInfo memberInfo = GetMemberInfo();
+            return GetValidationMessage(entity, memberInfo);
         }
 
         /// <summary>
@@ -208,14 +232,26 @@
         }
 
         /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>The validation message</returns>
+        private string GetValidationMessage(TEntity entity, MemberInfo memberInfo)
+        {
+            string propertyDisplayName = GetDisplayName(memberInfo);
+
+            return m_Message ?? m_Validator.GetValidationMessage(entity, propertyDisplayName);
+        }
+
+        /// <summary>
         /// Gets the member information.
         /// </summary>
         /// <returns>The member info.</returns>
         private MemberInfo GetMemberInfo()
         {
             IValidationTransformerManager validationTransformerManager = ValidatorSettings.ValidationTransformerManager;
-            IValidationTransformer validationTransformer =
-                validationTransformerManager.GetValidationTransformerForValidationModel(typeof(TEntity));
+            IValidationTransformer validationTransformer = validationTransformerManager.GetValidationTransformerForValidationModel(typeof(TEntity));
             MemberInfo memberInfo;
 
             if (validationTransformer == null)
@@ -227,6 +263,7 @@
                 MappingMemberInfo mappingMemberInfo = validationTransformer.TransformPropertyNameFromValidationModel(MemberName);
                 memberInfo = mappingMemberInfo == null ? MemberInfo : mappingMemberInfo.MemberInfo;
             }
+
             return memberInfo;
         }
     }

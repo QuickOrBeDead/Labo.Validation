@@ -50,9 +50,9 @@
             Assert.IsFalse(laboPropertyValidator.ShouldValidate);
         }
 
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new NotNullValidator();
+            return new EntityPropertyValidator(new NotNullValidator());
         }
     }
 }

@@ -8,9 +8,9 @@
     [TestFixture]
     public class LessThanOrEqualToLaboValidationPropertyValidatorAdapterFixture : LaboPropertyValidatorAdapterFixtureBase
     {
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new LessThanOrEqualToValidator(20);
+            return new EntityPropertyValidator(new LessThanOrEqualToValidator(20));
         }
 
         public override LaboPropertyValidator CreateLaboPropertyValidator(System.Web.Mvc.ModelMetadata propertyMetaData, System.Web.Mvc.ControllerContext controllerContext, IEntityValidationRule entityValidationRule)

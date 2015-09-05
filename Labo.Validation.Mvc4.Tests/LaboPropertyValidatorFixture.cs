@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Labo.Common.Utils;
+    using Labo.Validation.Validators;
 
     using NSubstitute;
 
@@ -30,7 +31,7 @@
             {
                 AddRule(x => x.RuleFor(y => y.Name).NotNull());
 
-                AddRule(x => x.RuleFor(y => y.Test).AddValidator(new TestValidator()));
+                AddRule(x => x.RuleFor(y => y.Test).AddValidator(new EntityPropertyValidator(new TestValidator())));
             }
         }
 
@@ -44,6 +45,11 @@
             public string GetValidationMessage(string valueName, params string[] arguments)
             {
                 return string.Empty;
+            }
+
+            public ValidatorProperties GetValidatorProperties()
+            {
+                return new ValidatorProperties();
             }
 
             public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)

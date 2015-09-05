@@ -149,10 +149,13 @@
     <Compile Include="Validators\BetweenValidator.cs" />
     <Compile Include="Validators\CreditCardValidator.cs" />
     <Compile Include="Validators\EmailValidator.cs" />
+    <Compile Include="Validators\EntityPropertyValidator.cs" />
+    <Compile Include="Validators\EqualToEntityPropertyValidator.cs" />
     <Compile Include="Validators\EqualToValidator.cs" />
     <Compile Include="Validators\GreaterThanOrEqualToValidator.cs" />
     <Compile Include="Validators\GreaterThanValidator.cs" />
     <Compile Include="Validators\IBetweenValidator.cs" />
+    <Compile Include="Validators\IEntityPropertyValidator.cs" />
     <Compile Include="Validators\LengthValidator.cs" />
     <Compile Include="Validators\LessThanOrEqualToValidator.cs" />
     <Compile Include="Validators\LessThanValidator.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Validators\RegexValidator.cs" />
     <Compile Include="Validators\UrlValidator.cs" />
     <Compile Include="Validators\ValidatorBase.cs" />
+    <Compile Include="Validators\ValidatorProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Messages.resx">

@@ -25,9 +25,9 @@
             Assert.IsFalse(laboPropertyValidator.ShouldValidate);
         }
 
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new RegexValidator(@"^\d$");
+            return new EntityPropertyValidator(new RegexValidator(@"^\d$"));
         }
     }
 }

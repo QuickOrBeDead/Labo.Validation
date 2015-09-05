@@ -29,12 +29,12 @@
         public void AddValidator()
         {
             EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(new CustomerValidator(), Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
-            entityValidationRuleBuilder.AddValidator(new NotNullValidator());
-            entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotNullValidator()));
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotEmptyValidator()));
 
             Assert.AreEqual(2, entityValidationRuleBuilder.Validators.Count);
-            Assert.IsInstanceOf<NotNullValidator>(entityValidationRuleBuilder.Validators[0]);
-            Assert.IsInstanceOf<NotEmptyValidator>(entityValidationRuleBuilder.Validators[1]);
+            Assert.AreEqual(typeof(NotNullValidator).Name, entityValidationRuleBuilder.Validators[0].GetValidatorTypeName());
+            Assert.AreEqual(typeof(NotEmptyValidator).Name, entityValidationRuleBuilder.Validators[1].GetValidatorTypeName());
         }
 
         [Test, ExpectedException(typeof(ArgumentNullException))]
@@ -68,8 +68,8 @@
             EntityValidatorBase<Customer> customerValidator = Substitute.For<EntityValidatorBase<Customer>>();
 
             EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name);
-            entityValidationRuleBuilder.AddValidator(new NotNullValidator());
-            entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotNullValidator()));
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotEmptyValidator()));
 
             Expression<Func<Customer, bool>> expression = x => x.Name != null;
             entityValidationRuleBuilder.SetSpecification(new Specification<Customer>(expression));
@@ -81,8 +81,8 @@
             EntityPropertyValidationRule<Customer, string> validationRule0 = (EntityPropertyValidationRule<Customer, string>)customerValidator.EntityValidationRules[0];
             EntityPropertyValidationRule<Customer, string> validationRule1 = (EntityPropertyValidationRule<Customer, string>)customerValidator.EntityValidationRules[1];
 
-            Assert.IsInstanceOf<NotNullValidator>(validationRule0.Validator);
-            Assert.IsInstanceOf<NotEmptyValidator>(validationRule1.Validator);
+            Assert.AreEqual(typeof(NotNullValidator).Name, validationRule0.Validator.GetValidatorTypeName());
+            Assert.AreEqual(typeof(NotEmptyValidator).Name, validationRule1.Validator.GetValidatorTypeName());
 
             Assert.AreEqual(expression, validationRule0.Specification.Predicate);
             Assert.AreEqual(expression, validationRule1.Specification.Predicate);
@@ -97,8 +97,8 @@
 
             const string ruleSetName = "TestRuleSet";
             EntityValidationRuleBuilder<Customer, string> entityValidationRuleBuilder = new EntityValidationRuleBuilder<Customer, string>(customerValidator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.Name, ruleSetName);
-            entityValidationRuleBuilder.AddValidator(new NotNullValidator());
-            entityValidationRuleBuilder.AddValidator(new NotEmptyValidator());
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotNullValidator()));
+            entityValidationRuleBuilder.AddValidator(new EntityPropertyValidator(new NotEmptyValidator()));
 
             Assert.AreEqual(ruleSetName, entityValidationRuleBuilder.RuleSetName);
 
@@ -110,8 +110,8 @@
             EntityPropertyValidationRule<Customer, string> validationRule0 = (EntityPropertyValidationRule<Customer, string>)entityValidationRules[0];
             EntityPropertyValidationRule<Customer, string> validationRule1 = (EntityPropertyValidationRule<Customer, string>)entityValidationRules[1];
 
-            Assert.IsInstanceOf<NotNullValidator>(validationRule0.Validator);
-            Assert.IsInstanceOf<NotEmptyValidator>(validationRule1.Validator);
+            Assert.AreEqual(typeof(NotNullValidator).Name, validationRule0.Validator.GetValidatorTypeName());
+            Assert.AreEqual(typeof(NotEmptyValidator).Name, validationRule1.Validator.GetValidatorTypeName());
         }
 
         [Test]

@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Labo.Common.Utils;
+    using Labo.Validation.Validators;
 
     using NSubstitute;
 
@@ -46,7 +47,7 @@
             return new StubEntityValidationRule(CreateValidator(), x => null, "Test", "Test");
         }
 
-        public abstract IValidator CreateValidator();
+        public abstract IEntityPropertyValidator CreateValidator();
 
         public abstract LaboPropertyValidator CreateLaboPropertyValidator(ModelMetadata propertyMetaData, ControllerContext controllerContext, IEntityValidationRule entityValidationRule);
 

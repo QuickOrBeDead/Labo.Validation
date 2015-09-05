@@ -5,6 +5,7 @@
     using System.Linq.Expressions;
     using System.Text.RegularExpressions;
 
+    using Labo.Common.Utils;
     using Labo.Validation.Builder;
     using Labo.Validation.Validators;
 
@@ -27,7 +28,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(NotNullValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(NotNullValidator.Instance));
         }
 
         /// <summary>
@@ -44,7 +45,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(NotEmptyValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(NotEmptyValidator.Instance));
         }
 
         /// <summary>
@@ -62,7 +63,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LengthValidator(min, max));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LengthValidator(min, max)));
         }
 
         /// <summary>
@@ -79,7 +80,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(LengthValidator.CreateMaxLengthValidator(max));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(LengthValidator.CreateMaxLengthValidator(max)));
         }
 
         /// <summary>
@@ -96,7 +97,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LengthValidator(exactLength, exactLength));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LengthValidator(exactLength, exactLength)));
         }
 
         /// <summary>
@@ -114,7 +115,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new RegexValidator(expression, regexOptions));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new RegexValidator(expression, regexOptions)));
         }
 
         /// <summary>
@@ -130,7 +131,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(EmailValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(EmailValidator.Instance));
         }
 
         /// <summary>
@@ -146,7 +147,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(UrlValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(UrlValidator.Instance));
         }
 
         /// <summary>
@@ -162,7 +163,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(PhoneNumberValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(PhoneNumberValidator.Instance));
         }
 
         /// <summary>
@@ -181,7 +182,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new NotEqualToValidator(toCompare, comparer));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new NotEqualToValidator(toCompare, comparer)));
         }
 
         /// <summary>
@@ -200,7 +201,38 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new EqualToValidator(toCompare, comparer));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new EqualToValidator(toCompare, comparer) { OwnerType = typeof(TEntity) }));
+        }
+
+        /// <summary>
+        /// Adds an equal to property validator to the rule builder. 
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="ruleBuilder">The rule builder.</param>
+        /// <param name="compareExpression">The compare expression.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <returns>Rule builder.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// ruleBuilder
+        /// or
+        /// compareExpression
+        /// </exception>
+        public static IEntityValidationRuleBuilder<TEntity, TProperty> EqualTo<TEntity, TProperty>(this IEntityValidationRuleBuilderInitial<TEntity, TProperty> ruleBuilder, Expression<Func<TEntity, TProperty>> compareExpression, IEqualityComparer comparer = null)
+        {
+            if (ruleBuilder == null)
+            {
+                throw new ArgumentNullException("ruleBuilder");
+            }
+
+            if (compareExpression == null)
+            {
+                throw new ArgumentNullException("compareExpression");
+            }
+
+            Func<TEntity, TProperty> memberToCompareFunc = compareExpression.Compile();
+
+            return ruleBuilder.AddValidator(new EqualToEntityPropertyValidator(x => memberToCompareFunc((TEntity)x), LinqUtils.GetMemberInfo(compareExpression), typeof(TEntity), true, comparer));
         }
 
         /// <summary>
@@ -224,7 +256,7 @@
                 throw new ArgumentNullException("predicate");
             }
 
-            return ruleBuilder.AddValidator(new PredicateValidator(instance => predicate((TProperty)instance)));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new PredicateValidator(instance => predicate((TProperty)instance))));
         }
 
         /// <summary>
@@ -243,7 +275,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LessThanValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LessThanValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -262,7 +294,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LessThanValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LessThanValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -281,7 +313,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LessThanOrEqualToValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LessThanOrEqualToValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -300,7 +332,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new LessThanOrEqualToValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new LessThanOrEqualToValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -319,7 +351,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new GreaterThanValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new GreaterThanValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -338,7 +370,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new GreaterThanValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new GreaterThanValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -357,7 +389,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new GreaterThanOrEqualToValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new GreaterThanOrEqualToValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -376,7 +408,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new GreaterThanOrEqualToValidator(valueToCompare));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new GreaterThanOrEqualToValidator(valueToCompare)));
         }
 
         /// <summary>
@@ -395,7 +427,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new BetweenValidator(from, to));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new BetweenValidator(from, to)));
         }
 
         /// <summary>
@@ -415,7 +447,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(new BetweenValidator(from, to));
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(new BetweenValidator(from, to)));
         }
 
         /// <summary>
@@ -431,7 +463,7 @@
                 throw new ArgumentNullException("ruleBuilder");
             }
 
-            return ruleBuilder.AddValidator(CreditCardValidator.Instance);
+            return ruleBuilder.AddValidator(new EntityPropertyValidator(CreditCardValidator.Instance));
         }
 
         /// <summary>

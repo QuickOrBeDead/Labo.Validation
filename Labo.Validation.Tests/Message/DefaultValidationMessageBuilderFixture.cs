@@ -15,7 +15,8 @@
         public void SetMessageFormat()
         {
             IValidationMessageFormatter validationMessageFormatter = Substitute.For<IValidationMessageFormatter>();
-            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter);
+            IValidationMessageResourceManager validationMessageResourceManager = Substitute.For<IValidationMessageResourceManager>();
+            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter, validationMessageResourceManager);
             const string messageFormat = "'{ValueName}' must be greater than or equal to '{ValueToCompare}'.";
             defaultValidationMessageBuilder.SetMessageFormat(messageFormat);
 
@@ -26,7 +27,8 @@
         public void SetParameter()
         {
             IValidationMessageFormatter validationMessageFormatter = Substitute.For<IValidationMessageFormatter>();
-            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter);
+            IValidationMessageResourceManager validationMessageResourceManager = Substitute.For<IValidationMessageResourceManager>();
+            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter, validationMessageResourceManager);
             defaultValidationMessageBuilder.SetParameter("ValueName", "Name");
 
             Assert.AreEqual("Name", defaultValidationMessageBuilder.Parameters["ValueName"]);
@@ -36,13 +38,13 @@
         public void Build()
         {
             IValidationMessageFormatter validationMessageFormatter = Substitute.For<IValidationMessageFormatter>();
-            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter);
+            IValidationMessageResourceManager validationMessageResourceManager = Substitute.For<IValidationMessageResourceManager>();
+            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter, validationMessageResourceManager);
             const string messageFormat = "'{ValueName}' must be greater than or equal to '{ValueToCompare}'.";
             defaultValidationMessageBuilder.SetMessageFormat(messageFormat);
-            defaultValidationMessageBuilder.SetParameter("ValueName", "Name");
             defaultValidationMessageBuilder.SetParameter("ValueToCompare", "1");
 
-            defaultValidationMessageBuilder.Build();
+            defaultValidationMessageBuilder.Build("Name");
 
             validationMessageFormatter.Received(1).FormatMessage(messageFormat, defaultValidationMessageBuilder.Parameters);
         }
@@ -51,11 +53,11 @@
         public void BuildThrowsExceptionWhenMessageFormatIsNull()
         {
             IValidationMessageFormatter validationMessageFormatter = Substitute.For<IValidationMessageFormatter>();
-            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter);
-            defaultValidationMessageBuilder.SetParameter("ValueName", "Name");
+            IValidationMessageResourceManager validationMessageResourceManager = Substitute.For<IValidationMessageResourceManager>();
+            DefaultValidationMessageBuilder defaultValidationMessageBuilder = new DefaultValidationMessageBuilder(validationMessageFormatter, validationMessageResourceManager);
             defaultValidationMessageBuilder.SetParameter("ValueToCompare", "1");
 
-            Assert.Throws<InvalidOperationException>(() => defaultValidationMessageBuilder.Build());
+            Assert.Throws<InvalidOperationException>(() => defaultValidationMessageBuilder.Build("Name"));
         }
     }
 }

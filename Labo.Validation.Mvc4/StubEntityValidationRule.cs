@@ -3,6 +3,8 @@
     using System;
     using System.Reflection;
 
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The stub entity validation rule class.
     /// </summary>
@@ -11,7 +13,7 @@
         /// <summary>
         /// The validator
         /// </summary>
-        private readonly IValidator m_Validator;
+        private readonly IEntityPropertyValidator m_Validator;
 
         /// <summary>
         /// The property function
@@ -34,7 +36,7 @@
         /// <value>
         /// The validator.
         /// </value>
-        public IValidator Validator
+        public IEntityPropertyValidator Validator
         {
             get { return m_Validator; }
         }
@@ -75,7 +77,7 @@
         /// or
         /// propertyExpression
         /// </exception>
-        public StubEntityValidationRule(IValidator validator, Func<object, object> propertyFunc, string displayName, string propertyName)
+        public StubEntityValidationRule(IEntityPropertyValidator validator, Func<object, object> propertyFunc, string displayName, string propertyName)
         {
             if (validator == null)
             {
@@ -104,16 +106,15 @@
             ValidationResult validationResult = ValidationResult.Empty();
 
             object propertyValue = m_PropertyFunc(entity);
-            if (m_Validator.IsValid(propertyValue))
+            if (m_Validator.IsValid(entity, propertyValue))
             {
                 return validationResult;
             }
 
-            string propertyDisplayName = GetDisplayName();
-
+            string validationMessage = GetValidationMessage(entity);
             validationResult.Errors.Add(new ValidationError
             {
-                Message = m_Validator.GetValidationMessage(propertyDisplayName),
+                Message = validationMessage,
                 PropertyName = m_PropertyName,
                 TargetValue = entity
             });
@@ -127,6 +128,23 @@
         public string GetDisplayName()
         {
             return m_DisplayName;
+        }
+
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        /// <returns>
+        /// The validation message
+        /// </returns>
+        public string GetValidationMessage(object entity)
+        {
+            string propertyDisplayName = GetDisplayName();
+
+            string validationMessage = m_Validator.GetValidationMessage(entity, propertyDisplayName);
+            return validationMessage;
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     using System.Reflection;
 
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The entity validation rule interface.
     /// </summary>
@@ -20,7 +22,7 @@
         /// <value>
         /// The validator.
         /// </value>
-        IValidator Validator { get; }
+        IEntityPropertyValidator Validator { get; }
 
         /// <summary>
         /// Gets the member information.
@@ -44,6 +46,14 @@
         /// <param name="entity">The entity.</param>
         /// <returns>The validation result.</returns>
         ValidationResult Validate(object entity);
+
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The validation message</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        string GetValidationMessage(object entity);
     }
 
     /// <summary>
@@ -58,5 +68,12 @@
         /// <param name="entity">The entity.</param>
         /// <returns>The validation result.</returns>
         ValidationResult Validate(TEntity entity);
+
+        /// <summary>
+        /// Gets the validation message.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>The validation message.</returns>
+        string GetValidationMessage(TEntity entity);
     }
 }

@@ -137,6 +137,16 @@
             /// The minimum
             /// </summary>
             public const string MIN = "Min";
+
+            /// <summary>
+            /// The member automatic compare member information
+            /// </summary>
+            public const string MEMBER_TO_COMPARE_MEMBER_INFO = "MemberToCompareMemberInfo";
+
+            /// <summary>
+            /// The owner type
+            /// </summary>
+            public const string OWNER_TYPE = "OwnerType";
         }
     }
 }

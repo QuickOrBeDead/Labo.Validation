@@ -1,5 +1,7 @@
 ﻿namespace Labo.Validation
 {
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The validator interface.
     /// </summary>
@@ -19,5 +21,12 @@
         /// <param name="arguments">The arguments.</param>
         /// <returns>The validation message</returns>
         string GetValidationMessage(string valueName, params string[] arguments);
+
+        /// <summary>
+        /// Gets the validator properties.
+        /// </summary>
+        /// <returns>The validator properties.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        ValidatorProperties GetValidatorProperties();
     }
 }

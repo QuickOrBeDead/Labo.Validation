@@ -18,7 +18,7 @@
         public void Validate()
         {
             const string propertyName = "Email";
-            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new NotNullValidator(),  x =>
+            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()),  x =>
                 {
                     if (x == null)
                     {
@@ -42,7 +42,7 @@
         public void Validate1()
         {
             const string propertyName = "Email";
-            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new NotNullValidator(), x =>
+            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()), x =>
             {
                 if (x == null)
                 {

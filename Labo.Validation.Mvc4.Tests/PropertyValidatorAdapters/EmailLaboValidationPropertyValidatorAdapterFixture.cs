@@ -7,9 +7,9 @@
 
     public class EmailLaboValidationPropertyValidatorAdapterFixture : LaboPropertyValidatorAdapterFixtureBase
     {
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new EmailValidator();
+            return new EntityPropertyValidator(new EmailValidator());
         }
 
         public override LaboPropertyValidator CreateLaboPropertyValidator(System.Web.Mvc.ModelMetadata propertyMetaData, System.Web.Mvc.ControllerContext controllerContext, IEntityValidationRule entityValidationRule)

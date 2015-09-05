@@ -3,6 +3,7 @@
     using System;
 
     using Labo.Common.Utils;
+    using Labo.Validation.Validators;
 
     using NSubstitute;
 
@@ -20,7 +21,7 @@
         public void MemberInfo()
         {
             IValidator validator = Substitute.For<IValidator>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
 
             Assert.AreEqual(LinqUtils.GetMemberName<Customer, string>(x => x.FirstName), entityPropertyValidationRule.MemberInfo.Name);
         }
@@ -29,7 +30,7 @@
         public void MemberName()
         {
             IValidator validator = Substitute.For<IValidator>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
 
             Assert.AreEqual(LinqUtils.GetMemberName<Customer, string>(x => x.FirstName), entityPropertyValidationRule.MemberName);
         }
@@ -38,7 +39,7 @@
         public void Validator()
         {
             IValidator validator = Substitute.For<IValidator>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
 
             Assert.AreSame(validator, entityPropertyValidationRule.Validator);
         }
@@ -48,7 +49,7 @@
         {
             IValidator validator = Substitute.For<IValidator>();
             ISpecification<Customer> specification = Substitute.For<ISpecification<Customer>>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
 
             Assert.AreSame(specification, entityPropertyValidationRule.Specification);
         }
@@ -57,7 +58,7 @@
         public void Message()
         {
             IValidator validator = Substitute.For<IValidator>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, null, "Test Message");
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, null, "Test Message");
 
             Assert.AreEqual("Test Message", entityPropertyValidationRule.Message);
         }
@@ -68,7 +69,7 @@
             const string firstName = "Foo";
 
             IValidator validator = Substitute.For<IValidator>();
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
             entityPropertyValidationRule.Validate(new Customer
                                                       {
                                                           FirstName = firstName
@@ -85,7 +86,7 @@
             IValidator validator = Substitute.For<IValidator>();
             validator.IsValid(firstName).Returns(true);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
             ValidationResult validationResult = entityPropertyValidationRule.Validate(new Customer
                                                                                           {
                                                                                               FirstName = firstName
@@ -106,7 +107,7 @@
             ISpecification<Customer> specification = Substitute.For<ISpecification<Customer>>();
             specification.IsSatisfiedBy(null).ReturnsForAnyArgs(false);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
             ValidationResult validationResult = entityPropertyValidationRule.Validate(new Customer
             {
                 FirstName = firstName
@@ -130,7 +131,7 @@
             ISpecification<Customer> specification = Substitute.For<ISpecification<Customer>>();
             specification.IsSatisfiedBy(null).ReturnsForAnyArgs(true);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
             ValidationResult validationResult = entityPropertyValidationRule.Validate(new Customer
             {
                 FirstName = firstName
@@ -154,7 +155,7 @@
             ISpecification<Customer> specification = Substitute.For<ISpecification<Customer>>();
             specification.IsSatisfiedBy(null).ReturnsForAnyArgs(true);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName, specification);
             ValidationResult validationResult = entityPropertyValidationRule.Validate(new Customer
             {
                 FirstName = firstName
@@ -176,7 +177,7 @@
             IValidator validator = Substitute.For<IValidator>();
             validator.IsValid(null).ReturnsForAnyArgs(false);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
             ValidationResult validationResult = entityPropertyValidationRule.Validate(new Customer
             {
                 FirstName = firstName
@@ -197,7 +198,7 @@
             IValidator validator = Substitute.For<IValidator>();
             validator.IsValid(null).ReturnsForAnyArgs(false);
 
-            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(validator, Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
+            EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
             ValidationResult validationResult = ((IEntityValidationRule)entityPropertyValidationRule).Validate(new Customer
             {
                 FirstName = firstName
@@ -217,7 +218,7 @@
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorMustThrowArgumentNullExceptionWhenExpressionIsNull()
         {
-            new EntityPropertyValidationRule<Customer, string>(Substitute.For<IValidator>(), Substitute.For<IPropertyDisplayNameResolver>(), null);
+            new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(Substitute.For<IValidator>()), Substitute.For<IPropertyDisplayNameResolver>(), null);
         }
     }
 }

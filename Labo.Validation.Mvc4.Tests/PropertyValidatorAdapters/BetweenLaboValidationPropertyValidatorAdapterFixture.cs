@@ -25,9 +25,9 @@
             Assert.IsFalse(laboPropertyValidator.ShouldValidate);
         }
 
-        public override IValidator CreateValidator()
+        public override IEntityPropertyValidator CreateValidator()
         {
-            return new BetweenValidator(1, 10);
+            return new EntityPropertyValidator(new BetweenValidator(1, 10));
         }
     }
 }

@@ -65,7 +65,9 @@
         {
             if (ShouldValidate)
             {
-                ValidationResult result = ValidationRule.Validate(Metadata.Model);
+                ModelMetadata modelMetadata = Metadata;
+                bool isModelProperty = ModelMetadataHelper.IsModelProperty(modelMetadata);
+                ValidationResult result = ValidationRule.Validate(isModelProperty ? null : modelMetadata.Model);
 
                 ValidationErrorCollection errors = result.Errors;
                 for (int i = 0; i < errors.Count; i++)
