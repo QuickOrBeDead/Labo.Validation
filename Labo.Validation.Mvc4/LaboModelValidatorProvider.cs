@@ -268,21 +268,11 @@
         private static ModelValidator CreateNotNullValidatorForProperty(ModelMetadata metadata, ControllerContext context)
         {
             return new RequiredLaboPropertyValidatorAdapter(
-                metadata, 
-                context, 
+                metadata,
+                context,
                 new StubEntityValidationRule(
                     new EntityPropertyValidator(new NotNullValidator()),
-                    x =>
-                    {
-                        if (x == null)
-                        {
-                            return null;
-                        }
-
-                        PropertyInfo propertyInfo = x.GetType().GetProperty(metadata.PropertyName);
-                        return propertyInfo == null ? null : propertyInfo.GetValue(x);
-                    }, 
-                    metadata.GetDisplayName(), 
+                    metadata.GetDisplayName(),
                     metadata.PropertyName));
         }
 

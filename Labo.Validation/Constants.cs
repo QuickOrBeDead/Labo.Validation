@@ -109,6 +109,11 @@
         public static class ValidationMessageParameterNames
         {
             /// <summary>
+            /// The regex
+            /// </summary>
+            public const string REGEX = "Regex";
+
+            /// <summary>
             /// The value name
             /// </summary>
             public const string VALUE_NAME = "ValueName";

@@ -11,17 +11,6 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
     internal sealed class RegexLaboValidationPropertyValidatorAdapter : LaboPropertyValidator
     {
         /// <summary>
-        /// Gets the regex validator.
-        /// </summary>
-        /// <value>
-        /// The regex validator.
-        /// </value>
-        private RegexValidator RegexValidator
-        {
-            get { return (RegexValidator)ValidationRule.Validator; }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="RegexLaboValidationPropertyValidatorAdapter"/> class.
         /// </summary>
         /// <param name="metadata">The metadata.</param>
@@ -41,9 +30,12 @@ namespace Labo.Validation.Mvc4.PropertyValidatorAdapters
         /// </returns>
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
-            string message = ValidationRule.GetValidationMessage(Metadata.Model);
+            IEntityValidationRule entityValidationRule = ValidationRule;
+            IEntityPropertyValidator entityPropertyValidator = entityValidationRule.Validator;
+            ValidatorProperties validatorProperties = entityPropertyValidator.GetValidatorProperties();
+            string message = entityValidationRule.GetValidationMessage(Metadata.Model);
 
-            yield return new ModelClientValidationRegexRule(message, RegexValidator.Regex.ToString());
+            yield return new ModelClientValidationRegexRule(message, validatorProperties.GetPropertyValue<string>(Constants.ValidationMessageParameterNames.REGEX));
         }
     }
 }

@@ -393,7 +393,7 @@
             where TValidator : IValidator
         {
             IEntityValidationRuleBuilderInitial<TEntity, TProperty> ruleBuilder = Substitute.For<IEntityValidationRuleBuilderInitial<TEntity, TProperty>>();
-            ruleBuilder.WhenForAnyArgs(x => x.AddValidator(null)).Do(x => Assert.IsInstanceOf<TValidator>(x.Arg<IValidator>()));
+            ruleBuilder.WhenForAnyArgs(x => x.AddValidator(null)).Do(x => Assert.IsInstanceOf<TValidator>(x.Arg<EntityPropertyValidator>().InnerValidator));
 
             action(ruleBuilder);
 

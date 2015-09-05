@@ -16,11 +16,6 @@
         private readonly IEntityPropertyValidator m_Validator;
 
         /// <summary>
-        /// The property function
-        /// </summary>
-        private readonly Func<object, object> m_PropertyFunc;
-
-        /// <summary>
         /// The display name
         /// </summary>
         private readonly string m_DisplayName;
@@ -67,7 +62,6 @@
         /// Initializes a new instance of the <see cref="StubEntityValidationRule"/> class.
         /// </summary>
         /// <param name="validator">The validator.</param>
-        /// <param name="propertyFunc">The property function.</param>
         /// <param name="displayName">The member info.</param>
         /// <param name="propertyName">The property name.</param>
         /// <exception cref="System.ArgumentNullException">
@@ -77,21 +71,15 @@
         /// or
         /// propertyExpression
         /// </exception>
-        public StubEntityValidationRule(IEntityPropertyValidator validator, Func<object, object> propertyFunc, string displayName, string propertyName)
+        public StubEntityValidationRule(IEntityPropertyValidator validator, string displayName, string propertyName)
         {
             if (validator == null)
             {
                 throw new ArgumentNullException("validator");
             }
 
-            if (propertyFunc == null)
-            {
-                throw new ArgumentNullException("propertyFunc");
-            }
-
             m_Validator = validator;
 
-            m_PropertyFunc = propertyFunc;
             m_DisplayName = displayName;
             m_PropertyName = propertyName;
         }
@@ -105,13 +93,12 @@
         {
             ValidationResult validationResult = ValidationResult.Empty();
 
-            object propertyValue = m_PropertyFunc(entity);
-            if (m_Validator.IsValid(entity, propertyValue))
+            if (m_Validator.IsValid(null, entity /* property value */))
             {
                 return validationResult;
             }
 
-            string validationMessage = GetValidationMessage(entity);
+            string validationMessage = GetValidationMessage(null);
             validationResult.Errors.Add(new ValidationError
             {
                 Message = validationMessage,

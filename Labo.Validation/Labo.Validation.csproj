@@ -156,6 +156,7 @@
     <Compile Include="Validators\GreaterThanValidator.cs" />
     <Compile Include="Validators\IBetweenValidator.cs" />
     <Compile Include="Validators\IEntityPropertyValidator.cs" />
+    <Compile Include="Validators\IHasInnerValidator.cs" />
     <Compile Include="Validators\LengthValidator.cs" />
     <Compile Include="Validators\LessThanOrEqualToValidator.cs" />
     <Compile Include="Validators\LessThanValidator.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Validators\UrlValidator.cs" />
     <Compile Include="Validators\ValidatorBase.cs" />
     <Compile Include="Validators\ValidatorProperties.cs" />
+    <Compile Include="Validators\ValidatorType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Messages.resx">

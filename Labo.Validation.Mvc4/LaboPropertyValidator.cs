@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The labo property validator class.
     /// </summary>
@@ -65,9 +67,10 @@
         {
             if (ShouldValidate)
             {
-                ModelMetadata modelMetadata = Metadata;
-                bool isModelProperty = ModelMetadataHelper.IsModelProperty(modelMetadata);
-                ValidationResult result = ValidationRule.Validate(isModelProperty ? null : modelMetadata.Model);
+                ModelMetadata metadata = Metadata;
+                bool isModelProperty = ModelMetadataHelper.IsModelProperty(metadata);
+
+                ValidationResult result = ValidationRule.Validate(isModelProperty ? metadata.Model : container);
 
                 ValidationErrorCollection errors = result.Errors;
                 for (int i = 0; i < errors.Count; i++)
@@ -87,11 +90,15 @@
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
-            IClientValidatable supportsClientValidation = ValidationRule.Validator as IClientValidatable;
-
-            if (supportsClientValidation != null)
+            IHasInnerValidator hasInnerValidator = ValidationRule.Validator as IHasInnerValidator;
+            if (hasInnerValidator != null)
             {
-                return supportsClientValidation.GetClientValidationRules(Metadata, ControllerContext);
+                IClientValidatable supportsClientValidation = hasInnerValidator.InnerValidator as IClientValidatable;
+
+                if (supportsClientValidation != null)
+                {
+                    return supportsClientValidation.GetClientValidationRules(Metadata, ControllerContext);
+                }
             }
 
             return Enumerable.Empty<ModelClientValidationRule>();

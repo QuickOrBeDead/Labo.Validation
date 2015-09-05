@@ -152,6 +152,11 @@
                 throw new ArgumentNullException("arguments");
             }
 
+            if (string.IsNullOrWhiteSpace(m_ValidationMessageFormat))
+            {
+                throw new InvalidOperationException("Validation Message format cannot be null or empty.");
+            }
+
             SetParameter(Constants.ValidationMessageParameterNames.VALUE_NAME, valueName);
 
             for (int i = 0; i < arguments.Length; i++)

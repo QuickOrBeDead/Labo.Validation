@@ -98,10 +98,10 @@
             Assert.AreEqual(2, entityValidationRules.Count);
           
             Assert.AreEqual("FirstName", entityValidationRules[0].MemberName);
-            Assert.IsInstanceOf<NotNullValidator>(entityValidationRules[0].Validator);
+            Assert.IsInstanceOf<NotNullValidator>(((EntityPropertyValidator)entityValidationRules[0].Validator).InnerValidator);
             
             Assert.AreEqual("LastName", entityValidationRules[1].MemberName);
-            Assert.IsInstanceOf<NotEmptyValidator>(entityValidationRules[1].Validator);
+            Assert.IsInstanceOf<NotEmptyValidator>(((EntityPropertyValidator)entityValidationRules[1].Validator).InnerValidator);
         }
 
         [Test]
@@ -126,10 +126,10 @@
             Assert.AreEqual(2, entityValidationRules.Count);
 
             Assert.AreEqual("FirstName", entityValidationRules[0].MemberName);
-            Assert.IsInstanceOf<NotNullValidator>(entityValidationRules[0].Validator);
+            Assert.IsInstanceOf<NotNullValidator>(((EntityPropertyValidator)entityValidationRules[0].Validator).InnerValidator);
 
             Assert.AreEqual("LastName", entityValidationRules[1].MemberName);
-            Assert.IsInstanceOf<NotEmptyValidator>(entityValidationRules[1].Validator);
+            Assert.IsInstanceOf<NotEmptyValidator>(((EntityPropertyValidator)entityValidationRules[1].Validator).InnerValidator);
 
             entityValidationRules = validationRules[string.Empty];
             
@@ -137,7 +137,7 @@
             Assert.AreEqual(1, entityValidationRules.Count);
 
             Assert.AreEqual("FirstName", entityValidationRules[0].MemberName);
-            Assert.IsInstanceOf<NotEmptyValidator>(entityValidationRules[0].Validator);
+            Assert.IsInstanceOf<NotEmptyValidator>(((EntityPropertyValidator)entityValidationRules[0].Validator).InnerValidator);
         }
 
         [Test]

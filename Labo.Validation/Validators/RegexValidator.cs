@@ -71,7 +71,21 @@
 
             m_Regex = new Regex(expression, RegexOptions.Compiled | regexOptions);
             m_ValidationMessageResourceName = validationMessageResourceName;
-            m_ValidatorProperties = new ValidatorProperties();
+            m_ValidatorProperties = new ValidatorProperties { { Constants.ValidationMessageParameterNames.REGEX, expression } };
+        }
+
+        /// <summary>
+        /// Gets the type of the validator.
+        /// </summary>
+        /// <value>
+        /// The type of the validator.
+        /// </value>
+        public override ValidatorType ValidatorType
+        {
+            get
+            {
+                return ValidatorType.RegexValidator;
+            }
         }
 
         /// <summary>

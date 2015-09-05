@@ -60,6 +60,11 @@
                     ErrorMessage = "Error Message"
                 };
             }
+
+            public ValidatorType ValidatorType
+            {
+                get { return ValidatorType.EmailValidator; }
+            }
         }
 
         [Test]

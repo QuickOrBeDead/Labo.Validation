@@ -1,7 +1,5 @@
 ﻿namespace Labo.Validation.Mvc4.Tests
 {
-    using System.Reflection;
-
     using Labo.Validation.Validators;
 
     using NUnit.Framework;
@@ -18,18 +16,9 @@
         public void Validate()
         {
             const string propertyName = "Email";
-            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()),  x =>
-                {
-                    if (x == null)
-                    {
-                        return null;
-                    }
+            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()), "User Email", propertyName);
 
-                    PropertyInfo propertyInfo = x.GetType().GetProperty(propertyName);
-                    return propertyInfo == null ? null : propertyInfo.GetValue(x);
-                }, "User Email", propertyName);
-
-            ValidationResult validationResult = entityValidationRule.Validate(new User());
+            ValidationResult validationResult = entityValidationRule.Validate(null);
             
             Assert.IsFalse(validationResult.IsValid);
              
@@ -42,16 +31,7 @@
         public void Validate1()
         {
             const string propertyName = "Email";
-            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()), x =>
-            {
-                if (x == null)
-                {
-                    return null;
-                }
-
-                PropertyInfo propertyInfo = x.GetType().GetProperty(propertyName);
-                return propertyInfo == null ? null : propertyInfo.GetValue(x);
-            }, "User Email", propertyName);
+            StubEntityValidationRule entityValidationRule = new StubEntityValidationRule(new EntityPropertyValidator(new NotNullValidator()), "User Email", propertyName);
 
             ValidationResult validationResult = entityValidationRule.Validate(new User { Email = "test@labo.com" });
 

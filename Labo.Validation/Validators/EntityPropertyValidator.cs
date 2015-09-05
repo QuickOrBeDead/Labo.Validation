@@ -5,12 +5,26 @@
     /// <summary>
     /// The entity property validator class.
     /// </summary>
-    public sealed class EntityPropertyValidator : IEntityPropertyValidator
+    public sealed class EntityPropertyValidator : IEntityPropertyValidator, IHasInnerValidator
     {
         /// <summary>
         /// The validator
         /// </summary>
         private readonly IValidator m_Validator;
+
+        /// <summary>
+        /// Gets the validator.
+        /// </summary>
+        /// <value>
+        /// The validator.
+        /// </value>
+        public IValidator InnerValidator
+        {
+            get
+            {
+                return m_Validator;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityPropertyValidator"/> class.
@@ -56,7 +70,7 @@
         /// <returns>The type name.</returns>
         public string GetValidatorTypeName()
         {
-            return m_Validator.GetType().Name;
+            return m_Validator.ValidatorType.ToString();
         }
 
         /// <summary>

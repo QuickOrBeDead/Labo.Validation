@@ -13,11 +13,6 @@
     public sealed class EqualToEntityPropertyValidator : IEntityPropertyValidator
     {
         /// <summary>
-        /// The validator type name
-        /// </summary>
-        private const string VALIDATOR_TYPE_NAME = "EqualToEntityPropertyValidator";
-
-        /// <summary>
         /// The member to compare function
         /// </summary>
         private readonly Func<object, object> m_MemberToCompareFunc;
@@ -151,7 +146,7 @@
         /// <returns>The type name.</returns>
         public string GetValidatorTypeName()
         {
-            return VALIDATOR_TYPE_NAME;
+            return ValidatorType.EqualToEntityPropertyValidator.ToString();
         }
 
         /// <summary>

@@ -1,7 +1,5 @@
 ﻿namespace Labo.Validation.Validators
 {
-    using System.Collections.Generic;
-
     using Labo.Validation.Message;
 
     /// <summary>
@@ -18,6 +16,14 @@
         {
             return new DefaultValidationMessageBuilder(ValidatorSettings.ValidationMessageFormatter, ValidatorSettings.ValidationMessageResourceManager);
         }
+
+        /// <summary>
+        /// Gets the type of the validator.
+        /// </summary>
+        /// <value>
+        /// The type of the validator.
+        /// </value>
+        public abstract ValidatorType ValidatorType { get; }
 
         /// <summary>
         /// Determines whether the specified value is valid.

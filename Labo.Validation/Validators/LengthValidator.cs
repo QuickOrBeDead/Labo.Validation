@@ -95,6 +95,20 @@
         }
 
         /// <summary>
+        /// Gets the type of the validator.
+        /// </summary>
+        /// <value>
+        /// The type of the validator.
+        /// </value>
+        public override ValidatorType ValidatorType
+        {
+            get
+            {
+                return ValidatorType.LengthValidator;
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified value is valid.
         /// </summary>
         /// <param name="value">The value.</param>

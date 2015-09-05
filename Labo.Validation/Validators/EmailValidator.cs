@@ -33,6 +33,20 @@
         }
 
         /// <summary>
+        /// Gets the type of the validator.
+        /// </summary>
+        /// <value>
+        /// The type of the validator.
+        /// </value>
+        public override ValidatorType ValidatorType
+        {
+            get
+            {
+                return ValidatorType.EmailValidator;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EmailValidator"/> class.
         /// </summary>
         public EmailValidator()

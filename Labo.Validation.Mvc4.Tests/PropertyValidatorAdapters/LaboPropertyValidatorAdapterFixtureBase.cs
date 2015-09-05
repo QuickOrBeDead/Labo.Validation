@@ -44,7 +44,7 @@
 
         private IEntityValidationRule CreateEntityValidationRule()
         {
-            return new StubEntityValidationRule(CreateValidator(), x => null, "Test", "Test");
+            return new StubEntityValidationRule(CreateValidator(), "Test", "Test");
         }
 
         public abstract IEntityPropertyValidator CreateValidator();

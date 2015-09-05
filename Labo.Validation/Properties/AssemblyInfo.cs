@@ -40,4 +40,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("Labo.Validation.Tests")]
+[assembly: InternalsVisibleTo("Labo.Validation.Mvc4.Tests")]
+
 [assembly: NeutralResourcesLanguage("tr-TR")]

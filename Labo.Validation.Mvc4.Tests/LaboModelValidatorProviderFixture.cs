@@ -59,7 +59,7 @@
         public void ConfigureWithConfigurationAction()
         {
             IValidatorFactory validatorFactory = Substitute.For<IValidatorFactory>();
-            Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator> phoneNumberValidatorFactory = (metadata, context, validator, validatorTransformerManager) => new LaboPropertyValidator(metadata, context, new StubEntityValidationRule(new EntityPropertyValidator(new PhoneNumberValidator()), y => metadata.Model, metadata.GetDisplayName(), metadata.PropertyName));
+            Func<ModelMetadata, ControllerContext, IEntityValidationRule, IValidationTransformerManager, ModelValidator> phoneNumberValidatorFactory = (metadata, context, validator, validatorTransformerManager) => new LaboPropertyValidator(metadata, context, new StubEntityValidationRule(new EntityPropertyValidator(new PhoneNumberValidator()), metadata.GetDisplayName(), metadata.PropertyName));
 
             LaboModelValidatorProvider.Configure(validatorFactory, x =>
             {
@@ -161,10 +161,14 @@
 
             Assert.AreEqual(2, properyValidators.Count);
             Assert.IsTrue(properyValidators[0].IsRequired);
-            Assert.IsTrue(((LaboPropertyValidator)properyValidators[0]).ValidationRule.Validator is NotNullValidator);
-            // Assert.IsTrue(((LaboPropertyValidator)properyValidators[1]).ValidationRule.Validator is NotEmptyValidator);
-            Assert.IsTrue(((LaboPropertyValidator)properyValidators[1]).ValidationRule.Validator is LengthValidator);
-            //Assert.AreEqual(10, ((LengthValidator)((LaboPropertyValidator)properyValidators[1]).ValidationRule.Validator).Max);
+            Assert.IsTrue(GetInnerValidator(properyValidators[0]) is NotNullValidator);
+            Assert.IsTrue(GetInnerValidator(properyValidators[1]) is LengthValidator);
+            Assert.AreEqual(10, ((LengthValidator)GetInnerValidator(properyValidators[1])).Max);
+        }
+
+        private static IValidator GetInnerValidator(ModelValidator properyValidator)
+        {
+            return ((EntityPropertyValidator)((LaboPropertyValidator)properyValidator).ValidationRule.Validator).InnerValidator;
         }
 
         [Test]
@@ -185,7 +189,7 @@
 
             Assert.AreEqual(1, properyValidators.Count);
             Assert.IsTrue(properyValidators[0] is RequiredLaboPropertyValidatorAdapter);
-            Assert.IsTrue(((LaboPropertyValidator)properyValidators[0]).ValidationRule.Validator is NotNullValidator);
+            Assert.IsTrue(((EntityPropertyValidator)((LaboPropertyValidator)properyValidators[0]).ValidationRule.Validator).InnerValidator is NotNullValidator);
         }
 
         [Test]
@@ -223,7 +227,8 @@
             ModelMetadata propertyMetaData = GetModelMetaDataForProperty(typeof(TestModel), propertyName);
             IList<ModelValidator> properyValidators = provider.GetValidators(propertyMetaData, controllerContext).ToList();
 
-            Assert.IsTrue(properyValidators.First() is RegexLaboValidationPropertyValidatorAdapter);
+            ModelValidator firstValidator = properyValidators.First();
+            Assert.IsTrue(firstValidator is RegexLaboValidationPropertyValidatorAdapter);
         }
 
         [Test]

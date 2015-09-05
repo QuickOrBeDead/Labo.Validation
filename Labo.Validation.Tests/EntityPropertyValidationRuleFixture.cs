@@ -41,7 +41,7 @@
             IValidator validator = Substitute.For<IValidator>();
             EntityPropertyValidationRule<Customer, string> entityPropertyValidationRule = new EntityPropertyValidationRule<Customer, string>(new EntityPropertyValidator(validator), Substitute.For<IPropertyDisplayNameResolver>(), x => x.FirstName);
 
-            Assert.AreSame(validator, entityPropertyValidationRule.Validator);
+            Assert.AreSame(validator, ((EntityPropertyValidator)entityPropertyValidationRule.Validator).InnerValidator);
         }
 
         [Test]
