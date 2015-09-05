@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Labo.Validation.Validators;
+
     /// <summary>
     /// The default validation message builder class.
     /// </summary>
@@ -12,6 +14,11 @@
         /// The validation message formatter
         /// </summary>
         private readonly IValidationMessageFormatter m_ValidationMessageFormatter;
+
+        /// <summary>
+        /// The validation message resource manager
+        /// </summary>
+        private readonly IValidationMessageResourceManager m_ValidationMessageResourceManager;
 
         /// <summary>
         /// The parameters
@@ -24,16 +31,22 @@
         private string m_ValidationMessageFormat;
 
         /// <summary>
-        /// The validation message format
+        /// Gets the validation message format.
         /// </summary>
+        /// <value>
+        /// The validation message format.
+        /// </value>
         internal string ValidationMessageFormat
         {
             get { return m_ValidationMessageFormat; }
         }
 
         /// <summary>
-        /// The parameters
+        /// Gets the parameters.
         /// </summary>
+        /// <value>
+        /// The parameters.
+        /// </value>
         internal IDictionary<string, string> Parameters
         {
             get { return m_Parameters; }
@@ -43,16 +56,41 @@
         /// Initializes a new instance of the <see cref="DefaultValidationMessageBuilder"/> class.
         /// </summary>
         /// <param name="validationMessageFormatter">The validation message formatter.</param>
+        /// <param name="validationMessageResourceManager">The validation message resource manager.</param>
         /// <exception cref="System.ArgumentNullException">validationMessageFormatter</exception>
-        public DefaultValidationMessageBuilder(IValidationMessageFormatter validationMessageFormatter)
+        public DefaultValidationMessageBuilder(IValidationMessageFormatter validationMessageFormatter, IValidationMessageResourceManager validationMessageResourceManager)
         {
             if (validationMessageFormatter == null)
             {
                 throw new ArgumentNullException("validationMessageFormatter");
             }
 
+            if (validationMessageResourceManager == null)
+            {
+                throw new ArgumentNullException("validationMessageResourceManager");
+            }
+
             m_ValidationMessageFormatter = validationMessageFormatter;
+            m_ValidationMessageResourceManager = validationMessageResourceManager;
             m_Parameters = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// Sets the name of the message resource.
+        /// </summary>
+        /// <param name="validationMessageResourceName">Name of the validation message resource.</param>
+        /// <returns>The validation message builder parameter setter.</returns>
+        /// <exception cref="System.ArgumentNullException">validationMessageResourceName</exception>
+        public IValidationMessageBuilderParameterSetter SetMessageResourceName(string validationMessageResourceName)
+        {
+            if (validationMessageResourceName == null)
+            {
+                throw new ArgumentNullException("validationMessageResourceName");
+            }
+
+            m_ValidationMessageFormat = m_ValidationMessageResourceManager.GetValidationMessageFormat(validationMessageResourceName);
+
+            return this;
         }
 
         /// <summary>
@@ -98,15 +136,54 @@
         /// <summary>
         /// Builds the validation message.
         /// </summary>
-        /// <returns>The validation message.</returns>
-        public string Build()
+        /// <param name="valueName">
+        /// The value Name.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        /// <returns>
+        /// The validation message.
+        /// </returns>
+        public string Build(string valueName, params string[] arguments)
         {
-            if (m_ValidationMessageFormat == null)
+            if (arguments == null)
             {
-                throw new InvalidOperationException("The validation message format cannot be null.");
+                throw new ArgumentNullException("arguments");
+            }
+
+            SetParameter(Constants.ValidationMessageParameterNames.VALUE_NAME, valueName);
+
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                string argument = arguments[i];
+
+                SetParameter(i.ToStringInvariant(), argument);
             }
 
             return m_ValidationMessageFormatter.FormatMessage(m_ValidationMessageFormat, m_Parameters);
+        }
+
+        /// <summary>
+        /// Sets the validator properties.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        /// <returns>The validator properties.</returns>
+        public IValidationMessageBuilderParameterSetter SetValidatorProperties(ValidatorProperties properties)
+        {
+            if (properties == null)
+            {
+                throw new ArgumentNullException("properties");
+            }
+
+            IEnumerator<KeyValuePair<string, object>> enumerator = properties.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                KeyValuePair<string, object> validatorProperty = enumerator.Current;
+                SetParameter(validatorProperty.Key, validatorProperty.Value.ToString());
+            }
+
+            return this;
         }
     }
 }
